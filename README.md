@@ -22,7 +22,6 @@
 **Role:** Programmer
 
 **Age:** 14
-
 ---
 ## 🚗 Project Overview
 
