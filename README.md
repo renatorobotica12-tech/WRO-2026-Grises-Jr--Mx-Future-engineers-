@@ -44,7 +44,7 @@ The structure is compact and optimized to maintain balance at different speeds. 
 
 | Front | Back |
 |:--:|:--:|
-
+<img width="500" height="500" <img src="https://github.com/user-attachments/assets/53b4ca99-4e5a-456e-924d-34a455bd89c3" width="300"/>
 ## 🧩 Components and Hardware
 | Component | Description | Image |
 |-----------|-------------|-------|
