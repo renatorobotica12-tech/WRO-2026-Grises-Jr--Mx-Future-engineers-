@@ -6,13 +6,13 @@
 
 ###
 This is a document of the team "Los grises jr."
-## **Team Members**
-## **Mateo Vásquez** – 
-Role: Electronics Specialist  
- ## **Ruth García**
- Role: Builder  
+### **Team Members**
+## **Mateo Vásquez** 
+Role: Electronics Specialist of the team 
+## **Ruth García**
+ Role: Builder of the team  
  ## **Renato Medina** 
- Role: Programmer
+ Role: Programmer of the team
 
 ## Robot Description
 The robot is designed using an Ackermann steering system, which allows smooth and precise turns. This improves stability and control while navigating the field.
