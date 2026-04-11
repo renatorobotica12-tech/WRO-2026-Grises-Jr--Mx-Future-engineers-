@@ -18,5 +18,4 @@ The robot is equipped with a vision system (HuskyLens), which detects and identi
 
 The structure is compact and optimized to maintain balance while moving at different speeds. The placement of sensors and components ensures efficient detection and reliable performance.
 
-###
-**Components**
+### **Components**
