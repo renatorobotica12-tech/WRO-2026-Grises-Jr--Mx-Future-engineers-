@@ -1,7 +1,5 @@
 ## This repository contains the official documentation of Team "Los Grises Jr" for the Future Engineers category at the World Robot Olympiad 2026.
 
-Our project focuses on developing an autonomous vehicle capable of navigating dynamic environments using computer vision and precise steering control.
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6422e0d6-8cc2-4bbc-beaf-4bbada98c140" width="1000" />
 </p>
@@ -14,17 +12,23 @@ Our project focuses on developing an autonomous vehicle capable of navigating dy
 **Role:** Electronics Specialist
 
 **Age:**14
+---
 ### **Ruth García**  
 **Role:** Builder
 
 **Age:** 15
-
+---
 ### **Renato Medina**  
 **Role:** Programmer
 
 **Age:** 14
 
 ---
+## 🚗 Project Overview
+
+This repository contains the official documentation of Team **"Los Grises Jr"** for the **Future Engineers** category at the **World Robot Olympiad 2026**.
+
+Our project focuses on the development of an autonomous vehicle capable of navigating dynamic environments using computer vision and precise steering control.
 
 ## 🤖 Robot Description
 
@@ -46,9 +50,9 @@ The structure is compact and optimized to maintain balance at different speeds. 
 |:--:|:--:|
 |<img src="https://github.com/user-attachments/assets/53b4ca99-4e5a-456e-924d-34a455bd89c3" width="300"/> | <img src="https://github.com/user-attachments/assets/53b4ca99-4e5a-456e-924d-34a455bd89c3" width="300"/> |
 | Front | Back |
-|:--:|:--:|
+|<img src="https://github.com/user-attachments/assets/adfcbc35-594a-4e53-b164-27f303c28fb5" width="300"/> |<img src= "https://github.com/user-attachments/assets/6640145f-<0229-4c4e-826e-9e4f0175ce0c" width="300" /> |
 ---
-##< 🧩 Components and Hardware
+## 🧩 Components and Hardware
 | Component | Description | Image |
 |-----------|-------------|-------|
 | **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the foundational structure and chassis. | <img src="https://github.com/user-attachments/assets/a725c977-b28b-4b5d-b95c-506c84cd6706" width="300"> |                       
