@@ -187,7 +187,7 @@ Tuning PID parameters for different speeds
 ---
 ### Conclusion
 ---
-##The Los Grises Jr robot integrates:
+**The Los Grises Jr robot integrates:**
 
 Realistic Ackermann steering
 Intelligent vision processing
