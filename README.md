@@ -43,7 +43,7 @@ The structure is compact and optimized to maintain balance at different speeds. 
 
 ---
 ## Vehicle Photo
----
+
 <div align="center">
 
 | Front | Back |
