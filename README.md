@@ -39,7 +39,7 @@ The structure is compact and optimized to maintain balance at different speeds. 
 | Component | Description | Image |
 |-----------|-------------|-------|
 | **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the foundational structure and chassis. | <img src="https://github.com/user-attachments/assets/a725c977-b28b-4b5d-b95c-506c84cd6706" width="300"> |                       
-
+| **Arduino Nano** | ATmega328-based microcontroller for control tasks. | <img src="https://github.com/user-attachments/assets/22e8f59c-909d-4ff2-b637-dc03e15f4de6" width="200"> |
 ---
 
 ## 🧠 Strategy
