@@ -4,7 +4,7 @@
 
 ###
 This is a document of the team "Los grises jr."
-## Team Members
+## **Team Members**
 - **Mateo Vásquez** – Electronics Specialist  
 - **Ruth García** – Builder  
 - **Renato Medina** – Programmer
@@ -17,3 +17,6 @@ It uses a front steering mechanism powered by a dedicated motor, enabling accura
 The robot is equipped with a vision system (HuskyLens), which detects and identifies colored objects such as red and green pillars. This allows the robot to make autonomous decisions during the challenge.
 
 The structure is compact and optimized to maintain balance while moving at different speeds. The placement of sensors and components ensures efficient detection and reliable performance.
+
+###
+**Components**
