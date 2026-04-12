@@ -31,9 +31,9 @@ The robot is capable of navigating a dynamic environment using a combination of 
 
 The system integrates:
 
-Real-time vision processing
-Ackermann steering geometry
-PID-based control
+-Real-time vision processing
+-Ackermann steering geometry
+-PID-based control
 
 This combination enables stable, precise, and adaptive navigation.
 
@@ -42,14 +42,14 @@ This combination enables stable, precise, and adaptive navigation.
 
 The robot is based on an Ackermann steering system, similar to real-world vehicles.
 
-** Why Ackermann Steering?**
+## Why Ackermann Steering?
 
 Compared to differential drive systems, Ackermann steering provides:
 
--Reduced lateral wheel slip
--Improved curve accuracy
--More realistic motion behavior
--Greater stability at higher speeds
+- Reduced lateral wheel slip
+- Improved curve accuracy
+- More realistic motion behavior
+- Greater stability at higher speeds
 
 A dedicated motor controls the steering angle, allowing fine adjustments during navigation.
 ---
@@ -96,9 +96,9 @@ Controls steering motor and drive motor
 
 A custom PCB was developed to:
 
--Improve connection stability
--Reduce wiring complexity
--Increase reliability during runs
+- Improve connection stability
+- Reduce wiring complexity
+- Increase reliability during runs
 ---
 ## Control Algorithm
 
@@ -110,6 +110,7 @@ Capture frame from HuskyLens
 Detect object color
 Obtain object horizontal position
 Compute positional error
+The error is calculated based on the difference between the object position and the center of the image.
 Apply control correction
 Adjust steering angle
 Move forward
@@ -127,6 +128,9 @@ If no object is detected, the robot temporarily maintains the last steering valu
 To achieve stable and precise steering, a PID controller is being implemented.
 
 Control Objective:
+error= xcenter - xobject
+ The error represents the horizontal distance between the detected object and the center of the image.
+
 Minimize the horizontal deviation between the detected object and the center of the image.
 
 | Parameters | Value |
@@ -135,12 +139,12 @@ Minimize the horizontal deviation between the detected object and the center of 
 | KI | 0 |
 | KD | 0.5 |
 
--(These values are currently under tuning and may be adjusted based on performance.)
 PID Components:
 
 Kp (Proportional): Reacts to current error
 Ki (Integral): Reduces accumulated error over time
 Kd (Derivative): Dampens oscillations
+
 
 The controller is currently being tuned to achieve a balance between responsiveness and stability.
 ---
@@ -166,9 +170,9 @@ Reduces sudden steering corrections
 
 The robot uses vision-based navigation to interact with obstacles dynamically.
 
--Detects colored pillars
--Determines relative position
--Adjusts trajectory using steering control
+- Detects colored pillars  
+- Determines relative position  
+- Adjusts trajectory using steering control  
 
 This approach allows smooth and adaptive movement around obstacles.
 ---
