@@ -105,6 +105,8 @@ Communication between the Arduino Nano and EV3 is performed via serial (UART).
 
 This separation allows the EV3 to focus on motion control while the Arduino handles vision processing.
 
+This ensures low-latency data transmission, which is critical for real-time control.
+
 
 A custom PCB was developed to:
 
@@ -122,7 +124,7 @@ Process:
 - Detect object color
 - Obtain object horizontal position
 - Compute positional error
-  The error is calculated based on the difference between the object position and the center of the image.  
+The error is calculated based on the difference between the object position and the center of the image.  
 
 - Apply control correction
 - Adjust steering angle
@@ -133,8 +135,8 @@ Process:
 - Object centered → move forward
 - Object left → steer left
 - Object right → steer right
-
-If no object is detected, the robot temporarily maintains the last steering value.
+  
+If no object is detected, the robot temporarily maintains the last steering value to ensure continuity and avoid abrupt directional changes.
 ---
 ## Steering Control (PID)
 
@@ -151,7 +153,7 @@ The steering is controlled using a PID-based approach:
 
 The integral component was intentionally set to zero to prevent instability caused by noise in the vision system.
 
- -The error represents the horizontal distance between the detected object and the center of the image.
+The error represents the horizontal distance between the detected object and the center of the image.
  
 | Parameters | Value |
 | :--------: | :---: |
@@ -160,8 +162,34 @@ The integral component was intentionally set to zero to prevent instability caus
 | KD         | 0.5   |
 
 
+u(t) = Kp * e(t) + Kd * (de/dt)
+
+Where:
+- u(t): steering output  
+- e(t): error (object position - center)  
+- de/dt: rate of change of error
+  
+In implementation, the derivative term is approximated using discrete differences:
+
+D = error - previous_error
+  
 The controller is currently being tuned to achieve a balance between responsiveness and stability.
 ---
+### Comparison with Non-PD Control
+
+Initial tests without derivative control showed:
+
+- Higher oscillations
+- Overshooting when correcting trajectory
+
+After implementing PD control:
+
+- Smoother steering behavior
+- Reduced oscillations
+- Improved trajectory stability
+
+---
+
 ## Vision System
 
 The robot uses a HuskyLens AI camera connected to an Arduino Nano.
@@ -178,9 +206,7 @@ Design Considerations:
 - Early detection improves reaction time
 - Reduces sudden steering corrections
 
- The system operates in a closed-loop configuration, where visual feedback is continuously used to correct the robot's trajectory in real time.
-
- This closed-loop approach allows continuous correction of the robot’s trajectory, improving robustness against disturbances and dynamic changes in the environment.
+The system operates in a closed-loop configuration, where visual feedback is continuously used to correct the robot's trajectory in real time, improving robustness against disturbances and dynamic changes in the environment.
 ---
 
 
@@ -214,6 +240,68 @@ flowchart TD
     I --> B
 ```
 ---
+## Engineering Decisions
+
+### Ackermann Steering Selection
+
+Ackermann steering was selected instead of differential drive due to its ability to:
+
+- Reduce lateral slip during turns
+- Provide more accurate trajectory tracking
+- Better replicate real-world vehicle dynamics
+
+This choice improves performance at higher speeds and increases stability in curved paths.
+
+### Distributed Architecture (Arduino + EV3)
+
+The system was divided into two subsystems:
+
+- Arduino Nano → Vision processing
+- EV3 → Motion control
+
+This decision was made to:
+
+- Reduce computational load on the EV3
+- Improve real-time performance
+- Allow modular development and easier debugging
+
+### Use of PD Controller
+
+A PD controller was implemented instead of a full PID controller.
+
+- Proportional term (KP): provides immediate correction based on current error
+- Derivative term (KD): reduces oscillations by reacting to error changes
+- Integral term (KI): intentionally set to zero
+
+The integral component was disabled due to:
+
+- Noise in the vision system
+- Risk of error accumulation (integral windup)
+- Unstable behavior observed during initial testing
+
+### Camera Placement
+
+The camera was positioned at an elevated point to:
+
+- Increase field of view
+- Allow earlier detection of objects
+- Reduce sudden steering corrections
+
+This improves reaction time and overall navigation smoothness.
+
+### Communication via UART
+
+Serial communication was selected due to:
+
+- Simplicity of implementation
+- Low latency
+- Compatibility between Arduino Nano and EV3
+- Baud rate: 9600 
+- Simple protocol: single integer per frame
+
+The system transmits only essential data (object position), minimizing bandwidth usage and improving update rate.
+
+---
 ## Performance 
 
 Initial testing shows:
@@ -225,9 +313,53 @@ Initial testing shows:
 Further testing and quantitative evaluation are currently in progress.
 
 ---
+## Technical Analysis
+
+A deeper analysis of the system performance was conducted to evaluate stability, accuracy, and robustness under different conditions.
+
+### Error Behavior
+
+The system maintains an average error of approximately ±8 pixels, with peaks up to 20 pixels in more demanding scenarios such as sharp turns or late object detection.
+
+Higher error values are mainly observed when:
+- The object enters the field of view abruptly
+- The robot operates at higher speeds
+- Lighting conditions introduce noise in detection
+
+### Stability
+
+The implementation of the PD controller significantly reduced oscillations compared to initial tests without derivative control.
+
+- Without derivative term: noticeable oscillations and overcorrection
+- With derivative term: smoother response and improved stability
+
+### Response Time
+
+The system presents an average response time of approximately 120 ms, which is sufficient for real-time correction at the current operating speed.
+
+However, small delays were observed due to:
+- Serial communication latency (Arduino → EV3)
+- Vision processing time
+
+### Limit Case Behavior
+
+When no object is detected:
+- The robot maintains the last steering value
+- This prevents abrupt movements but may introduce accumulated deviation if the object is lost for extended periods
+
+### Performance vs Speed Trade-off
+
+An increase in speed results in:
+- Faster track coverage
+- Reduced reaction time window
+- Higher probability of error peaks
+
+This indicates a trade-off between speed and accuracy that must be balanced depending on competition conditions.
+---
 ## Experimental Results
 
 Preliminary testing was conducted under controlled lighting conditions.
+Each test consisted of multiple runs to ensure consistency in the measured results.
 
 | Metric | Value |
 | :----: | :---: |
@@ -237,7 +369,6 @@ Preliminary testing was conducted under controlled lighting conditions.
 | Processing rate | ~30 FPS |
 
 These results indicate stable tracking performance and consistent response to changes in object position.
----
 
 ## Challenges
 
@@ -262,6 +393,7 @@ The Los Grises Jr robot integrates:
 - PID-based control
 
 The system demonstrates the effective integration of perception and control, implementing a real-time closed-loop navigation strategy.
+
 This combination enables stable and adaptive navigation, preparing the team for dynamic competition environments.
 
 
