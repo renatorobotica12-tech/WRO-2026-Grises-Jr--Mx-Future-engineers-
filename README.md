@@ -128,7 +128,7 @@ Process:
 - Adjust steering angle
 - Move forward
 
-Behavior Logic:
+## Behavior Logic:
 
 - Object centered → move forward
 - Object left → steer left
