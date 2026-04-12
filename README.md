@@ -130,9 +130,9 @@ To achieve stable and precise steering, a PID controller is being implemented.
 
 **Control Objective:**
 
-- Minimize the horizontal deviation between the detected object and the center of the image.
+Minimize the horizontal deviation between the detected object and the center of the image.
 
-error= xcenter - xobject
+error = x_center - x_object
  -The error represents the horizontal distance between the detected object and the center of the image.
  
 | Parameters | Value |
@@ -206,3 +206,14 @@ The Los Grises Jr robot integrates:
 - PID-based control
 
 This combination enables stable and adaptive navigation, preparing the team for dynamic competition environments.
+
+## System Diagram
+
+```mermaid
+flowchart LR
+    A[HuskyLens Camera] -->|Vision Data| B[Arduino Nano]
+    B -->|Processed Data| C[EV3 Controller]
+    C -->|Steering Control| D[Steering Motor]
+    C -->|Speed Control| E[Drive Motor]
+
+---
