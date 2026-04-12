@@ -40,11 +40,9 @@ This combination enables stable, precise, and adaptive navigation.
 
 ##  **Robot Description**
 
-The robot is built using an Ackermann steering system, similar to real-world vehicles.
+The robot is based on an Ackermann steering system, similar to real-world vehicles.
 
-The vehicle is based on an Ackermann steering system, similar to real-world cars.
-
-🔧 Why Ackermann Steering?
+** Why Ackermann Steering?**
 
 Compared to differential drive systems, Ackermann steering provides:
 
@@ -54,7 +52,6 @@ More realistic motion behavior
 Greater stability at higher speeds
 
 A dedicated motor controls the steering angle, allowing fine adjustments during navigation.
----
 ## Vehicle Photo
 
 <div align="center">
@@ -74,42 +71,25 @@ A dedicated motor controls the steering angle, allowing fine adjustments during 
 | **Arduino Nano** | ATmega328-based microcontroller for control tasks. | <img src="https://github.com/user-attachments/assets/22e8f59c-909d-4ff2-b637-dc03e15f4de6" width="200"> |
 | **DFRobot HuskyLens AI Camera** | AI-powered vision sensor capable of detecting colors, objects, and patterns in real time. | <img src="https://github.com/user-attachments/assets/fc513a62-31dd-4e8b-9117-27c28bc85ab0" width="200"> |
 ---
-
-##  Strategy
-
-The robot uses vision-based detection to identify red and green pillars and determine its path.
-
-Based on the detected color, the robot dynamically adjusts its trajectory using the steering system, ensuring precise alignment and smooth navigation around obstacles.
-
-The combination of computer vision and Ackermann steering allows efficient and stable autonomous performance during the competition.
----
-## **Vision System**
-
-The robot uses a HuskyLens AI camera connected to an Arduino Nano.
-
-Capabilities:
-Detection of red and green pillars
-Real-time object tracking
-Position data extraction
-Design Considerations:
-Elevated camera placement increases field of view
-Early detection improves reaction time
-Reduces sudden corrections
----
 ## **Control System Architecture**
 
+The system is divided into two main subsystems:
+
 1. Vision Processing (Arduino Nano)
-Receives data from HuskyLens
-Extracts object position and color
-Sends processed data to EV3
+
+Receives data from the HuskyLens camera
+Detects object color (red/green)
+Extracts horizontal position of the object
+Sends processed data to the EV3
+
 2. Motion Control (EV3)
+
 Receives processed data
-Controls:
-Steering motor
-Drive motor
----
+Controls steering motor and drive motor
+
+
 | **Data Flow** |
-|---------------|
+| :---------------: |
 |HuskyLens → Arduino Nano → EV3 → Motors|
 
 
@@ -119,90 +99,97 @@ A custom PCB was developed to:
 -Reduce wiring complexity
 -Increase reliability during runs
 ---
-## Navigation Strategy
+## Control Algorithm
 
-The robot uses a vision-based navigation strategy:
+The robot follows a vision-based control algorithm:
 
-Detect a colored pillar
-Determine its horizontal position
-Calculate steering correction
-Navigate around the obstacle
+Process:
+
+Capture frame from HuskyLens
+Detect object color
+Obtain object horizontal position
+Compute positional error
+Apply control correction
+Adjust steering angle
+Move forward
+
 Behavior Logic:
+
 Object centered → move forward
 Object left → steer left
 Object right → steer right
 
-If no object is detected:
-
-The robot continues using the last known steering value temporarily
-## Steering Control (PID)
-
-To achieve stable and precise steering, a PID controller is used.
+If no object is detected, the robot temporarily maintains the last steering value.
 ---
-## Control Objective
-The robot follows a vision-based navigation algorithm:
+Steering Control (PID)
 
-Algorithm:
--Capture frame from HuskyLens
--Detect object color (red/green)
--Get horizontal position of the object
--Compute error
--Apply PID correction
--Adjust steering angle
--Move forward
--Behavior Logic:
--Object centered → move forward
--Object left → steer left
--Object right → steer right
+To achieve stable and precise steering, a PID controller is being implemented.
 
-If no object is detected:
-
-The robot temporarily maintains the last steering value
----
- ## **Tuning Process**
----
-To achieve smooth and stable steering, a PID controller is implemented.
-
-**Control Objective:**
-
+Control Objective:
 Minimize the horizontal deviation between the detected object and the center of the image.
 
-Where:
+| KP | Ki | Kd |
+|:----: | :----: | :----: |
+| 1.5 | 0 | 0.8 |
 
-Kp → Proportional gain (responsiveness)
-Ki → Integral gain (eliminates steady-state error)
-Kd → Derivative gain (reduces oscillations)
+PID Components:
+
+Kp (Proportional): Reacts to current error
+Ki (Integral): Reduces accumulated error over time
+Kd (Derivative): Dampens oscillations
+
+The controller is currently being tuned to achieve a balance between responsiveness and stability.
+---
+## Vision System
+
+The robot uses a HuskyLens AI camera connected to an Arduino Nano.
+
+Capabilities:
+
+Detection of red and green pillars
+Real-time object tracking
+Position data extraction
+
+Design Considerations:
+
+Elevated camera placement increases field of view
+Early detection improves reaction time
+Reduces sudden steering corrections
 ---
 
+---
+## Navigation Strategy
+
+The robot uses vision-based navigation to interact with obstacles dynamically.
+
+-Detects colored pillars
+-Determines relative position
+-Adjusts trajectory using steering control
+
+This approach allows smooth and adaptive movement around obstacles.
+---
 ## Performance 
 
-The system achieved:
+Initial testing shows:
 
-Improved trajectory stability
-Reduced oscillations in curves
-Faster response to object position changes
-Reliable navigation in dynamic environments
-## **Custom PCB:**
+Stable trajectory during navigation
+Reduced oscillations when steering
+Consistent response to object position changes
 
-A custom PCB was developed to:
-
-Improve connection stability
-Reduce wiring complexity
-Increase reliability during competition
 ---
-## **Challenges**
----
-Integrating EV3 and Arduino systems
+
+## Challenges
+Integration between EV3 and Arduino systems
 Achieving stable Ackermann steering control
-Managing noise and variability in vision detection
-Tuning PID parameters for different speeds
+Handling noise in vision detection
+Tuning PID parameters
 ---
-### Conclusion
----
-**The Los Grises Jr robot integrates:**
+## Conclusion
+
+The Los Grises Jr robot integrates:
 
 Realistic Ackermann steering
 Intelligent vision processing
-Advanced PID control
+PID-based control
 
-This combination allows the robot to achieve stable, precise, and adaptive navigation, making the team was ready for every obstacle.
+This combination enables stable and adaptive navigation, preparing the team for dynamic competition environments.
