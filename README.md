@@ -46,12 +46,13 @@ The robot is based on an Ackermann steering system, similar to real-world vehicl
 
 Compared to differential drive systems, Ackermann steering provides:
 
-Reduced lateral wheel slip
-Improved curve accuracy
-More realistic motion behavior
-Greater stability at higher speeds
+-Reduced lateral wheel slip
+-Improved curve accuracy
+-More realistic motion behavior
+-Greater stability at higher speeds
 
 A dedicated motor controls the steering angle, allowing fine adjustments during navigation.
+---
 ## Vehicle Photo
 
 <div align="center">
@@ -121,17 +122,20 @@ Object right → steer right
 
 If no object is detected, the robot temporarily maintains the last steering value.
 ---
-Steering Control (PID)
+## **Steering Control (PID)**
 
 To achieve stable and precise steering, a PID controller is being implemented.
 
 Control Objective:
 Minimize the horizontal deviation between the detected object and the center of the image.
 
-| KP | Ki | Kd |
-|:----: | :----: | :----: |
-| 1.5 | 0 | 0.8 |
+| Parameters | Value |
+| :--------: | :---: |
+| KP | 2 |
+| KI | 0 |
+| KD | 0.5 |
 
+-(These values are currently under tuning and may be adjusted based on performance.)
 PID Components:
 
 Kp (Proportional): Reacts to current error
@@ -172,17 +176,20 @@ This approach allows smooth and adaptive movement around obstacles.
 
 Initial testing shows:
 
-Stable trajectory during navigation
-Reduced oscillations when steering
-Consistent response to object position changes
+- Stable trajectory in controlled environments  
+- Reduced oscillations compared to initial tests  
+- Reliable response to changes in object position  
+
+Further testing and quantitative evaluation are currently in progress.
 
 ---
 
 ## Challenges
-Integration between EV3 and Arduino systems
-Achieving stable Ackermann steering control
-Handling noise in vision detection
-Tuning PID parameters
+
+- Integration between EV3 and Arduino systems  
+- Achieving stable Ackermann steering control  
+- Handling noise in vision detection  
+- Tuning PID parameters  
 ---
 ## Conclusion
 
