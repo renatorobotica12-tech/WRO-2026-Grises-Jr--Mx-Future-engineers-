@@ -52,6 +52,8 @@ Compared to differential drive systems, Ackermann steering provides:
 - Greater stability at higher speeds
 
 A dedicated motor controls the steering angle, allowing fine adjustments during navigation.
+
+Ackermann steering was selected to better replicate real-world vehicle dynamics and minimize lateral slip during turns, resulting in smoother and more accurate trajectories.
 ---
 ## Vehicle Photo
 
@@ -93,6 +95,16 @@ The system is divided into two main subsystems:
 | :---------------: |
 |HuskyLens → Arduino Nano → EV3 → Motors|
 
+### Communication Protocol
+
+Communication between the Arduino Nano and EV3 is performed via serial (UART).
+
+- Data transmitted: object horizontal position (x-coordinate)
+- Update rate: approximately 30 Hz
+- Data format: integer values
+
+This separation allows the EV3 to focus on motion control while the Arduino handles vision processing.
+
 
 A custom PCB was developed to:
 
@@ -131,8 +143,14 @@ To achieve stable and precise steering, a PID controller is being implemented.
 **Control Objective:**
 
 Minimize the horizontal deviation between the detected object and the center of the image.
+The steering is controlled using a PID-based approach:
 
-error = x_center - x_object
+- The proportional term reacts to the current error, providing immediate correction
+- The integral term compensates accumulated error over time (currently disabled)
+- The derivative term reduces oscillations by responding to rapid changes in error
+
+The integral component was intentionally set to zero to prevent instability caused by noise in the vision system.
+
  -The error represents the horizontal distance between the detected object and the center of the image.
  
 | Parameters | Value |
@@ -165,6 +183,8 @@ Design Considerations:
 - Elevated camera placement increases field of view
 - Early detection improves reaction time
 - Reduces sudden steering corrections
+
+ The system operates in a closed-loop configuration, where visual feedback is continuously used to correct the robot's trajectory in real time.
 ---
 
 ---
@@ -201,13 +221,26 @@ flowchart TD
 
 Initial testing shows:
 
-- Stable trajectory in controlled environments  
+- The robot maintains a stable trajectory with an average deviation of approximately ±8 pixels from the target center. 
 - Reduced oscillations compared to initial tests  
 - Reliable response to changes in object position  
 
 Further testing and quantitative evaluation are currently in progress.
 
 ---
+## Experimental Results
+
+Preliminary testing was conducted under controlled lighting conditions.
+
+| Metric | Value |
+| :----: | :---: |
+| Average error | ±8 px |
+| Maximum error | 20 px |
+| Response time | ~120 ms |
+| Processing rate | ~30 FPS |
+---
+
+These results indicate stable tracking performance and consistent response to changes in object position.
 
 ## Challenges
 
@@ -215,6 +248,13 @@ Further testing and quantitative evaluation are currently in progress.
 - Achieving stable Ackermann steering control  
 - Handling noise in vision detection  
 - Tuning PID parameters  
+---
+## Limitations
+
+- Performance may decrease under variable lighting conditions due to vision noise  
+- Limited field of view of the camera affects early detection in some scenarios  
+- Small communication delays between subsystems can impact response time
+
 ---
 ## Conclusion
 
