@@ -31,14 +31,14 @@ The robot is capable of navigating a dynamic environment using a combination of 
 
 The system integrates:
 
--Real-time vision processing
--Ackermann steering geometry
--PID-based control
+- Real-time vision processing
+- Ackermann steering geometry
+- PID-based control
 
 This combination enables stable, precise, and adaptive navigation.
 
 
-##  **Robot Description**
+##  Robot Description
 
 The robot is based on an Ackermann steering system, similar to real-world vehicles.
 
@@ -72,21 +72,21 @@ A dedicated motor controls the steering angle, allowing fine adjustments during 
 | **Arduino Nano** | ATmega328-based microcontroller for control tasks. | <img src="https://github.com/user-attachments/assets/22e8f59c-909d-4ff2-b637-dc03e15f4de6" width="200"> |
 | **DFRobot HuskyLens AI Camera** | AI-powered vision sensor capable of detecting colors, objects, and patterns in real time. | <img src="https://github.com/user-attachments/assets/fc513a62-31dd-4e8b-9117-27c28bc85ab0" width="200"> |
 ---
-## **Control System Architecture**
+## Control System Architecture
 
 The system is divided into two main subsystems:
 
 1. Vision Processing (Arduino Nano)
 
-Receives data from the HuskyLens camera
-Detects object color (red/green)
-Extracts horizontal position of the object
-Sends processed data to the EV3
+- Receives data from the HuskyLens camera
+- Detects object color (red/green)
+- Extracts horizontal position of the object
+- Sends processed data to the EV3
 
 2. Motion Control (EV3)
 
-Receives processed data
-Controls steering motor and drive motor
+- Receives processed data
+- Controls steering motor and drive motor
 
 
 | **Data Flow** |
@@ -106,30 +106,31 @@ The robot follows a vision-based control algorithm:
 
 Process:
 
-Capture frame from HuskyLens
-Detect object color
-Obtain object horizontal position
-Compute positional error
-The error is calculated based on the difference between the object position and the center of the image.
-Apply control correction
-Adjust steering angle
-Move forward
+- Capture frame from HuskyLens
+- Detect object color
+- Obtain object horizontal position
+- Compute positional error
+  The error is calculated based on the difference between the object position and the center of the image.
+
+- Apply control correction
+- Adjust steering angle
+- Move forward
 
 Behavior Logic:
 
-Object centered → move forward
-Object left → steer left
-Object right → steer right
+- Object centered → move forward
+- Object left → steer left
+- Object right → steer right
 
 If no object is detected, the robot temporarily maintains the last steering value.
 ---
-## **Steering Control (PID)**
+## Steering Control (PID)
 
 To achieve stable and precise steering, a PID controller is being implemented.
 
 Control Objective:
 error= xcenter - xobject
- The error represents the horizontal distance between the detected object and the center of the image.
+ -The error represents the horizontal distance between the detected object and the center of the image.
 
 Minimize the horizontal deviation between the detected object and the center of the image.
 
@@ -160,9 +161,9 @@ Position data extraction
 
 Design Considerations:
 
-Elevated camera placement increases field of view
-Early detection improves reaction time
-Reduces sudden steering corrections
+- Elevated camera placement increases field of view
+- Early detection improves reaction time
+- Reduces sudden steering corrections
 ---
 
 ---
@@ -199,8 +200,8 @@ Further testing and quantitative evaluation are currently in progress.
 
 The Los Grises Jr robot integrates:
 
-Realistic Ackermann steering
-Intelligent vision processing
-PID-based control
+- Realistic Ackermann steering
+- Intelligent vision processing
+- PID-based control
 
 This combination enables stable and adaptive navigation, preparing the team for dynamic competition environments.
