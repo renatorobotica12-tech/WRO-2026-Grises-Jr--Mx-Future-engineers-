@@ -42,7 +42,7 @@ This combination enables stable, precise, and adaptive navigation.
 
 The robot is based on an Ackermann steering system, similar to real-world vehicles.
 
-## Why Ackermann Steering?
+### Why Ackermann Steering?
 
 Compared to differential drive systems, Ackermann steering provides:
 
@@ -116,7 +116,7 @@ Process:
 - Adjust steering angle
 - Move forward
 
-Behavior Logic:
+###Behavior Logic:
 
 - Object centered → move forward
 - Object left → steer left
@@ -141,7 +141,7 @@ error = x_center - x_object
 | KI         | 0.0   |
 | KD         | 0.5   |
 
-PID Components:
+### PID Components:
 
 Kp (Proportional): Reacts to current error
 Ki (Integral): Reduces accumulated error over time
