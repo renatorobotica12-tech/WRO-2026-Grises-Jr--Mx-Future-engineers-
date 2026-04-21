@@ -8,7 +8,7 @@
 
 ##  Team Members
 
-### **Mateo Vásquez**  
+### **Mateo Briones**  
 **Role:** Electronics Specialist
 
 **Age:** 14
