@@ -14,7 +14,7 @@
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/7d893a62-c48c-434c-9ddc-abf3b26181aa" />
 </p>
 
----
+
 
 ###  **Role:** Electronics Specialist
 
