@@ -10,8 +10,11 @@
 
 ### **Mateo Briones**  
 ---
+<p align="center">
+<img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/7d893a62-c48c-434c-9ddc-abf3b26181aa" />
+</p>
 
-<img width="700" height="700" alt="Image" src="https://github.com/user-attachments/assets/7d893a62-c48c-434c-9ddc-abf3b26181aa" />
+---
 
 ###  **Role:** Electronics Specialist
 
