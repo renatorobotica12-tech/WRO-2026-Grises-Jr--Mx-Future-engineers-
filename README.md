@@ -130,8 +130,9 @@ A custom PCB was developed to:
 ---
 ## Control Algorithm
 
-The robot follows a vision-based control algorithm:
+he robot uses a hybrid control algorithm that combines computer vision and ultrasonic sensing.
 
+Vision is used for obstacle detection and avoidance, while ultrasonic sensors are used for lane centering when no obstacle is detected.
 Process:
 
 - Capture frame from HuskyLens
@@ -144,13 +145,33 @@ The error is calculated based on the difference between the object position and 
 - Adjust steering angle
 - Move forward
 
+### pseudocode
+loop:
+
+    if object_detected and width > threshold:
+        # Vision mode
+        error = setpoint - x_position
+    else:
+        # Ultrasonic mode
+        error = right_distance - left_distance
+
+    derivative = error - previous_error
+    output = Kp * error + Kd * derivative
+
+    output = clamp(output, -30, 30)
+
+    steering = output
+    speed = constant
+
+    previous_error = error
+
 ### Behavior Logic:
 
 - Object centered → move forward
 - Object left → steer left
 - Object right → steer right
   
-If no object is detected, the robot temporarily maintains the last steering value to ensure continuity and avoid abrupt directional changes.
+If no object is detected, the robot switches to ultrasonic-based control to maintain lane position.
 ---
 ## Steering Control (PID)
 
