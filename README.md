@@ -33,7 +33,9 @@ have a big prize.**
 **Age:** 15
 ---
 ### **Renato Medina**
-
+<p align="center" >
+<img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" />
+</p>
 **Role:** Programmer
 
 **I started two years ago in my elementary school, at OnStage TMR, and from there I became interested in robotics, in this competition, I want to become a better and more well-rounded programmer.**
