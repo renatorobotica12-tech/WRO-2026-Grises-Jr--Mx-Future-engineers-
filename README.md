@@ -34,7 +34,9 @@ have a big prize.**
 <p align="center">
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/0eeb4fe7-00a4-4f3b-9274-29eee74b13ef" />
 </p>
+
 **Role:** Builder
+This is my first time being part of a robotics club, and I´m really excited to be here. I truly enjoy learning new things and working wih technology, and being in this club feels amazing. I have a strong passion for improving my skills and doing my nest in every project. I´m also very motivated to compete and aim success with the team.
 
 **Age:** 15
 ---
