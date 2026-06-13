@@ -1,468 +1,245 @@
-## This repository contains the official documentation of Team "Los Grises Jr" for the Future Engineers category at the World Robot Olympiad 2026.
+
+
+
+                      
+# Los Grises Jr — WRO Future Engineers 2026
+
+This repository contains the official documentation of Team **"Los Grises Jr"** for the Future Engineers category at the World Robot Olympiad 2026.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6422e0d6-8cc2-4bbc-beaf-4bbada98c140" width="700" />
 </p>
 
 ---
-Team Photo
----
+
+## Team Photo
+
 <p align="center">
 <img width="650" height="700" alt="Image" src="https://github.com/user-attachments/assets/bfdd1ee5-125a-459d-8794-e7c5e245de1f" />
 </p>
----
-##  Team Members
 
 ---
-### **Mateo Briones**  
----
+
+## Team Members
+
+### Mateo Briones
+
 <p align="center">
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/7d893a62-c48c-434c-9ddc-abf3b26181aa" />
 </p>
 
+**Role:** Electronics Specialist
 
-
-###  **Role:** Electronics Specialist
-
-**2 years ago in my high school, I began to be interested in my robotics and computer science classes, so that year i went to compete in the robocup 2025
-and i decided to focus on that, then i started to get interested and see it as a fun hobby, in this competition I want to win one of the first three places and
-have a big prize.**
+Two years ago in high school, I became interested in robotics and computer science, which led me to compete in RoboCup 2025. Since then I've focused on this hobby and want to keep growing in it. In this competition, my goal is to place in the top three.
 
 **Age:** 14
+
 ---
-### **Ruth García** 
+
+### Ruth García
+
 <p align="center">
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/0eeb4fe7-00a4-4f3b-9274-29eee74b13ef" />
 </p>
 
 **Role:** Builder
-This is my first time being part of a robotics club, and I´m really excited to be here. I truly enjoy learning new things and working wih technology, and being in this club feels amazing. I have a strong passion for improving my skills and doing my nest in every project. I´m also very motivated to compete and aim success with the team.
+
+This is my first time being part of a robotics club, and I'm really excited to be here. I enjoy learning new things and working with technology. I'm motivated to keep improving my skills and to help the team succeed.
 
 **Age:** 15
+
 ---
-### **Renato Medina**
-<p align="center" >
+
+### Renato Medina
+
+<p align="center">
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" />
 </p>
-**Role:** Programmer and captain
 
-**I started two years ago in my elementary school, at OnStage TMR, and from there I became interested in robotics, in this competition, I want to become a better and more well-rounded programmer.**
+**Role:** Programmer and Captain
+
+I started two years ago in elementary school at OnStage TMR, which sparked my interest in robotics. In this competition, my goal is to become a more well-rounded programmer.
 
 **Age:** 14
----
-##  Project Overview
----
-This project presents the development of an autonomous vehicle designed for the Future Engineers category of the World Robot Olympiad 2026.
 
-The robot is capable of navigating a dynamic environment using a combination of computer vision and closed-loop control systems.
+---
+
+## Project Overview
+
+This project presents the development of an autonomous vehicle for the Future Engineers category of the World Robot Olympiad 2026.
+
+The robot currently focuses on the **Open Challenge**: navigating the track using ultrasonic distance sensors and a closed-loop PD controller for steering.
 
 The system integrates:
 
-- Real-time vision processing
-- Ackermann steering geometry
-- PID-based control
+- Ultrasonic-based lane centering
+- A dedicated steering motor with automatic calibration
+- PD-based control for smooth, accurate trajectory tracking
 
-This combination enables stable, precise, and adaptive navigation.
+The Obstacle Challenge subsystem (computer vision with a HuskyLens camera and Arduino Nano) is in earlier development and documented separately below as **planned/in progress**.
 
-
-##  Robot Description
-
-The robot is based on an Ackermann steering system, similar to real-world vehicles.
-
-### Why Ackermann Steering?
-
-Compared to differential drive systems, Ackermann steering provides:
-
-- Reduced lateral wheel slip
-- Improved curve accuracy
-- More realistic motion behavior
-- Greater stability at higher speeds
-
-A dedicated motor controls the steering angle, allowing fine adjustments during navigation.
-
-Ackermann steering was selected to better replicate real-world vehicle dynamics and minimize lateral slip during turns, resulting in smoother and more accurate trajectories.
 ---
+
 ## Vehicle Photo
 
 <div align="center">
 
-| Top | 
+| Top |
 |:--:|
 | <img width="300" alt="Image" src="https://github.com/user-attachments/assets/db4220f0-02e5-4a55-ab61-ab2f27a2ebf8" /> |
 | Right |
- | <img width="300" alt="Image" src="https://github.com/user-attachments/assets/592dc860-29e7-4466-9803-3c76527497e0" /> |
- | Left |
- | <img width="300" alt="Image" src="https://github.com/user-attachments/assets/8f9ba958-2dd1-4182-8742-dd3fb614702a" /> |
+| <img width="300" alt="Image" src="https://github.com/user-attachments/assets/592dc860-29e7-4466-9803-3c76527497e0" /> |
+| Left |
+| <img width="300" alt="Image" src="https://github.com/user-attachments/assets/8f9ba958-2dd1-4182-8742-dd3fb614702a" /> |
 | Bottom |
 | <img width="300" alt="Image" src="https://github.com/user-attachments/assets/f74e4b12-1b4c-46d5-8b1d-bdd542ea7e7e" /> |
-| Rear | 
-|<img width="300" alt="Image" src="https://github.com/user-attachments/assets/c91b58f6-3492-42d3-a011-75c5045cd772" /> |
-</p>
+| Rear |
+| <img width="300" alt="Image" src="https://github.com/user-attachments/assets/c91b58f6-3492-42d3-a011-75c5045cd772" /> |
 
+</div>
 
 ---
-##  Components and Hardware
-| Component | Description | Image |
-|-----------|-------------|-------|
-| **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the foundational structure and chassis. | <img src="https://github.com/user-attachments/assets/a725c977-b28b-4b5d-b95c-506c84cd6706" width="300"> |                       
-| **Arduino Nano** | ATmega328-based microcontroller for control tasks. | <img src="https://github.com/user-attachments/assets/22e8f59c-909d-4ff2-b637-dc03e15f4de6" width="200"> |
-| **DFRobot HuskyLens AI Camera** | AI-powered vision sensor capable of detecting colors, objects, and patterns in real time. | <img src="https://github.com/user-attachments/assets/fc513a62-31dd-4e8b-9117-27c28bc85ab0" width="200"> |
+
+## Components and Hardware
+
+| Component | Description | Status |
+|-----------|-------------|--------|
+| **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the chassis, drive motor, and steering motor. Controlled via `ev3dev2`. | **In use** |
+| **2x Ultrasonic Sensors** | Mounted on the sides of the chassis for lane centering (left/right wall distance). | **In use** |
+| **Arduino Nano** | ATmega328-based microcontroller, planned for vision processing. | Planned (Obstacle Challenge) |
+| **DFRobot HuskyLens AI Camera** | AI vision sensor for detecting colored obstacles. | Planned (Obstacle Challenge) |
+
 ---
-## Control System Architecture
 
-The system is divided into two main subsystems:
+## Open Challenge: Control System
 
-1. Vision Processing (Arduino Nano)
+### Steering Mechanism
 
-- Receives data from the HuskyLens camera
-- Detects object color (red/green)
-- Extracts horizontal position of the object
-- Sends processed data to the EV3
+Steering is controlled by a dedicated `MediumMotor`, operated via absolute encoder positions rather than continuous rotation. This allows precise, repeatable steering angles relative to a calibrated center.
 
-2. Motion Control (EV3)
+### Automatic Steering Calibration
 
-- Receives processed data
-- Controls steering motor and drive motor
+Because the steering motor's "center" position can vary between runs (depending on how the wheels were last left), the robot performs an automatic calibration routine at startup:
 
+1. The steering motor drives left until it reaches its mechanical limit.
+2. The steering motor drives right until it reaches its opposite mechanical limit.
+3. The total range of motion is measured, and the mathematical center is calculated.
+4. The motor moves to this calculated center and resets its encoder count to zero, establishing it as the new reference point.
 
-| **Data Flow** |
-| :---------------: |
-|HuskyLens → Arduino Nano → EV3 → Motors|
+This ensures consistent, centered steering at the start of every run without manual adjustment.
 
-### Communication Protocol
+### Sensor Offset Calibration
 
-Communication between the Arduino Nano and EV3 is performed via serial (UART).
+At startup, both ultrasonic sensors take an initial reading while the robot is assumed to be centered on the track. The difference between the left and right readings is stored as an **offset** and subtracted from the error in every control loop. This compensates for small asymmetries in sensor placement or mounting.
 
-- Data transmitted: object horizontal position (x-coordinate)
-- Update rate: approximately 30 Hz
-- Data format: integer values
+### PD Control for Lane Centering
 
-This separation allows the EV3 to focus on motion control while the Arduino handles vision processing.
+The robot maintains its position in the lane using a PD (Proportional-Derivative) controller based on the difference between the left and right ultrasonic sensor readings.
 
-This ensures low-latency data transmission, which is critical for real-time control.
+```
+error = (right_distance - left_distance) - sensor_offset
+derivative = (error - previous_error) / dt
+output = Kp * error + Kd * derivative
+```
 
+The output is mapped directly to a target steering position (in encoder degrees), clamped to a safe range to avoid over-steering past the calibrated mechanical limits.
 
-A custom PCB was developed to:
+| Parameter | Value |
+|:---------:|:-----:|
+| KP | 0.35 |
+| KI | 0.0 |
+| KD | 0.30 |
 
-- Improve connection stability
-- Reduce wiring complexity
-- Increase reliability during runs
+The integral term is disabled (KI = 0) to avoid windup and instability from sensor noise.
+
+### Why PD Instead of Full PID?
+
+- **Proportional (KP):** provides immediate correction based on the current error.
+- **Derivative (KD):** reduces oscillation by responding to how quickly the error is changing, smoothing out steering corrections.
+- **Integral (KI):** disabled, since accumulated error from ultrasonic sensor noise could cause windup and erratic steering.
+
+### Results
+
+Early testing shows the robot tracking near the center of the lane with smooth, small steering corrections rather than abrupt swings, completing multiple laps consistently. Further tuning and lap-counting logic are in progress.
+
 ---
-## Control Algorithm
 
-he robot uses a hybrid control algorithm that combines computer vision and ultrasonic sensing.
+## Obstacle Challenge (Planned)
 
-Vision is used for obstacle detection and avoidance, while ultrasonic sensors are used for lane centering when no obstacle is detected.
-Process:
+The Obstacle Challenge will extend the system with a vision-based subsystem for detecting and avoiding colored pillars.
 
-- Capture frame from HuskyLens
-- Detect object color
-- Obtain object horizontal position
-- Compute positional error
-The error is calculated based on the difference between the object position and the center of the image.  
+### Planned Architecture
 
-- Apply control correction
-- Adjust steering angle
-- Move forward
-A unified PD controller is used regardless of the active sensing mode.
+| Subsystem | Responsibility |
+|-----------|----------------|
+| HuskyLens (on Arduino Nano) | Detects colored pillars, extracts horizontal position |
+| Arduino Nano | Processes vision data, sends position over UART |
+| EV3 | Receives position data, controls steering and drive motors |
 
-### pseudocode
+**Data flow:** HuskyLens → Arduino Nano → EV3 → Motors
+
+### Planned Control Approach
+
+```
 loop:
-
     if object_detected and width > threshold:
         # Vision mode
         error = setpoint - x_position
     else:
-        # Ultrasonic mode
+        # Ultrasonic mode (same as Open Challenge)
         error = right_distance - left_distance
 
     derivative = error - previous_error
     output = Kp * error + Kd * derivative
-
-    output = clamp(output, -30, 30)
-
-    steering = output
-    speed = constant
-
-    previous_error = error
-
-### Behavior Logic:
-
-- Object centered → move forward
-- Object left → steer left
-- Object right → steer right
-  
-If no object is detected, the robot switches to ultrasonic-based control to maintain lane position.
----
-## Steering Control (PID)
-
-To achieve stable and precise steering, a PID controller is being implemented.
-
-**Control Objective:**
-
-Minimize the horizontal deviation between the detected object and the center of the image.
-The steering is controlled using a PID-based approach:
-
-- The proportional term reacts to the current error, providing immediate correction
-- The integral term compensates accumulated error over time (currently disabled)
-- The derivative term reduces oscillations by responding to rapid changes in error
-
-The integral component was intentionally set to zero to prevent instability caused by noise in the vision system.
-
-The error represents the horizontal distance between the detected object and the center of the image.
- 
-| Parameters | Value |
-| :--------: | :---: |
-| KP         | 2.0   |
-| KI         | 0.0   |
-| KD         | 0.5   |
-
-
-u(t) = Kp * e(t) + Kd * (de/dt)
-
-Where:
-- u(t): steering output  
-- e(t): error (object position - center)  
-- de/dt: rate of change of error
-  
-In implementation, the derivative term is approximated using discrete differences:
-
-D = error - previous_error
-  
-The controller is currently being tuned to achieve a balance between responsiveness and stability.
----
-### Comparison with Non-PD Control
-
-Initial tests without derivative control showed:
-
-- Higher oscillations
-- Overshooting when correcting trajectory
-
-After implementing PD control:
-
-- Smoother steering behavior
-- Reduced oscillations
-- Improved trajectory stability
-
----
-
-## Vision System
-
-The robot uses a HuskyLens AI camera connected to an Arduino Nano.
-
-Capabilities:
-
-Detection of red and green pillars
-Real-time object tracking
-Position data extraction
-
-Design Considerations:
-
-- Elevated camera placement increases field of view
-- Early detection improves reaction time
-- Reduces sudden steering corrections
-
-The system operates in a closed-loop configuration, where visual feedback is continuously used to correct the robot's trajectory in real time, improving robustness against disturbances and dynamic changes in the environment.
----
-
-
-## Navigation Strategy
-
-The robot uses vision-based navigation to interact with obstacles dynamically.
-
-- Detects colored pillars  
-- Determines relative position  
-- Adjusts trajectory using steering control  
-
-This approach allows smooth and adaptive movement around obstacles.
-## Navigation Algorithm
-The navigation process is implemented as a continuous loop, as shown below:
-
-```mermaid
-flowchart TD
-    A[Start] --> B[Capture Frame]
-    B --> C[Detect Object]
-    C --> D{Object Detected?}
-    
-    D -- Yes --> E[Get Object Position]
-    E --> F[Calculate Error]
-    F --> G[Apply PID Correction]
-    G --> H[Adjust Steering]
-    H --> I[Move Forward]
-    
-    D -- No --> J[Maintain Last Steering]
-    J --> I
-    
-    I --> B
+    output = clamp(output, -limit, limit)
 ```
+
+This approach has not yet been successfully implemented and is being redesigned. It will be documented in detail once a working version is achieved.
+
 ---
+
 ## Engineering Decisions
 
-### Ackermann Steering Selection
+### Steering by Absolute Encoder Position
 
-Ackermann steering was selected instead of differential drive due to its ability to:
+Earlier versions controlled steering using continuous motor rotation (as in EV3-G block programming). The current implementation, written for `ev3dev2`, uses **absolute encoder positions** instead. This required adding the automatic calibration routine described above, but provides far more precise and repeatable steering angles, which improved trajectory accuracy significantly.
 
-- Reduce lateral slip during turns
-- Provide more accurate trajectory tracking
-- Better replicate real-world vehicle dynamics
+### PD Controller Tuning
 
-This choice improves performance at higher speeds and increases stability in curved paths.
+Initial values (KP = 0.35, KD = 0.30) were carried over conceptually from earlier block-based experiments but had to be re-tuned for the new encoder-based output scale. The current values produce smooth, centered lane-following without the oscillation seen in earlier versions.
 
-### Distributed Architecture (Arduino + EV3)
+### Sensor Offset Compensation
 
-The system was divided into two subsystems:
-
-- Arduino Nano → Vision processing
-- EV3 → Motion control
-
-This decision was made to:
-
-- Reduce computational load on the EV3
-- Improve real-time performance
-- Allow modular development and easier debugging
-
-### Use of PD Controller
-
-A PD controller was implemented instead of a full PID controller.
-
-- Proportional term (KP): provides immediate correction based on current error
-- Derivative term (KD): reduces oscillations by reacting to error changes
-- Integral term (KI): intentionally set to zero
-
-The integral component was disabled due to:
-
-- Noise in the vision system
-- Risk of error accumulation (integral windup)
-- Unstable behavior observed during initial testing
-
-### Camera Placement
-
-The camera was positioned at an elevated point to:
-
-- Increase field of view
-- Allow earlier detection of objects
-- Reduce sudden steering corrections
-
-This improves reaction time and overall navigation smoothness.
-
-### Communication via UART
-
-Serial communication was selected due to:
-
-- Simplicity of implementation
-- Low latency
-- Compatibility between Arduino Nano and EV3
-- Baud rate: 9600 
-- Simple protocol: single integer per frame
-
-The system transmits only essential data (object position), minimizing bandwidth usage and improving update rate.
+Adding a one-time sensor offset measurement at startup helps account for minor asymmetries in sensor mounting without requiring physical realignment.
 
 ---
-## Performance 
-
-Initial testing shows:
-
-- The robot maintains a stable trajectory with an average deviation of approximately ±8 pixels from the target center. 
-- Reduced oscillations compared to initial non-PID control tests
-- Reliable response to changes in object position  
-
-Further testing and quantitative evaluation are currently in progress.
-
----
-## Technical Analysis
-
-A deeper analysis of the system performance was conducted to evaluate stability, accuracy, and robustness under different conditions.
-
-### Error Behavior
-
-The system maintains an average error of approximately ±8 pixels, with peaks up to 20 pixels in more demanding scenarios such as sharp turns or late object detection.
-
-Higher error values are mainly observed when:
-- The object enters the field of view abruptly
-- The robot operates at higher speeds
-- Lighting conditions introduce noise in detection
-
-### Stability
-
-The implementation of the PD controller significantly reduced oscillations compared to initial tests without derivative control.
-
-- Without derivative term: noticeable oscillations and overcorrection
-- With derivative term: smoother response and improved stability
-
-### Response Time
-
-The system presents an average response time of approximately 120 ms, which is sufficient for real-time correction at the current operating speed.
-
-However, small delays were observed due to:
-- Serial communication latency (Arduino → EV3)
-- Vision processing time
-
-### Limit Case Behavior
-
-When no object is detected:
-- The robot maintains the last steering value
-- This prevents abrupt movements but may introduce accumulated deviation if the object is lost for extended periods
-
-### Performance vs Speed Trade-off
-
-An increase in speed results in:
-- Faster track coverage
-- Reduced reaction time window
-- Higher probability of error peaks
-
-This indicates a trade-off between speed and accuracy that must be balanced depending on competition conditions.
----
-## Experimental Results
-
-Preliminary testing was conducted under controlled lighting conditions.
-Each test consisted of multiple runs to ensure consistency in the measured results.
-
-| Metric | Value |
-| :----: | :---: |
-| Average error | ±8 px |
-| Maximum error | 20 px |
-| Response time | ~120 ms |
-| Processing rate | ~30 FPS |
-
-These results indicate stable tracking performance and consistent response to changes in object position.
 
 ## Challenges
 
-- Integration between EV3 and Arduino systems  
-- Achieving stable Ackermann steering control  
-- Handling noise in vision detection  
-- Tuning PID parameters  
+- Migrating steering control from block-based programming (EV3-G) to `ev3dev2`, including building a reliable automatic calibration routine for the steering motor.
+- Tuning PD parameters for the new encoder-based steering scale.
+- Designing the vision-based obstacle avoidance subsystem (in progress).
+
 ---
+
 ## Limitations
 
-- Performance may decrease under variable lighting conditions due to vision noise  
-- Limited field of view of the camera affects early detection in some scenarios  
-- Small communication delays between subsystems can impact response time
+- The Obstacle Challenge vision subsystem is not yet functional and is under redesign.
+- Ultrasonic sensor readings can be affected by surface angle and material, which may introduce small inconsistencies in distance measurements.
 
 ---
+
 ## Conclusion
 
-The Los Grises Jr robot integrates:
+The Los Grises Jr robot currently implements a reliable Open Challenge navigation system based on ultrasonic sensing, automatic steering calibration, and PD control. The Obstacle Challenge vision subsystem remains a work in progress and will be documented as it develops.
 
-- Realistic Ackermann steering
-- Intelligent vision processing
-- PID-based control
+---
 
-The system demonstrates the effective integration of perception and control, implementing a real-time closed-loop navigation strategy.
-
-This combination enables stable and adaptive navigation, preparing the team for dynamic competition environments.
-
-
-## System Diagram
+## System Diagram (Current)
 
 ```mermaid
 flowchart LR
-    A[HuskyLens Camera] -->|Vision Data| B[Arduino Nano]
-    B -->|Processed Data| C[EV3 Controller]
-    C -->|Steering Control| D[Steering Motor]
-    C -->|Speed Control| E[Drive Motor]
+    A[Ultrasonic Sensors] -->|Distance Data| B[EV3 Controller]
+    B -->|PD Control Output| C[Steering Motor]
+    B -->|Constant Speed| D[Drive Motor]
 ```
----
-
-
-                      
