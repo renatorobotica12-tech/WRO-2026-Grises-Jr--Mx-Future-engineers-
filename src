@@ -3,7 +3,6 @@
 from ev3dev2.motor import MediumMotor, OUTPUT_A, OUTPUT_B
 from ev3dev2.sensor.lego import UltrasonicSensor
 from ev3dev2.sensor import INPUT_2, INPUT_3
-from ev3dev2.button import Button
 import time
 
 # ==========================
@@ -16,93 +15,50 @@ traccion = MediumMotor(OUTPUT_B)
 us_izq = UltrasonicSensor(INPUT_2)
 us_der = UltrasonicSensor(INPUT_3)
 
-btn = Button()
-
-# ====================================================
-# SISTERMA DE CALIBRACIÓN AUTOMÁTICA (AL INICIO)
-# ====================================================
-print("Calibrando dirección... No toques las ruedas.")
-
-# 1. Mover a la izquierda lento hasta que choque con el tope
-direccion.run_forever(speed_sp=-150)
-time.sleep(0.5)
-while abs(direccion.speed) > 10: 
-    time.sleep(0.05) # Espera a que el motor se detenga por el choque
-
-# Guardamos esta posición como el extremo izquierdo
-direccion.stop()
-time.sleep(0.2)
-direccion.position = 0 # Ponemos el contador en cero aquí (Tope Izquierdo)
-
-# 2. Mover a la derecha lento hasta que choque con el otro tope
-direccion.run_forever(speed_sp=150)
-time.sleep(0.5)
-while abs(direccion.speed) > 10: 
-    time.sleep(0.05) # Espera a que choque a la derecha
-
-direccion.stop()
-time.sleep(0.2)
-tope_derecho = direccion.position # Aquí tenemos el total de grados de lado a lado
-
-# 3. Calcular el centro matemático
-centro_perfecto = int(tope_derecho / 2)
-
-# 4. Ir al centro y reiniciar el contador ahí como el "0" real
-direccion.on_to_absolute_position(speed=200, position=centro_perfecto, block=True)
-direccion.position = 0 
-
-print("¡Calibración lista! Ruedas en el centro (0).")
-time.sleep(1)
-
 # ==========================
-# PID SIMPLE
+# PD SIMPLE
 # ==========================
 
 DT = 0.05
 
-# Volvemos a tus valores PID originales
 KP = 0.35
 KD = 0.30
-KI = 0
 
 error_anterior = 0
-integral = 0
 
 # ==========================
 # LOOP
 # ==========================
-while True:
+try:
+    while True:
 
-    izq = us_izq.distance_centimeters
-    der = us_der.distance_centimeters
+        izq = us_izq.distance_centimeters
+        der = us_der.distance_centimeters
 
-    error = der - izq
+        error = der - izq
 
-    integral += error * DT
-    derivada = (error - error_anterior) / DT
+        derivada = (error - error_anterior) / DT
 
-    output = KP * error + KI * integral + KD * derivada
+        output = KP * error + KD * derivada
 
-    # ====================================================
-    # AHORA LA DIRECCIÓN SE MUEVE A POSICIONES ABSOLUTAS:
-    # Si output es 0, va al centro. Si es positivo/negativo se mueve respecto al 0.
-    # ====================================================
-    posicion_destino = int(output)
-    
-    # Limitamos la posición para que no intente ir más allá de sus topes reales
-    limite_grados = int(centro_perfecto * 0.8) # Usamos el 80% del tope por seguridad
-    if posicion_destino > limite_grados: posicion_destino = limite_grados
-    if posicion_destino < -limite_grados: posicion_destino = -limite_grados
+        # Limitamos la velocidad de giro del motor de dirección
+        if output > 55:
+            output = 55
+        if output < -55:
+            output = -55
 
-    # Mandamos al motor a la posición exacta (block=False para no trabar el avance)
-    direccion.on_to_absolute_position(speed=300, position=posicion_destino, block=False)
-    # ====================================================
+        # Dirección por velocidad continua (sin encoder/calibración)
+        direccion.on(speed=output)
 
-    traccion.run_forever(speed_sp=450)
+        traccion.run_forever(speed_sp=450)
 
-    error_anterior = error
+        error_anterior = error
 
-    time.sleep(DT)
+        time.sleep(DT)
 
-direccion.stop()
-traccion.stop()
+except KeyboardInterrupt:
+    pass
+
+finally:
+    direccion.stop()
+    traccion.stop()
