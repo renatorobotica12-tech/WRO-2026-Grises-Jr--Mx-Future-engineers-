@@ -248,7 +248,7 @@ flowchart LR
 This repository contains the official documentation, design files, and engineering decisions of Team **"Los Grises Jr"** competing in the Future Engineers category at the World Robot Olympiad 2026.
 
 <p align="center">
-  <img src="logo.jpg" width="700" alt="Los Grises Jr Logo" />
+  <img src=""https://github.com/user-attachments/assets/6422e0d6-8cc2-4bbc-beaf-4bbada98c140"" width="700" alt="Los Grises Jr Logo" />
 </p>
 
 ---
