@@ -1,7 +1,3 @@
-
-
-
-                      
 # Los Grises Jr — WRO Future Engineers 2026
 
 This repository contains the official documentation of Team **"Los Grises Jr"** for the Future Engineers category at the World Robot Olympiad 2026.
@@ -105,7 +101,7 @@ The Obstacle Challenge subsystem (computer vision with a HuskyLens camera and Ar
 | Component | Description | Status |
 |-----------|-------------|--------|
 | **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the chassis, drive motor, and steering motor. Controlled via `ev3dev2`. | **In use** |
-| **2x Ultrasonic Sensors** | Mounted on the sides of the chassis for lane centering (left/right wall distance). | **In use** |
+| **5x Ultrasonic Sensors** | Mounted on the sides of the chassis for lane centering (left/right wall distance). | **In use** |
 | **Arduino Nano** | ATmega328-based microcontroller, planned for vision processing. | Planned (Obstacle Challenge) |
 | **DFRobot HuskyLens AI Camera** | AI vision sensor for detecting colored obstacles. | Planned (Obstacle Challenge) |
 
@@ -242,4 +238,193 @@ flowchart LR
     A[Ultrasonic Sensors] -->|Distance Data| B[EV3 Controller]
     B -->|PD Control Output| C[Steering Motor]
     B -->|Constant Speed| D[Drive Motor]
+```
+
+
+
+
+# Los Grises Jr — WRO Future Engineers 2026
+
+This repository contains the official documentation, design files, and engineering decisions of Team **"Los Grises Jr"** competing in the Future Engineers category at the World Robot Olympiad 2026.
+
+<p align="center">
+  <img src="logo.jpg" width="700" alt="Los Grises Jr Logo" />
+</p>
+
+---
+
+## Team Photo
+
+<p align="center">
+  <img src="team_photo.jpg" width="650" alt="Los Grises Jr Team Photo" />
+</p>
+
+---
+
+## Team Members
+
+### Mateo Briones
+<p align="center">
+  <img src="mateo.jpg" width="250" height="250" alt="Mateo Briones" />
+</p>
+
+* **Role:** Electronics Specialist  
+* **Age:** 14  
+* **Bio:** Two years ago in high school, I became interested in robotics and computer science, which led me to compete in RoboCup 2025. Since then, I've focused on this hobby and want to keep growing in it. In this competition, my goal is to place in the top three.
+
+---
+
+### Ruth García
+<p align="center">
+  <img src="ruth.jpg" width="250" height="250" alt="Ruth García" />
+</p>
+
+* **Role:** Builder  
+* **Age:** 15  
+* **Bio:** This is my first time being part of a robotics club, and I'm really excited to be here. I enjoy learning new things and working with technology. I'm motivated to keep improving my skills and to help the team succeed.
+
+---
+
+### Renato Medina
+<p align="center">
+  <img src="renato.jpg" width="250" height="250" alt="Renato Medina" />
+</p>
+
+* **Role:** Programmer and Captain  
+* **Age:** 14  
+* **Bio:** I started two years ago in elementary school at OnStage TMR, which sparked my interest in robotics. In this competition, my goal is to become a more well-rounded programmer.
+
+---
+
+## Project Overview
+
+This project presents the development of an autonomous vehicle designed for the Future Engineers category of the World Robot Olympiad 2026. 
+
+The robot currently focuses on completing the **Open Challenge**: navigating the track reliably using ultrasonic distance sensors and a closed-loop PD controller for steering. 
+
+### Key System Features
+* **Ultrasonic-Based Lane Centering:** Real-time distance tracking to maintain a straight trajectory.
+* **Dedicated Steering System:** Closed-loop steering utilizing motor encoder values.
+* **Automatic Calibration:** Software routines that eliminate manual alignment variations before a run.
+
+> **Note:** The Obstacle Challenge subsystem (computer vision with a HuskyLens camera and Arduino Nano) is under early development and is documented separately below as *Planned / In Progress*.
+
+---
+
+## Vehicle Photos
+
+<div align="center">
+
+| Top View | Right Side |
+| :---: | :---: |
+| <img src="robot_top.jpg" width="300" alt="Robot Top View" /> | <img src="robot_right.jpg" width="300" alt="Robot Right Side" /> |
+
+| Left Side | Bottom View |
+| :---: | :---: |
+| <img src="robot_left.jpg" width="300" alt="Robot Left Side" /> | <img src="robot_bottom.jpg" width="300" alt="Robot Bottom View" /> |
+
+| Rear View |
+| :---: |
+| <img src="robot_rear.jpg" width="300" alt="Robot Rear View" /> |
+
+</div>
+
+---
+
+## Components and Hardware
+
+| Component | Description | Status |
+| :--- | :--- | :--- |
+| **LEGO MINDSTORMS EV3 Core Set (45544)** | Forms the structural chassis, drive motor, and steering assembly. Controlled via `ev3dev2`. | **In Use** |
+| **2x Ultrasonic Sensors** | Mounted symmetrically on both sides of the chassis to track left and right wall distances. | **In Use** |
+| **Arduino Nano** | ATmega328-based microcontroller utilized for offloading vision processing tasks. | **Planned** (Obstacle Subsystem) |
+| **DFRobot HuskyLens AI Camera** | Vision sensor configured for colored pillar recognition and distance bounding. | **Planned** (Obstacle Subsystem) |
+
+---
+
+## Open Challenge: Control System
+
+### Steering Mechanism
+Steering is driven by a dedicated `MediumMotor` operated via **absolute encoder positions** instead of continuous time-based rotation. This approach yields precise, repeatable steering angles relative to a calculated center reference point.
+
+### Automatic Steering Calibration
+To account for varying initial wheel alignments between runs, the vehicle runs an automated calibration script at boot:
+1. The steering motor drives fully left until it hits the physical mechanical boundary.
+2. The motor drives fully right to the opposite mechanical limit.
+3. The total step range is measured, and the exact mathematical center is calculated.
+4. The motor returns to this center position and zeros its encoder count, creating a precise reference point.
+
+### Sensor Offset Calibration
+At startup, the vehicle takes initial resting readings from both side ultrasonic sensors. The difference between the left and right measurements is captured as an **offset** value. This value is mathematically subtracted from the error in the active control loop to compensate for minor physical mounting asymmetries.
+
+### PD Control Loop
+Lane centering is sustained through a Proportional-Derivative (PD) controller processing the distance error between the track walls:
+
+```python
+error = (right_distance - left_distance) - sensor_offset
+derivative = (error - previous_error) / dt
+output = (Kp * error) + (Kd * derivative)
+```
+
+The computed output maps directly to the target encoder position of the steering motor, clamped strictly to safe operational parameters to avoid mechanical strain.
+
+| Parameter | Value | Purpose |
+| :---: | :---: | :--- |
+| **$K_p$** | 0.35 | Immediate correction proportional to path error |
+| **$K_i$** | 0.00 | Disabled to avoid sensor noise windup and oscillation |
+| **$K_d$** | 0.30 | Smooths steering reactions based on rate of error change |
+
+---
+
+## Obstacle Challenge (Planned)
+
+The vehicle will be extended with an intelligent vision coprocessor subsystem to tackle the obstacle avoidance phase.
+
+[HuskyLens Camera] ---> [Arduino Nano (via UART)] ---> [EV3 Brick] ---> [Actuators]
+### Planned Control Logic
+```python
+# Conceptual loop under development
+while True:
+    if object_detected and width > threshold:
+        # Vision Mode: Track pillar center displacement
+        error = setpoint - x_position
+    else:
+        # Ultrasonic Mode: Center within track walls
+        error = right_distance - left_distance
+        
+    # Process through common PD controller
+    ...
+```
+
+---
+
+## Engineering Decisions
+
+* **Absolute Position Steering:** Shifting from continuous time-based motor control (`EV3-G`) to absolute encoder positions (`ev3dev2`) vastly enhanced steering accuracy and lap trajectory repetition.
+* **Omission of Integral Term ($K_i$):** Early tests revealed that integrating ultrasonic distance data over time caused severe steering windup due to momentary sensor noise reflections. Keeping $K_i = 0$ kept the steering agile and stable.
+* **Software-Based Offset Injection:** Rather than spending critical time physically rebuilding sensor brackets to achieve symmetry, applying a software calculation at boot cleanly resolved natural hardware build tolerances.
+
+---
+
+## Challenges & Limitations
+
+### Overcome / In Progress
+* Porting low-level block structures over to clean, object-oriented Python utilizing the `ev3dev2` libraries.
+* Calibrating precise scaling factors between structural sensor errors and physical motor hub encoder turns.
+
+### Current Limitations
+* **Subsystem Integration:** The Arduino-to-EV3 serial connection for the HuskyLens tracking routine is undergoing structural redesign and is not yet field-operational.
+* **Sensor Material Vulnerability:** Ultrasonic data can spike or drop based on the angle of incidence against specific wall materials, which requires software filtering logic to smooth out anomalous spikes.
+
+---
+
+## System Diagram
+
+```mermaid
+flowchart LR
+    A[Ultrasonic Sensors] -->|Distance Data| B[EV3 Controller]
+    B -->|PD Control Output| C[Steering Motor]
+    B -->|Constant Speed| D[Drive Motor]
+    
+    style B fill:#f9f,stroke:#333,stroke-width:2px
 ```
