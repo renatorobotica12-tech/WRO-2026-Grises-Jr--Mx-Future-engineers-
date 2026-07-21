@@ -6,48 +6,75 @@ We developed a foundational steering and traction system for the open challenge.
 
 ```python
 #!/usr/bin/env python3
-import time
-from ev3dev2.motor import MediumMotor, OUTPUT_A, OUTPUT_B
-from ev3dev2.sensor import INPUT_2, INPUT_3
-from ev3dev2.sensor.lego import UltrasonicSensor
 
-# Motor and Sensor Initialization
-direccion = MediumMotor(OUTPUT_A)
-traccion = MediumMotor(OUTPUT_B)
+from ev3dev2.motor import MediumMotor, OUTPUT_A, OUTPUT_B
+from ev3dev2.sensor.lego import UltrasonicSensor
+from ev3dev2.sensor import INPUT_2, INPUT_3
+import time
+
+# ==========================
+# HARDWARE
+# ==========================
+direccion = MediumMotor(OUTPUT_B)
+traccion = MediumMotor(OUTPUT_A)
+
+# OBLIGATORIO: Pon las llantas derechas con la mano antes de correr el programa
+direccion.position = 0 
+
 us_izq = UltrasonicSensor(INPUT_2)
 us_der = UltrasonicSensor(INPUT_3)
 
-# Control Loop Variables
-DT = 0.05
-KP = 0.35
-KD = 0.30
+# ==========================
+# PID CONFIG
+# ==========================
+DT = 0.02 
+KP = 3 
+KD = 2.0 
 error_anterior = 0
 
+# ==========================
+# LOOP PRINCIPAL
+# ==========================
 try:
+    print("Corriendo... dale pista!")
     while True:
         izq = us_izq.distance_centimeters
         der = us_der.distance_centimeters
 
-        # PD Calculation
+        # Filtro por si un sensor se va al infinito
+        if izq > 140: izq = 140
+        if der > 140: der = 140
+
         error = der - izq
-        derivada = (error - error_anterior) / DT
-        output = (KP * error) + (KD * derivada)
 
-        # Output Saturation (Steering protection)
-        if output > 55: output = 55
-        if output < -55: output = -55
+        # Zona muerta para que vaya recto
+        if abs(error) < 1.0:
+            output = 0
+        else:
+            derivada = (error - error_anterior) / DT
+            output = (KP * error) + (KD * derivada)
 
-        direccion.on(speed=output)
-        traccion.run_forever(speed_sp=450)
+        # Límites de seguridad para el output (-35 a 35)
+        if output > 35:
+            output = 35
+        elif output < -35:
+            output = -35
+        
+        # ACCIÓN DE LOS MOTORES (Fuera de los ifs de control)
+        # Forzamos que sea un entero para que ev3dev2 no tire error
+        direccion.on(speed=int(output))
+
+        # Motor de tracción constante
+        traccion.on(speed=35)
 
         error_anterior = error
         time.sleep(DT)
-        
+
 except KeyboardInterrupt:
     pass
 finally:
-    direccion.stop()
-    traccion.stop()
+    direccion.off()
+    traccion.off()
 ```
 
 ---
