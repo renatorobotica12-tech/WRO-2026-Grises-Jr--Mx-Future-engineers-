@@ -1,4 +1,5 @@
-# WRO Future Engineers - Engineering Journal
+
+## Engineering journal
 
 ## 4/July/2026: Initial Prototyping & Basic Control Code
 We developed a foundational steering and traction system for the open challenge. This code implements a basic PD (Proportional-Derivative) controller utilizing two ultrasonic sensors to maintain a central position in the hallway.
@@ -195,3 +196,4 @@ while True:
 
 ---
 
+## 21/July/2026
