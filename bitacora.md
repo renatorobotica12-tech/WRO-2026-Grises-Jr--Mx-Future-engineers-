@@ -295,3 +295,68 @@ finally:
     direccion.off()
     traccion.off()
 ```
+## Y tambien programamos en i2C:
+
+```python
+
+/*!
+ * WRO TIJUANA 26 - Nano
+ * Solo lectura de 5 sensores ultrasónicos por I2C
+ */
+#include <Wire.h>
+
+// ── Variables de los 5 sensores ─────────────────────────────
+// Sensores: Izquierda, Izquierda-Diagonal, Frente, Derecha-Diagonal, Derecha
+float distIzq, distIzqDiag, distFrente, distDerDiag, distDer;
+
+// Direcciones I2C de ejemplo para los 5 sensores (modifícalas según las direcciones configuradas en tus módulos)
+const byte direccionesI2C[5] = {0x11, 0x12, 0x13, 0x14, 0x15};
+
+// ─────────────────────────────────────────────────────────────
+// Función genérica para leer un sensor ultrasónico por I2C
+float leerSensorI2C(byte direccion) {
+  Wire.beginTransmission(direccion);
+  Wire.write(0x01); // Registro de inicio de medición (varía según el modelo del sensor)
+  Wire.endTransmission();
+  
+  delay(10); // Tiempo para que el sensor procese la lectura
+  
+  Wire.requestFrom((int)direccion, 2); // Pedir 2 bytes (distancia en cm)
+  if (Wire.available() >= 2) {
+    int distanciaRaw = Wire.read() << 8 | Wire.read();
+    return (float)distanciaRaw; // Retornar en centímetros
+  }
+  return 150.0; // Valor por defecto si falla la lectura
+}
+
+// ─────────────────────────────────────────────────────────────
+void setup() {
+  Serial.begin(9600);
+
+  // Iniciar bus I2C
+  Wire.begin();               // A4=SDA, A5=SCL en Nano
+  Wire.setClock(400000);
+  delay(100);
+}
+
+void loop() {
+  // Lectura de los 5 sensores por I2C usando sus respectivas direcciones
+  distIzq     = leerSensorI2C(direccionesI2C[0]);
+  distIzqDiag = leerSensorI2C(direccionesI2C[1]);
+  distFrente  = leerSensorI2C(direccionesI2C[2]);
+  distDerDiag = leerSensorI2C(direccionesI2C[3]);
+  distDer     = leerSensorI2C(direccionesI2C[4]);
+
+  Serial.print("izq ");     Serial.print(distIzq);
+  Serial.print(" izqD ");   Serial.print(distIzqDiag);
+  Serial.print(" frente "); Serial.print(distFrente);
+  Serial.print(" derD ");   Serial.print(distDerDiag);
+  Serial.print(" der ");    Serial.println(distDer);
+
+  delay(10);
+}
+
+
+```
+
+
