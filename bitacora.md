@@ -224,3 +224,74 @@ while True:
 ---
 
 ## 21/July/2026
+usamos una beta del antiguo codigo, debido a que estabmos esperando unos cables que se pidieron y llegaran el 22 de Julio del 2026:
+
+```python
+
+#!/usr/bin/env python3
+
+from ev3dev2.motor import MediumMotor, OUTPUT_A, OUTPUT_B
+from ev3dev2.sensor.lego import UltrasonicSensor
+from ev3dev2.sensor import INPUT_2, INPUT_3
+import time
+
+# ==========================
+# HARDWARE
+# ==========================
+direccion = MediumMotor(OUTPUT_B)
+traccion = MediumMotor(OUTPUT_A)
+
+# OBLIGATORIO: Pon las llantas derechas con la mano antes de correr el programa
+direccion.position = 0 
+
+us_izq = UltrasonicSensor(INPUT_2)
+us_der = UltrasonicSensor(INPUT_3)
+
+# ==========================
+# PID CONFIG
+# ==========================
+DT = 0.02 
+KP = 3 
+KD = 2.0 
+error_anterior = 0
+
+# ==========================
+# LOOP PRINCIPAL
+# ==========================
+try:
+    print("Corriendo sin zona muerta... dale pista!")
+    while True:
+        izq = us_izq.distance_centimeters
+        der = us_der.distance_centimeters
+
+        # Filtro de distancia (ajusta este límite según tu pista, ej. 69.5)
+        if izq > 69.5: izq = 69.5
+        if der > 69.5: der = 69.5
+
+        error = der - izq
+
+        # ZONA MUERTA ELIMINADA: El PD calcula siempre
+        derivada = (error - error_anterior) / DT
+        output = (KP * error) + (KD * derivada)
+
+        # Límites de seguridad para el output (-35 a 35)
+        if output > 35:
+            output = 35
+        elif output < -35:
+            output = -35
+         
+        # ACCIÓN DE LOS MOTORES
+        direccion.on(speed=int(output))
+
+        # Motor de tracción constante
+        traccion.on(speed=35)
+
+        error_anterior = error
+        time.sleep(DT)
+
+except KeyboardInterrupt:
+    pass
+finally:
+    direccion.off()
+    traccion.off()
+```
