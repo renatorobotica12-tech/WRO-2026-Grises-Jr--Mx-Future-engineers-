@@ -224,7 +224,7 @@ while True:
 ---
 
 ## 21/July/2026
-usamos una beta del antiguo codigo, debido a que estabmos esperando unos cables que se pidieron y llegaran el 22 de Julio del 2026:
+We used a beta version of the previous code because we were waiting for some cables that had been ordered and were scheduled to arrive on July 22, 2026:
 
 ```python
 
@@ -295,7 +295,7 @@ finally:
     direccion.off()
     traccion.off()
 ```
-## Y tambien programamos en i2C:
+## We also programmed the system using the I²C communication protocol:
 
 ```python
 
@@ -359,4 +359,6 @@ void loop() {
 
 ```
 
+## 27/07/26 – Today, we integrated the sensor multiplexer into the robot, allowing us to remove almost all the cables from the numbered ports, leaving only one of the original four letter ports in use.
 
+## We also integrated 3D-printed mounts for the ultrasonic sensors into the robot. Additionally, due to time constraints and ease of development, we decided to return to using EV3-G (EV3 Blocks). However, we will provide the code in pseudocode, along with the original source code file in the src (source code) section.
