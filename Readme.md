@@ -12,7 +12,7 @@
 ---
 ## Team Members
 
-### Renato Medina
+** ### Renato Medina **
 
 <p align="center">
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" />
@@ -25,6 +25,14 @@ I began my robotics journey through the OnStage TMR program, where I discovered 
 For WRO 2026, my objective is to develop a reliable autonomous vehicle while expanding my knowledge in embedded systems, control theory, and robotic engineering. 
 
 **Age:** 14
+
+
+
+** ### Paulina **
+
+(Photo)
+
+** Role: ** Mechanical Designer & Electronic Designer.
 
 ---
 
