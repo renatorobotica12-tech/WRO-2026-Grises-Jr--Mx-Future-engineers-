@@ -18,27 +18,33 @@
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" />
 </p>
 
-**Role:** Programmer and Captain
+**Role: Programmer, Mechanical Designer & Team Captain
 
-I started two years ago in elementary school at OnStage TMR, which sparked my interest in robotics. In this competition, my goal is to become a more well-rounded programmer.
+I began my robotics journey through the OnStage TMR program, where I discovered my passion for autonomous systems and engineering. Since then, I have focused on software development, electronics integration, and robot design.
+
+For WRO 2026, my objective is to develop a reliable autonomous vehicle while expanding my knowledge in embedded systems, control theory, and robotic engineering. **
 
 **Age:** 14
 
 ---
 
-## Project Overview
+Project Description
 
-This project presents the development of an autonomous vehicle for the Future Engineers category of the World Robot Olympiad 2026.
+Our robot is designed to autonomously complete the Future Engineers challenges by combining precise steering, ultrasonic sensing, and embedded control systems.
 
-The robot currently focuses on the **Open Challenge**: navigating the track using ultrasonic distance sensors and a closed-loop PD controller for steering.
+The current version focuses primarily on the Open Challenge, using multiple ultrasonic sensors and a closed-loop PD controller to maintain the vehicle centered inside the track.
 
-The system integrates:
+Future development includes the integration of a computer vision subsystem for obstacle detection and avoidance.
 
-- Ultrasonic-based lane centering
-- A dedicated steering motor with automatic calibration
-- PD-based control for smooth, accurate trajectory tracking
-
-The Obstacle Challenge subsystem (computer vision with a HuskyLens camera and Arduino Nano) is in earlier development and documented separately below as **planned/in progress**.
+Main Features
+Closed-loop PD steering controller
+Automatic steering calibration
+Five ultrasonic sensors connected through a custom PCB
+I²C communication between the Arduino Nano and EV3
+Custom-designed PCB manufactured specifically for the project
+3D-printed sensor supports
+Finite State Machine (FSM) architecture (development stage)
+Modular software architecture
 
 ---
 
@@ -61,142 +67,151 @@ The Obstacle Challenge subsystem (computer vision with a HuskyLens camera and Ar
 
 | Component | Description | Status |
 |-----------|-------------|--------|
-| **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the chassis, drive motor, and steering motor. Controlled via `ev3dev2`. | **In use** |
+| **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the chassis, drive motor, and steering motor. Controlled via `ev3-g`. | **In use** |
 | **5x Ultrasonic Sensors** | Mounted on the sides of the chassis for lane centering (left/right wall distance). | **In use** |
 | **Arduino Nano** | ATmega328-based microcontroller, planned for vision processing. | Planned (Obstacle Challenge) |
 | **DFRobot HuskyLens AI Camera** | AI vision sensor for detecting colored obstacles. | Planned (Obstacle Challenge) |
 
 ---
+Mechanical Design
 
-## Open Challenge: Control System
+The vehicle uses an Ackermann-inspired steering mechanism driven by a dedicated EV3 Medium Motor.
 
-### Steering Mechanism
+Instead of continuously rotating the steering motor, the robot commands absolute steering positions obtained from the motor encoder. This approach provides greater repeatability and significantly improves steering accuracy.
 
-Steering is controlled by a dedicated `MediumMotor`, operated via absolute encoder positions rather than continuous rotation. This allows precise, repeatable steering angles relative to a calibrated center.
+Custom 3D-printed brackets maintain all ultrasonic sensors in fixed positions, reducing vibration and improving measurement consistency.
 
-### Automatic Steering Calibration
+Electronics
 
-Because the steering motor's "center" position can vary between runs (depending on how the wheels were last left), the robot performs an automatic calibration routine at startup:
+One of the main engineering improvements was replacing individual sensor wiring with a custom-designed PCB.
 
-1. The steering motor drives left until it reaches its mechanical limit.
-2. The steering motor drives right until it reaches its opposite mechanical limit.
-3. The total range of motion is measured, and the mathematical center is calculated.
-4. The motor moves to this calculated center and resets its encoder count to zero, establishing it as the new reference point.
+The PCB:
 
-This ensures consistent, centered steering at the start of every run without manual adjustment.
+simplifies cable management;
+distributes power to every sensor;
+routes all communication signals;
+improves electrical reliability;
+allows quick maintenance.
 
-### Sensor Offset Calibration
+Communication between the Arduino Nano and the EV3 is performed through the I²C protocol, reducing the number of required EV3 input ports.
 
-At startup, both ultrasonic sensors take an initial reading while the robot is assumed to be centered on the track. The difference between the left and right readings is stored as an **offset** and subtracted from the error in every control loop. This compensates for small asymmetries in sensor placement or mounting.
+Software Architecture
 
-### PD Control for Lane Centering
+The robot software is divided into several modules:
 
-The robot maintains its position in the lane using a PD (Proportional-Derivative) controller based on the difference between the left and right ultrasonic sensor readings.
+Sensor acquisition
+Steering calibration
+PD controller
+Motion control
+Finite State Machine
+Safety functions
 
-```
+This modular structure makes future modifications easier while improving readability and maintenance.
+
+Automatic Steering Calibration
+
+Every run begins with an automatic calibration routine.
+
+The steering motor:
+
+Rotates to the left mechanical limit.
+Rotates to the right mechanical limit.
+Measures the total steering range.
+Calculates the midpoint.
+Moves to the calculated center.
+Resets the encoder to zero.
+
+This guarantees a repeatable steering reference without manual adjustment.
+
+Sensor Calibration
+
+At startup, the robot records both ultrasonic sensor readings while positioned approximately at the center of the track.
+
+The measured difference is stored as a calibration offset and later removed from every control cycle, compensating for small mechanical assembly tolerances.
+
+PD Steering Controller
+
+The steering controller uses the difference between the left and right ultrasonic sensors.
+
 error = (right_distance - left_distance) - sensor_offset
+
 derivative = (error - previous_error) / dt
-output = Kp * error + Kd * derivative
-```
 
-The output is mapped directly to a target steering position (in encoder degrees), clamped to a safe range to avoid over-steering past the calibrated mechanical limits.
+output = KP × error + KD × derivative
 
-| Parameter | Value |
-|:---------:|:-----:|
-| KP | 0.35 |
-| KI | 0.0 |
-| KD | 0.30 |
+Current parameters:
 
-The integral term is disabled (KI = 0) to avoid windup and instability from sensor noise.
+Constant	Value
+KP	0.35
+KI	0.00
+KD	0.30
 
-### Why PD Instead of Full PID?
+The controller output is converted directly into a steering angle while remaining inside safe mechanical limits.
 
-- **Proportional (KP):** provides immediate correction based on the current error.
-- **Derivative (KD):** reduces oscillation by responding to how quickly the error is changing, smoothing out steering corrections.
-- **Integral (KI):** disabled, since accumulated error from ultrasonic sensor noise could cause windup and erratic steering.
+The integral term is intentionally disabled because ultrasonic measurements contain small fluctuations that could accumulate over time, reducing steering stability.
 
-### Results
+Engineering Journal
 
-Early testing shows the robot tracking near the center of the lane with smooth, small steering corrections rather than abrupt swings, completing multiple laps consistently. Further tuning and lap-counting logic are in progress.
+Development milestones are documented separately in the Engineering Journal, where each hardware and software iteration is described chronologically.
 
----
+Engineering Decisions
+Custom PCB
 
-## Obstacle Challenge (Planned)
+A custom PCB was designed to reduce wiring complexity and improve electrical reliability.
 
-The Obstacle Challenge will extend the system with a vision-based subsystem for detecting and avoiding colored pillars.
+I²C Communication
 
-### Planned Architecture
+Instead of connecting every ultrasonic sensor directly to the EV3, sensor data is collected by the Arduino Nano and transmitted through a single communication channel.
 
-| Subsystem | Responsibility |
-|-----------|----------------|
-| HuskyLens (on Arduino Nano) | Detects colored pillars, extracts horizontal position |
-| Arduino Nano | Processes vision data, sends position over UART |
-| EV3 | Receives position data, controls steering and drive motors |
+Encoder-Based Steering
 
-**Data flow:** HuskyLens → Arduino Nano → EV3 → Motors
+Absolute encoder positioning provides greater steering precision than continuous motor rotation.
 
-### Planned Control Approach
+3D Printed Mounts
 
-```
-loop:
-    if object_detected and width > threshold:
-        # Vision mode
-        error = setpoint - x_position
-    else:
-        # Ultrasonic mode (same as Open Challenge)
-        error = right_distance - left_distance
+Custom supports improve sensor alignment while increasing structural rigidity.
 
-    derivative = error - previous_error
-    output = Kp * error + Kd * derivative
-    output = clamp(output, -limit, limit)
-```
+Current Performance
 
-This approach has not yet been successfully implemented and is being redesigned. It will be documented in detail once a working version is achieved.
+Current testing demonstrates:
 
----
+Stable lane centering
+Smooth steering corrections
+Reliable automatic calibration
+Consistent multi-lap performance
+Improved sensor reliability after PCB integration
+Future Improvements
 
-## Engineering Decisions
+Planned developments include:
 
-### Steering by Absolute Encoder Position
+Obstacle Challenge implementation
+HuskyLens computer vision
+Dynamic speed control
+Complete FSM implementation
+Additional sensor fusion
+Repository Structure
+.
+├── docs/
+│   ├── engineering_journal.md
+│   ├── mechanical_design.md
+│   ├── electronics.md
+│   └── software.md
+│
+├── models/
+│   ├── chassis.stl
+│   ├── sensor_mount.stl
+│   └── pcb/
+│
+├── src/
+│   ├── EV3-G/
+│   ├── pseudocode/
+│   └── arduino/
+│
+├── images/
+│
+└── README.md
+Conclusion
 
-Earlier versions controlled steering using continuous motor rotation (as in EV3-G block programming). The current implementation, written for `ev3dev2`, uses **absolute encoder positions** instead. This required adding the automatic calibration routine described above, but provides far more precise and repeatable steering angles, which improved trajectory accuracy significantly.
+The current version of the Los Grises Jr robot represents the result of an iterative engineering process involving mechanical design, electronics development, embedded programming, and control systems.
 
-### PD Controller Tuning
-
-Initial values (KP = 0.35, KD = 0.30) were carried over conceptually from earlier block-based experiments but had to be re-tuned for the new encoder-based output scale. The current values produce smooth, centered lane-following without the oscillation seen in earlier versions.
-
-### Sensor Offset Compensation
-
-Adding a one-time sensor offset measurement at startup helps account for minor asymmetries in sensor mounting without requiring physical realignment.
-
----
-
-## Challenges
-
-- Migrating steering control from block-based programming (EV3-G) to `ev3dev2`, including building a reliable automatic calibration routine for the steering motor.
-- Tuning PD parameters for the new encoder-based steering scale.
-- Designing the vision-based obstacle avoidance subsystem (in progress).
-
----
-
-## Limitations
-
-- The Obstacle Challenge vision subsystem is not yet functional and is under redesign.
-- Ultrasonic sensor readings can be affected by surface angle and material, which may introduce small inconsistencies in distance measurements.
-
----
-
-## Conclusion
-
-The Los Grises Jr robot currently implements a reliable Open Challenge navigation system based on ultrasonic sensing, automatic steering calibration, and PD control. The Obstacle Challenge vision subsystem remains a work in progress and will be documented as it develops.
-
----
-
-## System Diagram (Current)
-
-```mermaid
-flowchart LR
-    A[Ultrasonic Sensors] -->|Distance Data| B[EV3 Controller]
-    B -->|PD Control Output| C[Steering Motor]
-    B -->|Constant Speed| D[Drive Motor]
-```
+Key improvements—including a custom PCB, encoder-based steering, automatic calibration, and a modular software architecture—have significantly increased the robot's reliability and repeatability during testing. Future work will focus on integrating vision-based obstacle avoidance while preserving the robustness achieved in the Open Challenge.
