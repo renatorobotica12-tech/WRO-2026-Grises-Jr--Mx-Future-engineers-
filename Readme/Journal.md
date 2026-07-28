@@ -1,38 +1,26 @@
-## Engineering journal
+Engineering Journal
 
-## 4/July/2026: Initial Prototyping & Basic Control Code
-We developed a foundational steering and traction system for the open challenge. This code implements a basic PD (Proportional-Derivative) controller utilizing two ultrasonic sensors to maintain a central position in the hallway. We implement the PD because is the best option to use a controller as this type, we dont use the I, because we use anti-windup integral.
+4 July 2026 – Initial Prototyping & Basic Control Code
+We developed the first version of our steering and traction control system for the Open Challenge. The software implemented a PD (Proportional–Derivative) controller using two ultrasonic sensors to keep the robot centered inside the lane. We selected a PD controller because it provides a fast and stable response while avoiding the unnecessary complexity of an integral term for this stage of development.
 
+8 July 2026 – PCB Manufacturing
+To reduce wiring complexity, eliminate loose connections, and improve signal integrity across all sensor channels, we designed a custom PCB for sensor routing and sent it to a manufacturer in China for production.
 
+10 July 2026 – Hardware Integration
+The custom PCB arrived and was successfully assembled. Initial bench tests confirmed reliable power distribution and clean communication signals for the sensor array, significantly improving the electrical reliability and organization of the robot.
 
----
+13 July 2026 – Advanced Control Software & FSM Implementation
+We developed the first beta version of our Finite State Machine (FSM) in MicroPython. The system switches between different driving states, including straight-line PD centering and an asymmetrical open-loop curve-following mode. We implemented an FSM because we believed the robot required decision-making capabilities beyond a traditional feedback controller, allowing it to adapt its behavior according to different driving situations.
 
-## 8/July/2026: PCB Manufacturing
-To reduce wiring complexity, eliminate loose connections, and optimize signal integrity across all four sensor channels, we designed and ordered a custom routing PCB from a manufacturer in China today.
+21 July 2026 – Hardware Delay
+We continued testing with the beta version of our software while waiting for additional cables that had been ordered and were scheduled to arrive on 22 July 2026.
 
----
+21 July 2026 – I²C Communication Development
+We programmed the communication system for our custom PCB using the I²C protocol, allowing multiple ultrasonic sensors to communicate efficiently through a simplified wiring architecture.
 
-## 10/July/2026: Hardware Integration
-The custom PCB arrived and was successfully populated. Bench tests confirm seamless power distribution and clean signal lines for our sensor array, significantly improving structural reliability.
+27 July 2026 – Final Hardware Integration
+Today, we integrated the sensor multiplexer into the robot, allowing us to remove almost all cables connected to the numbered EV3 input ports. As a result, only one of the original four sensor ports is now required.
 
----
+We also installed custom 3D-printed mounts for the ultrasonic sensors, improving their alignment, rigidity, and overall integration with the chassis.
 
-## 13/July/2026: Advanced Control Software & FSM Implementation
-We developed a beta of Finite State Machine (FSM) in MicroPython. It switches states between straight line PID centering and an asymmetrical curve-tracing open loop. 
-We developed this because we think the robot needs a type of intelligence, no the classical PID only.
-
-
----
-
-## 21/July/2026
-We used a beta version of the previous code because we were waiting for some cables that had been ordered and were scheduled to arrive on July 22, 2026
-
----
-## 21/July/26 
-We also programmed the system using the I²C communication protocol for the PCV ordered from China
-
-
-
-## 27/07/26 – Today, we integrated the sensor multiplexer into the robot, allowing us to remove almost all the cables from the numbered ports, leaving only one of the original four letter ports in use.
-
-## We also integrated 3D-printed mounts for the ultrasonic sensors into the robot. Additionally, due to time constraints and ease of development, we decided to return to using EV3-G (EV3 Blocks). However, we will provide the code in pseudocode, along with the original source code file in the src (source code) section.
+Finally, due to development time constraints and the need for rapid testing, we decided to migrate the control software back to EV3-G (EV3 Blocks). To maintain transparency and reproducibility, we will include both the original source code and a pseudocode version in the Source Code (src) section of our repository.
