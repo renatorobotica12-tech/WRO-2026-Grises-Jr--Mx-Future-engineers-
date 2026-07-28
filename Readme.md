@@ -69,8 +69,8 @@ Modular software architecture
 |-----------|-------------|--------|
 | **45544 LEGO MINDSTORMS Education EV3 Core Set** | Forms the chassis, drive motor, and steering motor. Controlled via `ev3-g`. | **In use** |
 | **5x Ultrasonic Sensors** | Mounted on the sides of the chassis for lane centering (left/right wall distance). | **In use** |
-| **Arduino Nano** | ATmega328-based microcontroller, planned for vision processing. | Planned (Obstacle Challenge) |
-| **DFRobot HuskyLens AI Camera** | AI vision sensor for detecting colored obstacles. | Planned (Obstacle Challenge) |
+| **Arduino Nano** | ATmega328-based microcontroller, planned for vision processing. | **In use** |
+| **DFRobot HuskyLens AI Camera** | AI vision sensor for detecting colored obstacles. | **In use** |
 
 ---
 Mechanical Design
