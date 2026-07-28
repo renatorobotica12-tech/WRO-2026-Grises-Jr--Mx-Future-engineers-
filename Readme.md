@@ -210,7 +210,6 @@ Repository Structure
 ├── images/
 │
 └── README.md
-Conclusion
 
 The current version of the Los Grises Jr robot represents the result of an iterative engineering process involving mechanical design, electronics development, embedded programming, and control systems.
 
