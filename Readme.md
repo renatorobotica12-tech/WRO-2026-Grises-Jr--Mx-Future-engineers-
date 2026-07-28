@@ -18,7 +18,7 @@
 <img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" />
 </p>
 
-**Role: Programmer, Mechanical Designer & Team Captain
+**Role:** Programmer, Mechanical Designer & Team Captain
 
 I began my robotics journey through the OnStage TMR program, where I discovered my passion for autonomous systems and engineering. Since then, I have focused on software development, electronics integration, and robot design.
 
