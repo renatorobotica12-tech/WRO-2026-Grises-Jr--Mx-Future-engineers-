@@ -73,7 +73,7 @@ Modular software architecture
 | **DFRobot HuskyLens AI Camera** | AI vision sensor for detecting colored obstacles. | **In use** |
 
 ---
-Mechanical Design
+### Mechanical Design
 
 The vehicle uses an Ackermann-inspired steering mechanism driven by a dedicated EV3 Medium Motor.
 
@@ -81,7 +81,7 @@ Instead of continuously rotating the steering motor, the robot commands absolute
 
 Custom 3D-printed brackets maintain all ultrasonic sensors in fixed positions, reducing vibration and improving measurement consistency.
 
-Electronics
+### Electronics
 
 One of the main engineering improvements was replacing individual sensor wiring with a custom-designed PCB.
 
@@ -95,7 +95,7 @@ allows quick maintenance.
 
 Communication between the Arduino Nano and the EV3 is performed through the I²C protocol, reducing the number of required EV3 input ports.
 
-Software Architecture
+### Software Architecture
 
 The robot software is divided into several modules:
 
@@ -112,7 +112,7 @@ Automatic Steering Calibration
 
 Every run begins with an automatic calibration routine.
 
-The steering motor:
+### The steering motor:
 
 Rotates to the left mechanical limit.
 Rotates to the right mechanical limit.
@@ -123,13 +123,13 @@ Resets the encoder to zero.
 
 This guarantees a repeatable steering reference without manual adjustment.
 
-Sensor Calibration
+### Sensor Calibration
 
 At startup, the robot records both ultrasonic sensor readings while positioned approximately at the center of the track.
 
 The measured difference is stored as a calibration offset and later removed from every control cycle, compensating for small mechanical assembly tolerances.
 
-PD Steering Controller
+### PD Steering Controller
 
 The steering controller uses the difference between the left and right ultrasonic sensors.
 
@@ -141,7 +141,7 @@ output = KP × error + KD × derivative
 
 Current parameters:
 
-Constant	Value
+### Constant	Value
 KP	0.35
 KI	0.00
 KD	0.30
@@ -150,11 +150,11 @@ The controller output is converted directly into a steering angle while remainin
 
 The integral term is intentionally disabled because ultrasonic measurements contain small fluctuations that could accumulate over time, reducing steering stability.
 
-Engineering Journal
+### Engineering Journal
 
 Development milestones are documented separately in the Engineering Journal, where each hardware and software iteration is described chronologically.
 
-Engineering Decisions
+### Engineering Decisions
 Custom PCB
 
 A custom PCB was designed to reduce wiring complexity and improve electrical reliability.
@@ -182,14 +182,14 @@ Consistent multi-lap performance
 Improved sensor reliability after PCB integration
 Future Improvements
 
-Planned developments include:
+## Planned developments include:
 
 Obstacle Challenge implementation
 HuskyLens computer vision
 Dynamic speed control
 Complete FSM implementation
 Additional sensor fusion
-Repository Structure
+### ** Repository Structure **
 .
 ├── docs/
 │   ├── engineering_journal.md
