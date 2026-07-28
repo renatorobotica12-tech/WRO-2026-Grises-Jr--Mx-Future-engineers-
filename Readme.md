@@ -22,7 +22,7 @@
 
 I began my robotics journey through the OnStage TMR program, where I discovered my passion for autonomous systems and engineering. Since then, I have focused on software development, electronics integration, and robot design.
 
-For WRO 2026, my objective is to develop a reliable autonomous vehicle while expanding my knowledge in embedded systems, control theory, and robotic engineering. **
+For WRO 2026, my objective is to develop a reliable autonomous vehicle while expanding my knowledge in embedded systems, control theory, and robotic engineering. 
 
 **Age:** 14
 
