@@ -1,4 +1,4 @@
-
+(Este es el último codigo realizado en ev3dev, lo hicimos antes de decidir volver a Ev3-G, y en nuestras futuras atualizaciones estaremos metiendo el codigo en Ev3-G)
 #!/usr/bin/env python3
 
 from ev3dev2.motor import MediumMotor, OUTPUT_A, OUTPUT_B
