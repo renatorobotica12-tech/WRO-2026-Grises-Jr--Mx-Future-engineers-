@@ -27,10 +27,19 @@ We continued testing with the beta version of our software while waiting for add
 ## 21 July 2026 – I²C Communication Development
 We programmed the communication system for our custom PCB using the I²C protocol, allowing multiple ultrasonic sensors to communicate efficiently through a simplified wiring architecture.
 
-### 27 July 2026 – Final Hardware Integration
+### 27 July 2026 – Pre-final Hardware Integration
 Today, we integrated the sensor multiplexer into the robot, allowing us to remove almost all cables connected to the numbered EV3 input ports. As a result, only one of the original four sensor ports is now required.
 
 We also installed custom 3D-printed mounts for the ultrasonic sensors, improving their alignment, rigidity, and overall integration with the chassis.
 
 Finally, due to development time constraints and the need for rapid testing, we decided to migrate the control software back to EV3-G (EV3 Blocks). To maintain transparency and reproducibility, we will include both the original source code and a pseudocode version in the Source Code (src) section of our repository.
 ---
+### **28 July 2026 – Final Hardware Integration and *The Robot***
+
+Today, we completed the full assembly of our robot and successfully integrated the custom PCB, ultrasonic sensors, and all major hardware components. With its larger structure, it now looks more like an SUV than a regular car.
+
+At first, we were concerned about the robot's dimensions because the competition rules require it to stay within **30 × 30 × 30 cm**. Fortunately, the final measurements are approximately **24 × 23 × 18 cm**, well within the allowed limits.
+
+Another important concern was the robot's center of gravity. To improve stability, we placed the EV3 Brick at the rear of the chassis while positioning the drive motors near the center, resulting in a more balanced weight distribution.
+
+On the software side, we have already developed a significant portion of the codebase. However, the most important milestone still lies ahead: making everything work together reliably. We believe that, with the hardware now complete, software development and testing will be more straightforward. We hope our programmer continues putting in the same level of dedication so that the robot performs as expected in the coming tests.
