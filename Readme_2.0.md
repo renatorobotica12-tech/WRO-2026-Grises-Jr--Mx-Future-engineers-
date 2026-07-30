@@ -159,12 +159,12 @@ Her contributions have been fundamental in transforming the initial prototype in
 |:------------------------------|:------:|:-------:|
 | Mechanical Design | ✅ | ✅ |
 | Robot Assembly | ✅ | ✅ |
-| Electronics Integration | ✅ | ✅ |
+| Electronics Integration |  | ✅ |
 | PCB Installation | ✅ | ✅ |
 | Software Development | ✅ | |
 | EV3 Programming | ✅ | |
 | Arduino Programming | ✅ | |
-| Documentation | ✅ | |
+| Documentation | ✅ | ✅ |
 | Testing & Validation | ✅ | ✅ |
 
 ---
