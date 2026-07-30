@@ -82,7 +82,7 @@ The objective of this repository is to document every stage of the engineering p
 
 <!-- TODO: Replace with Renato's picture -->
 
-<img src="RENATO_PHOTO" width="220">
+<img src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" width="220">
 
 ### Renato Medina
 
