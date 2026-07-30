@@ -4,7 +4,7 @@
 
 <p align="center">
   <!-- TODO: Replace with a YouTube video thumbnail or the main photo of the robot -->
-  <img src="YOUR_MAIN_ROBOT_IMAGE_OR_VIDEO_THUMBNAIL" width="850">
+  <img src="https://github.com/user-attachments/assets/6422e0d6-8cc2-4bbc-beaf-4bbada98c140" width="850">
 </p>
 
 <h2 align="center">
