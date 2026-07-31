@@ -1,5 +1,3 @@
-(**BETA DEL VERDADERO, TODAVIA MANTENEMOS EL ANTERIOR DEBIDO PORQUE TENEMOS Q TENER DE DONDE SACAR LAS IMAGENES, SIN EMBARGO DESPUES DE ESO LO BORRAREMOS**)
-
 # Los Grises Jr
 
 <p align="center">
@@ -79,8 +77,6 @@ The objective of this repository is to document every stage of the engineering p
 <tr>
 
 <td align="center" width="50%">
-
-<!-- TODO: Replace with Renato's picture -->
 
 <img src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" width="220">
 
