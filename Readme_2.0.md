@@ -228,11 +228,10 @@ The current version of the robot incorporates several engineering improvements d
 
 > **Note:** A demonstration video will be added once final testing has been completed.
 
-<!-- TODO: Insert YouTube video here -->
 
 | Top View | Right Side | Left Side |
 |:---------:|:----------:|:---------:|
-| <img src="TOP_VIEW" width="220"> | <img src="RIGHT_VIEW" width="220"> | <img src="LEFT_VIEW" width="220"> |
+| <img src="https://github.com/user-attachments/assets/4440147d-9600-491b-a967-1af42e869efa" width="220"> | <img src="RIGHT_VIEW" width="220"> | <img src="LEFT_VIEW" width="220"> |
 
 | Bottom View | Rear View | Perspective |
 |:-----------:|:---------:|:-----------:|
