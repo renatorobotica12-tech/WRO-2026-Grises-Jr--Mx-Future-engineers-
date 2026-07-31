@@ -235,7 +235,7 @@ The current version of the robot incorporates several engineering improvements d
 
 | Bottom View | Rear View | Perspective |
 |:-----------:|:---------:|:-----------:|
-| <img src="https://github.com/user-attachments/assets/47117a61-1927-4884-a85a-d80c9e8139e6" width="220"> | <img src="REAR_VIEW" width="220"> | <img src="PERSPECTIVE_VIEW" width="220"> |
+| <img src="https://github.com/user-attachments/assets/47117a61-1927-4884-a85a-d80c9e8139e6" width="220"> | <img src="https://github.com/user-attachments/assets/5d44d4db-c581-44e0-86bb-8d20cec6b4b8" width="220"> | <img src="PERSPECTIVE_VIEW" width="220"> |
 
 ---
 
