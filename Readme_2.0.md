@@ -233,9 +233,9 @@ The current version of the robot incorporates several engineering improvements d
 |:---------:|:----------:|:---------:|
 | <img src="https://github.com/user-attachments/assets/4440147d-9600-491b-a967-1af42e869efa" width="220"> | <img src="https://github.com/user-attachments/assets/d07e3bec-f223-4d49-a879-2c7a64f843c3" width="220"> | <img src="https://github.com/user-attachments/assets/36231890-177c-4a6f-8faf-0d1627496dcb" width="220"> |
 
-| Bottom View | Rear View | Perspective |
+| Bottom View | Rear View | Rear |
 |:-----------:|:---------:|:-----------:|
-| <img src="https://github.com/user-attachments/assets/47117a61-1927-4884-a85a-d80c9e8139e6" width="220"> | <img src="https://github.com/user-attachments/assets/5d44d4db-c581-44e0-86bb-8d20cec6b4b8" width="220"> | <img src="https://github.com/user-attachments/assets/36231890-177c-4a6f-8faf-0d1627496dcb" width="220"> |
+| <img src="https://github.com/user-attachments/assets/47117a61-1927-4884-a85a-d80c9e8139e6" width="220"> | <img src="https://github.com/user-attachments/assets/5d44d4db-c581-44e0-86bb-8d20cec6b4b8" width="220"> | <img src="https://github.com/user-attachments/assets/5d44d4db-c581-44e0-86bb-8d20cec6b4b8" width="220"> |
 
 ---
 
