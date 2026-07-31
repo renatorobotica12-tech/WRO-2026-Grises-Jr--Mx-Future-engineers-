@@ -1,116 +1,264 @@
-# Los Grises Jr
-
-# World Robot Olympiad 2026
-## Future Engineers Category
-
 <div align="center">
 
-**Controller** • **Coprocessor** • **Vision** • **PCB** • **Software**
+# 🏎️ LOS GRISES JR
+
+## World Robot Olympiad 2026  
+### Future Engineers Category
+
+<br>
+
+![WRO 2026](https://img.shields.io/badge/WRO-2026-005BBB?style=for-the-badge)
+![Future Engineers](https://img.shields.io/badge/Future_Engineers-Category-00A86B?style=for-the-badge)
+![LEGO EV3](https://img.shields.io/badge/Main_Controller-LEGO_EV3-F7C600?style=for-the-badge)
+![Arduino Nano](https://img.shields.io/badge/Coprocessor-Arduino_Nano-00979D?style=for-the-badge)
+![Custom PCB](https://img.shields.io/badge/Electronics-Custom_PCB-6A5ACD?style=for-the-badge)
+![HuskyLens](https://img.shields.io/badge/Vision-HuskyLens_AI-FF4500?style=for-the-badge)
+
+<br>
+
+---
+
+# 📷 Final Competition Robot
+
+**Insert final robot hero image here**
+
+*(Recommended image: front three-quarter view showing the complete vehicle)*
+
+---
+
+### Official Engineering Repository
+
+Documentation of Team Los Grises Jr's autonomous vehicle developed for:
+
+**World Robot Olympiad 2026 — Future Engineers Category**
+
+---
 
 </div>
 
----
 
-# Official Repository
+# 🚗 Project Overview
 
-This repository contains the complete engineering documentation of **Team Los Grises Jr** for the **World Robot Olympiad (WRO) 2026 – Future Engineers** category.
+Our robot is a fully autonomous four-wheel vehicle designed for the **World Robot Olympiad 2026 Future Engineers competition**.
 
-The objective of this repository is to document the complete development process of our autonomous vehicle, including its mechanical design, electronic architecture, embedded software, control algorithms, and the engineering decisions made throughout the season.
+The objective of this project is to develop a reliable autonomous vehicle capable of navigating the competition environment through a combination of:
 
-Rather than presenting only the final robot, this repository describes the complete design evolution, highlighting the challenges encountered, the solutions implemented, and the reasoning behind every major improvement.
+- Mechanical engineering.
+- Embedded electronics.
+- Autonomous control algorithms.
+- Sensor processing.
+- Software architecture.
+- Iterative testing and optimization.
 
----
 
-# Table of Contents
+The final platform combines:
 
-- Team
-- Project Overview
-- Engineering Highlights
-- Robot Specifications
-- Vehicle Gallery
-- Components and Hardware
-- Mechanical Design
-- Electronics
-- Custom PCB
-- Software Architecture
-- Automatic Steering Calibration
-- Sensor Calibration
-- PD Steering Controller
-- Finite State Machine
-- Engineering Decisions
-- Current Performance
-- Future Improvements
-- Engineering Journal
-- Repository Structure
+| System | Implementation |
+|:---|:---|
+| Steering | Ackermann steering geometry |
+| Drive System | Rear-wheel drive |
+| Main Controller | LEGO Mindstorms EV3 Brick |
+| Coprocessor | Arduino Nano |
+| Vision System | HuskyLens AI Camera |
+| Distance Measurement | Five ultrasonic sensors |
+| Communication | I²C protocol |
+| Electronics | Custom-designed PCB |
+| Control Algorithm | Adaptive Dual PD Controller |
+| Decision System | Finite State Machine |
+
 
 ---
 
-# Team
+# ⚡ Quick System Overview
 
-## Team Photo
+<div align="center">
 
-*(Insert team photo here.)*
+```
+                 ┌──────────────────┐
+                 │ HuskyLens Camera │
+                 └────────┬─────────┘
+                          │
+                          ▼
+
+┌────────────────┐    ┌──────────────┐
+│ Ultrasonic     │───▶│ Custom PCB   │
+│ Sensors (x5)   │    └──────┬───────┘
+└────────────────┘           │
+                             ▼
+
+                      ┌────────────┐
+                      │ Arduino    │
+                      │ Nano       │
+                      └─────┬──────┘
+                            │
+                          I²C
+                            │
+                            ▼
+
+                    ┌──────────────┐
+                    │ LEGO EV3     │
+                    │ Controller   │
+                    └──────┬───────┘
+                           │
+
+             ┌─────────────┴─────────────┐
+             ▼                           ▼
+
+      Steering Motor              Drive Motor
+
+```
+
+</div>
+
+
+The robot uses a distributed architecture where each subsystem performs a specific role:
+
+- The **Arduino Nano** manages sensor acquisition and communication.
+- The **EV3 Brick** performs navigation decisions and motion control.
+- The **Custom PCB** organizes power distribution and signal routing.
+- The **software architecture** coordinates calibration, sensing, and autonomous driving.
+
 
 ---
 
-## Team Members
+# 📑 Table of Contents
 
-### Renato Medina
-**Team Captain**
+- [👥 Team](#-team)
+- [🚗 Project Overview](#-project-overview)
+- [⚡ Quick System Overview](#-quick-system-overview)
+- [⭐ Engineering Highlights](#-engineering-highlights)
+- [📊 Robot Specifications](#-robot-specifications)
+- [📸 Vehicle Gallery](#-vehicle-gallery)
+- [🔩 Components and Hardware](#-components-and-hardware)
+- [🛠 Mechanical Design](#-mechanical-design)
+- [⚡ Electronics](#-electronics)
+- [🔌 Custom PCB](#-custom-pcb)
+- [💻 Software Architecture](#-software-architecture)
+- [🎯 Steering Calibration](#-automatic-steering-calibration)
+- [📡 Sensor Calibration](#-sensor-calibration)
+- [🎮 Dual PD Controller](#-dual-pd-steering-controller)
+- [🔄 Finite State Machine](#-finite-state-machine)
+- [🧠 Engineering Decisions](#-engineering-decisions)
+- [📈 Current Performance](#-current-performance)
+- [🚀 Future Improvements](#-future-improvements)
+- [📓 Engineering Journal](#-engineering-journal)
+- [📂 Repository Structure](#-repository-structure)
+- [🏁 Conclusion](#-conclusion)
 
-**Primary Responsibilities**
-
-- Software Development
-- Mechanical Design
-- Embedded Programming
-- System Integration
-- Robot Architecture
-- Project Documentation
-
-**Age:** 14
-
----
-
-### Paulina
-
-**Mechanical & Electronics Designer**
-
-**Primary Responsibilities**
-
-- Mechanical Assembly
-- Electronics Integration
-- PCB Installation
-- Robot Testing
-- Structural Optimization
 
 ---
 
-## Renato Medina
+# 👥 Team
 
-Renato serves as the team captain and leads the software and system integration of the project.
 
-His responsibilities include the development of the robot's software architecture, autonomous navigation algorithms, embedded programming, mechanical design, and technical documentation.
+## 📷 Team Photo
 
-His interest in robotics began through the **OnStage TMR** program, where he developed a strong passion for autonomous systems and engineering design. Since then, he has focused on combining software, electronics, and mechanical engineering to build reliable autonomous robots.
+<div align="center">
 
-For the 2026 WRO season, his primary objective is to develop a robust autonomous vehicle while expanding his knowledge of embedded systems, control theory, and robotic engineering.
+**Insert official team photograph here**
+
+</div>
+
 
 ---
 
-## Paulina
+# 👨‍💻 Renato Medina
+
+## Team Captain
+
+
+| Information | Details |
+|:---|:---|
+| Age | 14 |
+| Role | Team Captain and Programmer |
+| Main Areas | Software, Embedded Systems, Integration |
+
+
+### Responsibilities
+
+- 💻 Software Development
+- 🤖 Autonomous Navigation Algorithms
+- ⚙️ Mechanical Design
+- 🔧 Robot Integration
+- 🧠 System Architecture
+- 📚 Technical Documentation
+- 🔌 Embedded Programming
+
+
+---
+
+### About Renato
+
+Renato serves as the **Team Captain** and leads the software architecture, autonomous navigation development, project documentation, and system integration of the robot.
+
+His robotics journey began through the **OnStage TMR program**, where he developed a strong interest in autonomous systems, embedded programming, and engineering design.
+
+Since then, he has focused on combining:
+
+- Software development.
+- Electronics.
+- Mechanical design.
+- Control systems.
+
+to create reliable robotic platforms.
+
+For the WRO 2026 season, his objective is to develop a highly reliable autonomous vehicle while expanding his knowledge of embedded systems, control theory, and robotic engineering.
+
+
+📷 **Insert Renato working on the robot image here**
+
+
+---
+
+# 👩‍🔧 Paulina
+
+## Mechanical & Electronics Designer
+
+
+| Information | Details |
+|:---|:---|
+| Role | Mechanical & Electronics Designer |
+| Main Areas | Assembly, Electronics, Testing |
+
+
+### Responsibilities
+
+- 🔩 Mechanical Assembly
+- ⚡ Electronics Integration
+- 🔌 PCB Installation
+- 🧪 Robot Testing
+- 📐 Structural Optimization
+- 🛠 Cable Organization
+
+
+---
+
+### About Paulina
 
 Paulina is responsible for the robot's mechanical construction and electronic integration.
 
-Her work includes structural assembly, sensor installation, PCB integration, wiring organization, and mechanical validation throughout the development process.
+Her work focuses on:
 
-Her contributions have been fundamental in transforming the initial prototype into a reliable competition-ready robot by improving both structural rigidity and assembly quality.
+- Structural assembly.
+- Sensor installation.
+- PCB integration.
+- Mechanical validation.
+- Hardware reliability.
+
+
+Her contributions have been fundamental in transforming the initial prototype into a competition-ready autonomous vehicle with improved stability and maintainability.
+
+
+📷 **Insert Paulina working on assembly image here**
+
 
 ---
 
-# Team Responsibilities
+# 🤝 Team Responsibilities
+
 
 | Area | Renato | Paulina |
-|:--------------------------|:------:|:-------:|
+|:---|:---:|:---:|
 | Mechanical Design | ✅ | ✅ |
 | Robot Assembly | ✅ | ✅ |
 | Electronics Integration | | ✅ |
@@ -121,53 +269,59 @@ Her contributions have been fundamental in transforming the initial prototype in
 | Documentation | ✅ | ✅ |
 | Testing & Validation | ✅ | ✅ |
 
----
-
-# Project Overview
-
-Our robot is a fully autonomous four-wheel vehicle developed for the **World Robot Olympiad Future Engineers** competition.
-
-The platform combines an **Ackermann steering system**, **rear-wheel drive**, **five ultrasonic sensors**, a **HuskyLens AI vision camera**, an **Arduino Nano coprocessor**, and a **custom-designed PCB** to create a compact, modular, and reliable autonomous system.
-
-Instead of connecting every sensor directly to the EV3 Brick, the robot employs a distributed electronic architecture in which the Arduino Nano acquires and processes sensor measurements before transmitting the required information through an I²C communication bus. This approach simplifies wiring, reduces EV3 port usage, and improves system maintainability.
-
-The software is organized into independent modules responsible for steering calibration, sensor calibration, autonomous navigation, and motion control. A Finite State Machine (FSM) coordinates the robot's behavior while closed-loop PD controllers continuously adjust the steering according to the surrounding environment.
-
-Throughout the season, every subsystem has been iteratively refined with three primary engineering objectives:
-
-- Increase system reliability.
-- Improve repeatability between runs.
-- Simplify maintenance and future development.
 
 ---
 
-# Engineering Highlights
+# ⭐ Engineering Philosophy
 
-The current version of the robot incorporates several engineering improvements developed specifically for the WRO Future Engineers challenge.
 
-| Feature | Description |
-|:-------------------------------|:------------------------------------------------|
+> [!IMPORTANT]
+>
+> The development of Los Grises Jr is based on continuous engineering improvement.
+>
+> Every subsystem has been tested, analyzed, modified, and optimized with three main objectives:
+>
+> - Increase reliability.
+> - Improve repeatability.
+> - Simplify maintenance.
+
+
+---
+
+# ⭐ Engineering Highlights
+
+
+The current robot incorporates multiple engineering improvements developed specifically for the **WRO Future Engineers Challenge**.
+
+
+| Feature | Implementation |
+|:---|:---|
 | Steering System | Ackermann steering geometry |
 | Drive System | Rear-wheel drive |
-| Distance Sensors | Five ultrasonic sensors |
-| Vision System | HuskyLens AI camera |
+| Sensors | Five ultrasonic sensors |
+| Vision | HuskyLens AI camera |
 | Coprocessor | Arduino Nano |
-| Custom Electronics | Custom-designed PCB |
+| Electronics | Custom PCB |
 | Communication | I²C architecture |
 | Steering Calibration | Automatic encoder-based calibration |
-| Navigation Controller | Closed-loop PD steering controller |
-| Software Architecture | Modular software design |
-| Decision System | Finite State Machine (FSM) |
-| Sensor Mounts | Custom 3D-printed supports |
+| Control | Adaptive Dual PD controller |
+| Navigation | Finite State Machine |
+| Software | Modular architecture |
+| Sensor Mounting | Custom 3D printed supports |
 | Mechanical Design | Optimized weight distribution |
-| Electrical Design | Organized cable management |
+
 
 ---
 
-# Robot Specifications
+<div align="center">
+
+# 📊 Robot Specifications
+
+
+<div align="center">
 
 | Specification | Value |
-|:----------------------------|:--------------------------------|
+|:---|:---|
 | Competition | WRO Future Engineers 2026 |
 | Robot Type | Autonomous Vehicle |
 | Dimensions | 24 × 23 × 18 cm |
@@ -181,641 +335,846 @@ The current version of the robot incorporates several engineering improvements d
 | Distance Sensors | Five Ultrasonic Sensors |
 | Communication Protocol | I²C |
 | Custom Electronics | Custom PCB |
-| Sensor Mounts | 3D-Printed |
+| Sensor Supports | 3D Printed |
+| Programming Languages | EV3-G & Arduino C++ |
 
----
-# Vehicle Gallery
+</div>
 
-The images below show the final competition vehicle from multiple perspectives.
-
-These photographs illustrate the overall mechanical design, sensor placement, wiring organization, and integration of the different hardware subsystems.
-
-> **Note:** A demonstration video will be added after the final validation tests have been completed.
-
-| Top View | Right Side | Left Side |
-|----------|------------|-----------|
-| *(Image)* | *(Image)* | *(Image)* |
-
-| Bottom View | Rear View | Front View |
-|-------------|-----------|------------|
-| *(Image)* | *(Image)* | *(Image)* |
 
 ---
 
-# Components and Hardware
+# 📸 Vehicle Gallery
 
-The robot combines LEGO components with custom-designed electronics to create a modular and reliable autonomous platform.
 
-Each component was selected according to its functionality, reliability, and compatibility with the overall system architecture.
+The following images show the final competition vehicle from different perspectives.
+
+These photographs demonstrate:
+
+- Mechanical construction.
+- Sensor placement.
+- Electronics integration.
+- Cable organization.
+- Overall vehicle design.
+
+
+<div align="center">
+
+
+| Front View | Top View | Right Side |
+|:---:|:---:|:---:|
+| 📷 | 📷 | 📷 |
+| Insert image | Insert image | Insert image |
+
+
+| Left Side | Rear View | Bottom View |
+|:---:|:---:|:---:|
+| 📷 | 📷 | 📷 |
+| Insert image | Insert image | Insert image |
+
+
+</div>
+
+
+> [!NOTE]
+>
+> A demonstration video will be added after the final validation tests are completed.
+
+
+---
+
+# 🔩 Components and Hardware
+
+
+The robot combines LEGO components with custom embedded electronics to create a modular and reliable autonomous platform.
+
+Each component was selected according to:
+
+- Reliability.
+- Compatibility.
+- Mechanical integration.
+- Software requirements.
+- Long-term maintainability.
+
 
 | Component | Quantity | Function | Status |
-|:----------------------|:-------:|:---------------------------------------------|:------:|
+|:---|:---:|:---|:---:|
 | LEGO EV3 Brick | 1 | Main controller | ✅ |
 | EV3 Large Motor | 1 | Rear-wheel traction | ✅ |
 | EV3 Medium Motor | 1 | Ackermann steering | ✅ |
 | Ultrasonic Sensors | 5 | Distance measurement | ✅ |
-| Arduino Nano | 1 | Sensor acquisition and I²C communication | ✅ |
-| HuskyLens AI Camera | 1 | Obstacle detection | ✅ |
+| Arduino Nano | 1 | Sensor acquisition and communication | ✅ |
+| HuskyLens AI Camera | 1 | Vision processing | ✅ |
 | Custom PCB | 1 | Power and signal distribution | ✅ |
 | LEGO Wheels | 4 | Vehicle mobility | ✅ |
 | 3D Printed Supports | Multiple | Sensor mounting | ✅ |
 
----
-
-# Mechanical Design
-
-The mechanical structure of the robot was developed through multiple design iterations, each focused on improving structural rigidity, weight distribution, ease of maintenance, and overall driving performance.
-
-Rather than modifying a single prototype, the robot evolved progressively as new engineering challenges were identified during testing. Every redesign addressed specific limitations observed in previous versions, resulting in a platform that is significantly more robust and reliable than the initial concept.
-
-A major design constraint throughout development was compliance with the official **WRO Future Engineers** regulations, particularly the maximum robot dimensions of **30 × 30 × 30 cm**. Every iteration was carefully verified to ensure full compliance while maximizing the available internal space for electronics and future upgrades.
 
 ---
 
-## Final Dimensions
+# 🛠 Mechanical Design
+
+
+## Design Evolution
+
+
+The mechanical structure of the robot was developed through multiple iterations focused on:
+
+- Structural rigidity.
+- Weight distribution.
+- Driving stability.
+- Maintenance accessibility.
+- Competition compliance.
+
+
+Rather than modifying only a single prototype, the robot evolved progressively through testing and engineering improvements.
+
+Every redesign addressed specific limitations discovered during previous experiments.
+
+The result is a compact autonomous vehicle designed for reliability and repeatability.
+
+
+---
+
+## 📷 Mechanical Design Overview
+
+
+<div align="center">
+
+**Insert chassis evolution image here**
+
+</div>
+
+
+---
+
+# 📏 Final Dimensions
+
 
 | Measurement | Value |
-|:-----------|:------|
+|:---|:---:|
 | Length | 24 cm |
 | Width | 23 cm |
 | Height | 18 cm |
 
-The final design remains comfortably within the competition limits while providing sufficient space for the steering mechanism, electronic components, sensor routing, and future hardware improvements.
+
+The final design remains within the official WRO Future Engineers limit of:
+
+```
+30 × 30 × 30 cm
+```
+
+
+The available internal space allows integration of:
+
+- EV3 electronics.
+- Arduino coprocessor.
+- Custom PCB.
+- Sensor wiring.
+- Steering mechanism.
+
 
 ---
 
-# Weight Distribution
+# ⚖️ Weight Distribution
 
-A balanced center of gravity was considered one of the most important aspects of the mechanical design.
 
-Instead of concentrating all components at the front of the vehicle, the mass was intentionally distributed across the chassis to improve stability during acceleration, braking, and cornering.
+Achieving a balanced center of gravity was one of the main mechanical objectives.
 
-The main design decisions include:
 
-- Positioning the EV3 Brick at the rear of the chassis.
-- Installing the drive motor near the center of the vehicle.
-- Mounting the steering motor directly above the steering linkage.
-- Locating the custom PCB close to the ultrasonic sensors to minimize cable lengths.
-- Placing the Arduino Nano adjacent to the PCB to simplify electrical routing.
+Instead of concentrating all components in one area, the mass was intentionally distributed throughout the chassis.
 
-This configuration reduces unwanted chassis oscillations, improves vehicle balance, and contributes to more consistent driving performance.
 
----
+## Main Design Decisions
 
-# Ackermann Steering System
 
-The robot employs an Ackermann-inspired steering mechanism driven by an EV3 Medium Motor.
+| Component | Position |
+|:---|:---|
+| EV3 Brick | Rear section |
+| Drive Motor | Center area |
+| Steering Motor | Above steering mechanism |
+| Custom PCB | Near sensor assembly |
+| Arduino Nano | Adjacent to PCB |
 
-Unlike differential-drive robots, the Ackermann geometry enables smoother and more realistic vehicle motion by reducing tire slip during cornering and allowing both front wheels to follow more natural trajectories.
 
-Steering commands are generated using the motor's encoder position rather than continuous motor rotation. This approach offers several important advantages:
+This configuration improves:
 
-- Highly repeatable steering angles.
-- Accurate steering positioning.
-- Faster steering response.
-- Automatic steering centering.
-- Reduced cumulative positioning error.
+- Acceleration stability.
+- Braking behavior.
+- Cornering performance.
+- Mechanical reliability.
 
-To protect the steering mechanism from mechanical overtravel, the steering angle is limited by software before motor commands are applied.
 
 ---
 
-# Rear-Wheel Drive
+# 🔄 Ackermann Steering System
 
-Vehicle propulsion is provided by a rear-wheel-drive configuration powered by a single EV3 Large Motor.
 
-This drivetrain was selected because it provides several practical advantages for the Future Engineers challenge:
+The robot uses an Ackermann-inspired steering mechanism powered by an EV3 Medium Motor.
 
-- Better traction during acceleration.
-- Reduced interference with the steering system.
-- Simpler mechanical transmission.
-- Improved reliability.
-- Easier maintenance.
 
-Separating the steering and traction systems also simplifies software control and makes vehicle behavior more predictable during autonomous navigation.
+Unlike differential steering systems, Ackermann geometry allows the vehicle to follow more realistic turning trajectories by reducing tire slip.
 
----
 
-# Sensor Mounts
+## Steering Control Method
 
-All ultrasonic sensors are installed using custom-designed 3D-printed brackets.
 
-These supports were specifically designed to ensure that every sensor remains rigidly aligned throughout testing and competition.
+The steering motor is controlled using encoder positions instead of continuous rotation.
 
-Compared to mounting the sensors directly on LEGO beams, the printed brackets provide several advantages:
 
-- Improved alignment accuracy.
-- Increased structural rigidity.
-- Reduced vibration.
-- Simplified installation.
-- Consistent sensor positioning.
+This provides:
 
-Maintaining fixed sensor positions significantly improves measurement repeatability and contributes to more stable autonomous navigation.
-# Electronics
+✅ Repeatable steering angles  
+✅ Faster response  
+✅ Automatic steering centering  
+✅ Reduced positioning error  
 
-The robot combines LEGO electronics with custom embedded hardware to create a modular, reliable, and easy-to-maintain electrical architecture.
-
-Instead of connecting every sensor directly to the EV3 Brick, the system distributes processing tasks between two controllers. The EV3 Brick acts as the primary controller responsible for navigation, motion control, and decision-making, while an Arduino Nano operates as a dedicated coprocessor responsible for sensor acquisition and communication.
-
-This distributed architecture reduces the computational load on the EV3, simplifies wiring, minimizes occupied input ports, and makes future hardware expansions considerably easier.
-
-The result is a cleaner electrical system that improves reliability, maintenance, and debugging throughout the development process.
 
 ---
 
-# Electronic Architecture
+## Steering Protection
+
+
+The software limits the maximum steering angle to prevent:
+
+- Mechanical overtravel.
+- Transmission stress.
+- Unnecessary motor load.
+
+
+---
+
+# 🚗 Rear-Wheel Drive
+
+
+The vehicle uses a rear-wheel-drive configuration powered by an EV3 Large Motor.
+
+
+This architecture was selected because it provides several advantages:
+
+
+| Advantage | Result |
+|:---|:---|
+| Better weight transfer | Improved acceleration |
+| Independent steering system | Less interference |
+| Simpler drivetrain | Increased reliability |
+| Easier maintenance | Faster repairs |
+
+
+Separating propulsion and steering makes vehicle behavior more predictable during autonomous navigation.
+
+
+---
+
+# 📡 Sensor Mounts
+
+
+All ultrasonic sensors are installed using custom-designed 3D printed brackets.
+
+
+<div align="center">
+
+📷 **Insert sensor mount image here**
+
+</div>
+
+
+The supports were designed to:
+
+
+- Maintain precise alignment.
+- Reduce vibration.
+- Improve rigidity.
+- Simplify installation.
+- Guarantee repeatable sensor positioning.
+
+
+Compared with direct LEGO mounting, the printed supports significantly improve measurement consistency.
+
+
+---
+
+# ⚡ Electronics
+
+
+The robot combines LEGO electronics with custom embedded hardware to create a modular electrical architecture.
+
+
+The system is divided into two main processing units:
+
+
+| Controller | Responsibility |
+|:---|:---|
+| LEGO EV3 Brick | Navigation, decision making, motor control |
+| Arduino Nano | Sensor acquisition and communication |
+
+
+This distributed architecture provides:
+
+- Reduced wiring complexity.
+- Lower EV3 port usage.
+- Easier debugging.
+- Better scalability.
+
+
+---
+
+# 🔌 Electronic Architecture
+
+
+<div align="center">
+
 
 ```
           Ultrasonic Sensors
-      ┌────┬────┬────┬────┬────┐
-      │    │    │    │    │    │
-      └────┴────┴────┴────┴────┘
+              │ │ │ │ │
+              ▼ ▼ ▼ ▼ ▼
+
+          ┌────────────┐
+          │ Custom PCB │
+          └─────┬──────┘
                 │
-                ▼
-          Custom PCB
+
+          ┌────────────┐
+          │ Arduino    │
+          │ Nano       │
+          └─────┬──────┘
                 │
-                ▼
-          Arduino Nano
+              I²C
+
                 │
-             I²C Bus
+
+          ┌────────────┐
+          │ LEGO EV3   │
+          │ Brick      │
+          └─────┬──────┘
+
                 │
-                ▼
-          LEGO EV3 Brick
-                │
-     Steering & Drive Motors
+
+      Steering Motor + Drive Motor
+
 ```
 
-The architecture separates sensing, processing, and actuation into independent modules. This modular approach simplifies maintenance and allows each subsystem to be tested individually without affecting the rest of the robot.
+</div>
+
+
+The architecture separates:
+
+- Sensor acquisition.
+- Data communication.
+- Decision making.
+- Vehicle control.
+
+
+This modular approach allows each subsystem to be tested independently.
+
 
 ---
 
-# Custom PCB
+# 🔌 Custom PCB
 
-One of the most significant improvements introduced during this season was the development of a custom Printed Circuit Board (PCB).
 
-During the early stages of development, each ultrasonic sensor was connected individually using jumper wires. Although functional, this solution quickly became difficult to maintain as additional sensors and electronics were incorporated into the robot.
+One of the most important improvements during development was the creation of a custom Printed Circuit Board.
 
-Long cable runs increased assembly time, complicated troubleshooting, and reduced the overall mechanical organization of the vehicle.
 
-To address these issues, we designed a dedicated PCB specifically for this project.
+During early testing, sensors were connected individually using loose wiring.
 
-Rather than acting only as a breakout board, the PCB serves as the electrical backbone of the robot, centralizing power distribution, signal routing, and sensor connections while providing a dedicated interface for the Arduino Nano.
+Although functional, this approach caused:
 
-This significantly improves assembly quality while reducing wiring complexity and the probability of accidental disconnections.
 
----
+❌ Cable clutter  
+❌ Difficult maintenance  
+❌ Loose connections  
+❌ Limited organization  
 
-## Why We Designed a Custom PCB
 
-The PCB was developed after identifying several limitations in the original wiring approach:
+To solve these problems, a dedicated PCB was designed specifically for this robot.
 
-- Excessive cable clutter.
-- Loose electrical connections.
-- Difficult maintenance.
-- Limited EV3 input ports.
-- Poor internal organization.
-
-Replacing individual wiring with a dedicated PCB resulted in a cleaner, more reliable, and easier-to-maintain electrical system.
 
 ---
 
-## Main Functions
+## PCB Functions
 
-The custom PCB performs several essential functions within the robot:
 
-- Power distribution.
-- Signal routing.
-- Ultrasonic sensor connections.
-- Arduino Nano interface.
-- I²C communication routing.
-- Simplified cable management.
-- Easier maintenance.
+The custom PCB provides:
 
-Each ultrasonic sensor can be disconnected independently without affecting the remaining electronics, making diagnostics and repairs considerably faster during testing.
+
+| Function | Purpose |
+|:---|:---|
+| Power distribution | Organized electrical supply |
+| Signal routing | Cleaner connections |
+| Sensor interfaces | Easy sensor replacement |
+| Arduino interface | Simplified communication |
+| Cable management | Improved organization |
+
 
 ---
 
 ## PCB Advantages
 
-Compared to the previous wiring solution, the custom PCB provides several engineering advantages:
 
-- Cleaner internal organization.
-- Reduced assembly time.
-- Faster troubleshooting.
-- Greater mechanical robustness.
-- Lower probability of accidental disconnections.
-- Improved electrical reliability.
-- Simplified future hardware upgrades.
+Compared with individual wiring, the PCB provides:
 
-Beyond improving aesthetics, the PCB increases the repeatability and maintainability of the entire electrical system, making it better suited for repeated competition runs.
 
----
-# Communication System
+✅ Cleaner internal organization  
+✅ Faster assembly  
+✅ Easier troubleshooting  
+✅ Higher mechanical reliability  
+✅ Reduced accidental disconnections  
+✅ Better future expansion capability  
 
-Communication between the Arduino Nano and the LEGO EV3 Brick is established through the I²C protocol.
-
-Instead of connecting each ultrasonic sensor directly to the EV3, the Arduino Nano continuously acquires data from all five sensors, organizes the measurements, and transmits the processed information through a single I²C channel.
-
-This architecture significantly reduces the number of occupied EV3 input ports while simplifying both the electrical wiring and the software responsible for sensor management.
-
-```
-Ultrasonic Sensors
-        │
-        ▼
-   Arduino Nano
-        │
-  Reads all sensors
-        │
-Processes measurements
-        │
-      I²C Bus
-        │
-        ▼
-   LEGO EV3 Brick
-        │
- Decision & Control
-        │
-        ▼
- Steering and Drive Motors
-```
-
-By separating sensor acquisition from vehicle control, the EV3 can dedicate its processing resources to navigation and decision-making while the Arduino handles low-level communication with the sensors.
-
-This modular architecture offers several engineering advantages:
-
-- Reduced wiring complexity.
-- Lower EV3 port usage.
-- Simplified software development.
-- Improved scalability.
-- Faster troubleshooting.
-- Easier hardware maintenance.
 
 ---
 
-# Software Architecture
+<div align="center">
 
-The robot software was designed following a modular architecture, where each subsystem performs a specific task independently.
 
-Instead of implementing all functionalities within a single program, the software is divided into specialized modules responsible for sensing, calibration, control, and navigation.
+**Software Architecture • Calibration Systems • Dual PD Controller • FSM • Engineering Decisions • Future Improvements • Repository Structure**
 
-This organization simplifies debugging, improves code readability, and allows individual modules to be modified or tested without affecting the remaining system.
+</div>
 
-The complete execution sequence is illustrated below.
+# 💻 Software Architecture
 
+
+The robot software was designed using a **modular architecture**, where each subsystem has a specific responsibility.
+
+
+Instead of implementing all functionalities inside a single program, the system is divided into independent modules for:
+
+- Sensor acquisition.
+- Calibration.
+- Decision making.
+- Motion control.
+- Autonomous navigation.
+
+
+This organization improves:
+
+✅ Code readability  
+✅ Debugging efficiency  
+✅ Testing capability  
+✅ Future expansion  
+
+
+---
+
+# 🧩 Software Execution Flow
+
+
+<div align="center">
+
+
+```mermaid
+flowchart TD
+
+A[START] --> B[Automatic Steering Calibration]
+
+B --> C[Read Ultrasonic Sensors]
+
+C --> D[Sensor Calibration]
+
+D --> E[Finite State Machine]
+
+E --> F{Driving Condition}
+
+F -->|Corner Detected| G[Turn Controller]
+
+F -->|Straight Corridor| H[Corridor Controller]
+
+G --> I[Steering Command]
+
+H --> I
+
+I --> J[EV3 Motors]
+
+J --> C
 ```
-                 START
-                   │
-                   ▼
- Automatic Steering Calibration
-                   │
-                   ▼
-      Ultrasonic Sensor Reading
-                   │
-                   ▼
-        Sensor Calibration
-                   │
-                   ▼
-     Finite State Machine (FSM)
-                   │
-                   ▼
-   Select Navigation Controller
-                   │
-          ┌────────┴────────┐
-          ▼                 ▼
-    Turn Controller   Corridor Controller
-          │                 │
-          └────────┬────────┘
-                   ▼
-          Steering Commands
-                   │
-                   ▼
-            EV3 Motors
-```
 
-Each module has a clearly defined responsibility within the navigation process.
+</div>
+
+
+---
+
+# ⚙️ Software Modules
+
 
 | Module | Function |
-|:--------------------------|:------------------------------------------------|
-| Sensor Acquisition | Reads the five ultrasonic sensors through the Arduino Nano |
-| Steering Calibration | Automatically centers the steering mechanism |
-| Sensor Calibration | Compensates for installation offsets |
-| Finite State Machine | Selects the navigation strategy |
-| Turn Controller | PD controller optimized for cornering |
-| Corridor Controller | PD controller optimized for straight corridors |
-| Motion Controller | Controls vehicle speed and steering |
-| Safety Functions | Prevents invalid steering commands |
+|:---|:---|
+| Sensor Acquisition | Reads ultrasonic sensors through Arduino Nano |
+| Steering Calibration | Automatically centers steering mechanism |
+| Sensor Calibration | Removes mechanical measurement offsets |
+| Finite State Machine | Selects driving behavior |
+| Turn Controller | Optimized PD control for corners |
+| Corridor Controller | Optimized PD control for straight sections |
+| Motion Controller | Controls speed and steering |
+| Safety Functions | Prevents invalid commands |
 
-This modular structure makes future improvements considerably easier, since each subsystem can evolve independently without requiring major modifications to the rest of the software.
-
----
-
-# Automatic Steering Calibration
-
-To ensure consistent steering behavior, every autonomous run begins with an automatic steering calibration routine.
-
-Rather than relying on manual alignment before each attempt, the robot determines the center position of the steering mechanism automatically using the motor encoder.
-
-The calibration procedure consists of locating both mechanical limits of the steering system, measuring the total steering travel, calculating the midpoint, and finally positioning the steering motor at the calculated center.
-
-This process guarantees that every run starts from the same steering reference, eliminating operator-dependent errors and improving repeatability.
-
-The calibration sequence is shown below.
-
-```
-Left Mechanical Limit
-         │
-         ▼
-Right Mechanical Limit
-         │
-         ▼
-Measure Steering Range
-         │
-         ▼
-Calculate Center Position
-         │
-         ▼
-Move to Center
-         │
-         ▼
-Reset Encoder
-```
-
-After calibration, the steering encoder is reset to zero, establishing a common reference for all subsequent steering commands.
-
-This routine provides several advantages:
-
-- Consistent steering alignment before every run.
-- Improved trajectory repeatability.
-- Elimination of manual adjustments.
-- Reduced cumulative steering errors.
-- Increased navigation accuracy.
-
-Because the steering reference is generated automatically, the robot maintains stable behavior even after repeated testing sessions or mechanical disassembly.
-# Sensor Calibration
-
-Although the ultrasonic sensors are identical models, small variations in their installation and mechanical positioning can introduce slight measurement differences.
-
-To compensate for these tolerances, the robot performs an automatic sensor calibration during initialization.
-
-While the robot is positioned approximately at the center of the track, the distances measured by the left and right ultrasonic sensors are recorded. The difference between these measurements is stored as a correction offset.
-
-```
-Sensor Offset
-
-offset = Right Sensor − Left Sensor
-```
-
-During every control cycle, this offset is removed from the measured error before the steering controller is executed.
-
-```
-Corrected Error
-
-error = (Right Distance − Left Distance) − Offset
-```
-
-By compensating for installation tolerances, the controller receives a more accurate estimate of the vehicle's lateral position, resulting in smoother steering corrections and improved lane-centering performance.
-
-The calibration procedure also reduces the need for manual sensor alignment after maintenance or hardware modifications.
 
 ---
 
-# Dual PD Steering Controller
+# 🎯 Automatic Steering Calibration
 
-The steering system is controlled by a closed-loop **Proportional-Derivative (PD)** controller.
 
-Instead of using a single set of control parameters throughout the entire course, the robot implements **two independent PD controllers**, each optimized for a different driving condition.
+Every autonomous run begins with an automatic steering calibration routine.
 
-The active controller is selected dynamically according to the distance measured by the ultrasonic sensors through the I²C communication system.
 
-This adaptive strategy allows the vehicle to prioritize speed during turns while maintaining higher steering accuracy when driving through straight corridors.
+The objective is to guarantee that every attempt starts from the same steering reference position.
 
----
+Instead of manually aligning the steering system, the robot automatically determines the mechanical limits using the motor encoder.
 
-## Controller Selection
-
-At every control cycle, the EV3 reads the distance measurements provided by the Arduino Nano.
-
-If the measured distance is **80 cm or less**, the robot switches to **Turn Mode**.
-
-Otherwise, it operates in **Corridor Mode**.
-
-```
-           Read I²C Sensors
-                  │
-                  ▼
-      Is Distance ≤ 80 cm?
-          │             │
-        YES             NO
-          │             │
-          ▼             ▼
-    Turn Controller  Corridor Controller
-```
 
 ---
 
-## Turn Controller
+## Calibration Process
 
-When the measured distance is **80 cm or less**, the robot assumes that it is approaching a corner.
 
-In this mode, the controller is configured to allow smooth steering corrections while maintaining a relatively high forward speed.
+```mermaid
+flowchart TD
 
-Controller parameters:
+A[Left Mechanical Limit]
+--> B[Right Mechanical Limit]
+
+B --> C[Measure Steering Range]
+
+C --> D[Calculate Center Position]
+
+D --> E[Move Steering Motor to Center]
+
+E --> F[Reset Encoder]
+
+```
+
+
+---
+
+## Advantages
+
+
+The calibration system provides:
+
+
+✅ Consistent steering position  
+✅ Improved repeatability  
+✅ Elimination of manual adjustments  
+✅ Reduced steering errors  
+✅ Better autonomous accuracy  
+
+
+After calibration, the steering encoder is reset to zero and becomes the reference point for all future commands.
+
+
+---
+
+# 📡 Sensor Calibration
+
+
+Even identical ultrasonic sensors may produce small differences due to:
+
+- Manufacturing tolerances.
+- Mechanical positioning.
+- Assembly variations.
+
+
+To compensate for these differences, the robot performs an automatic sensor calibration routine at startup.
+
+
+---
+
+## Sensor Offset Calculation
+
+
+The robot measures the difference between the left and right sensors while positioned approximately in the center of the track.
+
+
+### Offset:
+
+```text
+offset = Right Sensor - Left Sensor
+```
+
+
+During operation, this value is removed from the steering error calculation.
+
+
+### Corrected Error:
+
+```text
+error = (Right Distance - Left Distance) - Offset
+```
+
+
+---
+
+## Benefits
+
+
+This calibration improves:
+
+
+✅ Lane-centering accuracy  
+✅ Sensor consistency  
+✅ Repeatability after maintenance  
+✅ Control stability  
+
+
+---
+
+# 🎮 Adaptive Dual PD Steering Controller
+
+
+The steering system uses a closed-loop **Proportional-Derivative controller**.
+
+
+Instead of using only one controller configuration, the robot uses two different PD controllers depending on the driving situation.
+
+
+The active controller is selected automatically according to the environment.
+
+
+---
+
+# Controller Selection
+
+
+```mermaid
+flowchart TD
+
+A[Read I²C Sensor Data]
+
+A --> B{Distance ≤ 80 cm?}
+
+B -->|YES| C[Turn Controller]
+
+B -->|NO| D[Corridor Controller]
+
+C --> E[Apply Steering]
+
+D --> E
+
+E --> F[Update Motors]
+
+F --> A
+
+```
+
+
+---
+
+# 🔄 Turn Controller
+
+
+When the robot detects that it is approaching a corner, it enters Turn Mode.
+
+
+The controller prioritizes smooth cornering while maintaining speed.
+
 
 | Parameter | Value |
-|-----------|------:|
+|:---|:---:|
 | KP | 1.6 |
 | KI | 0.0 |
 | KD | 0.2 |
 | Forward Speed | 65 |
 | Steering Limit | ±20 |
 
-The reduced steering limit prevents excessive steering angles, producing smoother trajectories and reducing oscillations while negotiating corners.
 
 ---
 
-## Corridor Controller
+# ➡️ Corridor Controller
 
-When the measured distance is greater than **80 cm**, the robot enters Corridor Mode.
 
-In this state, maintaining the vehicle centered within the lane becomes the primary objective.
+When the robot is inside a long corridor, lane-centering accuracy becomes the priority.
 
-Controller parameters:
 
 | Parameter | Value |
-|-----------|------:|
+|:---|:---:|
 | KP | 3.0 |
 | KI | 0.0 |
 | KD | 0.2 |
 | Forward Speed | 35 |
 | Steering Limit | ±40 |
 
-Compared with Turn Mode, the proportional gain is increased and a larger steering range is permitted. This enables the robot to react more aggressively to lateral deviations and maintain accurate lane centering.
 
 ---
 
-## Control Algorithm
+# Control Equation
 
-The steering correction is computed using the following equations:
 
-```
-error = (right_distance − left_distance) − sensor_offset
+The steering correction is calculated using:
 
-derivative = error − previous_error
+
+```text
+error = (right_distance - left_distance) - sensor_offset
+
+derivative = error - previous_error
 
 output = (KP × error) + (KD × derivative)
 ```
 
-The integral term is intentionally disabled because ultrasonic sensors naturally introduce measurement fluctuations that may accumulate over time without providing significant improvements in steering performance.
 
-Before applying the steering command, the controller output is limited according to the active navigation mode.
+The integral term is intentionally disabled because ultrasonic sensors naturally produce small variations that could accumulate over time.
 
-```
-Turn Mode
-Maximum Steering = ±20
-
-Corridor Mode
-Maximum Steering = ±40
-```
-
-Finally, the steering command is sent to the steering motor while the drive motor maintains the corresponding forward speed for the selected mode.
-
-This adaptive controller provides a good balance between cornering smoothness and lane-centering accuracy while keeping the control algorithm computationally simple and highly repeatable.
 
 ---
 
-# Finite State Machine
+# 🔄 Finite State Machine (FSM)
 
-The navigation software is organized around a **Finite State Machine (FSM)**.
 
-Instead of executing a single control strategy throughout the entire run, the robot continuously evaluates its environment and selects the controller that best matches the current driving condition.
+The robot navigation system is organized around a Finite State Machine.
 
-The state transitions are based on the distance measurements received from the Arduino Nano through the I²C communication bus.
+
+The FSM allows the robot to change behavior according to the current environment.
+
+
+---
+
+# FSM Diagram
+
+
+```mermaid
+stateDiagram-v2
+
+[*] --> Calibration
+
+Calibration --> ReadSensors
+
+ReadSensors --> TurnMode: Distance ≤ 80cm
+
+ReadSensors --> CorridorMode: Distance > 80cm
+
+TurnMode --> UpdateMotors
+
+CorridorMode --> UpdateMotors
+
+UpdateMotors --> ReadSensors
 
 ```
-                 START
-                   │
-                   ▼
-     Automatic Steering Calibration
-                   │
-                   ▼
-         Read I²C Sensor Data
-                   │
-                   ▼
-      Distance ≤ 80 cm ?
-          │                 │
-        YES                 NO
-          │                 │
-          ▼                 ▼
-     TURN MODE       CORRIDOR MODE
-          │                 │
-          └────────┬────────┘
-                   ▼
-       Update Steering & Drive
-                   │
-                   ▼
-           Read Sensors Again
-                   │
-                   └──────────────► Repeat
-```
 
-This architecture separates high-level decision-making from low-level vehicle control.
-
-The FSM determines **which controller should be active**, while each PD controller computes the steering correction using its own set of parameters.
-
-This modular organization simplifies debugging, improves software readability, and makes future extensions—such as obstacle avoidance, dynamic speed control, or vision-based navigation—significantly easier to implement without modifying the existing control architecture.
-# Engineering Decisions
-
-Every major design choice was based on iterative testing, quantitative observations, and continuous refinement throughout the development process.
-
-Rather than selecting components or algorithms solely based on theoretical considerations, each subsystem was evaluated experimentally and improved according to its performance during real-world testing.
-
-The table below summarizes the most important engineering decisions and the reasoning behind each one.
-
-| Engineering Decision | Reason | Benefit |
-|:-------------------------------|:---------------------------------------------------------|:---------------------------------------------------------|
-| Ackermann Steering | Provides realistic steering geometry with reduced wheel slip. | Smoother and more accurate cornering. |
-| Rear-Wheel Drive | Separates propulsion from steering. | Improved traction and simplified drivetrain. |
-| Encoder-Based Steering | Enables absolute steering position control. | High repeatability and automatic centering. |
-| Five Ultrasonic Sensors | Expands environmental perception. | Increased measurement redundancy and reliability. |
-| Arduino Nano Coprocessor | Offloads sensor acquisition from the EV3. | Reduced computational load and simpler software. |
-| I²C Communication | Consolidates sensor data into a single interface. | Lower EV3 port usage and cleaner wiring. |
-| Custom PCB | Centralizes power and signal routing. | Improved electrical organization and easier maintenance. |
-| 3D-Printed Sensor Mounts | Maintains fixed sensor alignment. | Greater measurement consistency and reduced vibration. |
-| Modular Software Architecture | Separates software into independent modules. | Easier debugging, maintenance, and scalability. |
-| Dual PD Controller | Adapts steering behavior to different driving conditions. | Improved stability in both turns and straight corridors. |
 
 ---
 
-# Current Performance
+## FSM Advantages
 
-Testing of the current robot demonstrates that the implemented architecture provides consistent and repeatable autonomous behavior.
 
-The combination of mechanical improvements, modular electronics, and adaptive control algorithms has significantly increased the robot's overall reliability compared to earlier prototypes.
+The FSM architecture provides:
 
-Current achievements include:
 
-- Stable lane-centering performance.
-- Smooth steering corrections.
-- Reliable automatic steering calibration.
-- Consistent repeatability between multiple runs.
-- Stable I²C communication between the Arduino Nano and the EV3 Brick.
-- Improved electrical reliability after PCB integration.
-- Simplified maintenance due to modular wiring.
-- Robust mechanical assembly suitable for repeated testing.
+✅ Clear software organization  
+✅ Easier debugging  
+✅ Independent controller development  
+✅ Future expansion capability  
 
-Although software optimization is still ongoing, the current platform provides a reliable foundation for both the Open Challenge and future development of the Obstacle Challenge.
 
----
+Future states can include:
 
-# Future Improvements
 
-While the current robot successfully meets the objectives established for this stage of development, several improvements are planned for future iterations.
+- Obstacle avoidance.
+- Vision-based navigation.
+- Dynamic speed control.
+- Advanced sensor fusion.
 
-These enhancements focus on increasing navigation accuracy, expanding autonomous capabilities, and improving overall system performance.
-
-Planned developments include:
-
-- Complete implementation of the Obstacle Challenge.
-- Full integration of the HuskyLens vision system.
-- Dynamic speed adaptation based on track conditions.
-- Expanded Finite State Machine with additional navigation states.
-- Sensor fusion techniques combining ultrasonic and vision data.
-- Enhanced obstacle avoidance algorithms.
-- Further optimization of the steering controller.
-- Additional mechanical refinements.
-- Improved cable management and electrical integration.
-
-The modular architecture adopted throughout this project allows these improvements to be incorporated with minimal impact on the existing software and hardware.
 
 ---
 
-# Engineering Journal
+# 🧠 Engineering Decisions
 
-The complete engineering process has been documented chronologically in a dedicated engineering journal.
 
-Each development stage, hardware modification, software improvement, and design decision has been recorded to provide a comprehensive overview of the project's evolution.
+Every major engineering decision was based on testing, analysis, and continuous improvement.
+
+
+| Decision | Reason | Benefit |
+|:---|:---|:---|
+| Ackermann Steering | More realistic vehicle geometry | Smoother turns |
+| Rear-Wheel Drive | Separates propulsion and steering | Better reliability |
+| Encoder Steering | Absolute position control | Repeatable angles |
+| Five Ultrasonic Sensors | Increased environmental awareness | Better perception |
+| Arduino Nano Coprocessor | Dedicated sensor processing | Reduced EV3 workload |
+| I²C Communication | Single communication channel | Cleaner architecture |
+| Custom PCB | Organized electronics | Improved maintenance |
+| 3D Printed Mounts | Fixed sensor position | Better measurements |
+| Modular Software | Independent modules | Easier development |
+| Dual PD Controller | Adaptive driving behavior | Better stability |
+
+
+---
+
+# 📈 Current Performance
+
+
+Current testing demonstrates that the robot provides reliable autonomous behavior.
+
+
+Achievements:
+
+
+✅ Stable lane-centering  
+✅ Smooth steering corrections  
+✅ Automatic steering calibration  
+✅ Consistent multi-run performance  
+✅ Stable Arduino-EV3 communication  
+✅ Improved electrical reliability after PCB integration  
+✅ Strong mechanical structure for repeated testing  
+
+
+The current platform provides a reliable foundation for completing future competition objectives.
+
+
+---
+
+# 🚀 Future Improvements
+
+
+Although the current robot already provides a strong foundation, several improvements are planned.
+
+
+## Planned Development
+
+
+- Complete Obstacle Challenge implementation.
+- Full HuskyLens integration.
+- Dynamic speed controller.
+- Expanded FSM architecture.
+- Sensor fusion techniques.
+- Improved obstacle avoidance.
+- Further steering optimization.
+- Additional mechanical improvements.
+- Final cable management refinement.
+
+
+The modular architecture allows these improvements to be implemented without redesigning the complete system.
+
+
+---
+
+# 📓 Engineering Journal
+
+
+The complete engineering process is documented in a dedicated engineering journal.
+
 
 The journal includes:
 
-- Design iterations.
-- Mechanical modifications.
-- Electronic improvements.
-- Software development milestones.
+
+- Mechanical iterations.
+- Hardware modifications.
+- Software development.
 - Testing procedures.
 - Engineering decisions.
-- Performance evaluations.
+- Performance analysis.
 
-📄 **Engineering Journal**
+
+📄 Engineering Journal:
 
 ```
 docs/engineering_journal.md
 ```
 
+
 ---
 
-# Repository Structure
+# 📂 Repository Structure
 
-```
+
+```text
 .
 ├── docs
 │   ├── engineering_journal.md
@@ -840,58 +1199,76 @@ docs/engineering_journal.md
 │   └── Pseudocode
 │
 └── README.md
+
 ```
 
-The repository is organized to separate documentation, software, CAD models, and visual resources, making navigation straightforward for judges, collaborators, and future development.
 
 ---
 
-# Development Timeline
+# 📅 Development Timeline
+
 
 | Date | Milestone |
-|:------------|:---------------------------------------------|
+|:---|:---|
 | 4 Jul 2026 | Initial PD controller prototype |
 | 8 Jul 2026 | PCB manufacturing |
-| 10 Jul 2026 | PCB assembly and validation |
-| 13 Jul 2026 | Finite State Machine implementation |
+| 10 Jul 2026 | PCB assembly and testing |
+| 13 Jul 2026 | FSM implementation |
 | 21 Jul 2026 | I²C communication completed |
 | 27 Jul 2026 | Final hardware integration |
 | 28 Jul 2026 | Final robot assembly |
 
-A detailed description of each milestone is available in the Engineering Journal.
 
 ---
 
-# Acknowledgements
+# 🙏 Acknowledgements
 
-We would like to express our sincere gratitude to our mentors, teachers, and everyone who supported the development of this project throughout the WRO 2026 season.
 
-Their guidance, technical advice, and continuous encouragement have been fundamental in transforming an initial concept into a reliable autonomous vehicle.
+We would like to thank our mentors, teachers, and everyone who supported the development of this project throughout the WRO 2026 season.
 
-Their support has played a significant role in both our technical growth and our understanding of the engineering design process.
+
+Their guidance, technical advice, and encouragement were essential in transforming an initial concept into a functional autonomous vehicle.
+
 
 ---
 
-# Conclusion
+# 🏁 Conclusion
 
-The current version of the **Los Grises Jr** robot represents the result of an iterative engineering process driven by continuous testing, systematic evaluation, and incremental improvements.
 
-Throughout the season, every subsystem—including the mechanical structure, embedded electronics, control algorithms, and software architecture—has been refined with the objective of maximizing reliability, repeatability, and maintainability.
+The current version of the **Los Grises Jr autonomous vehicle** represents the result of an iterative engineering process involving:
 
-Compared to our earliest prototypes, the final robot incorporates a custom-designed PCB, an Arduino Nano coprocessor, automatic steering calibration, encoder-based Ackermann steering, modular software architecture, and an adaptive dual PD steering controller.
+- Mechanical design.
+- Electronics development.
+- Embedded programming.
+- Control theory.
+- Autonomous navigation.
 
-Although development is still ongoing, the current platform provides a robust foundation for completing both the Open Challenge and the Obstacle Challenge.
 
-As we continue testing and refining the system, we remain committed to applying sound engineering principles to every stage of the design process while continuously improving both the hardware and software of our autonomous vehicle.
+Compared with the earliest prototypes, the final platform incorporates:
+
+
+✅ Custom-designed PCB  
+✅ Arduino Nano coprocessor  
+✅ Ackermann steering system  
+✅ Automatic steering calibration  
+✅ Adaptive Dual PD controller  
+✅ Modular software architecture  
+✅ Improved mechanical reliability  
+
+
+The project continues evolving toward the completion of the remaining WRO challenges while maintaining the engineering principles that guided the entire development process:
+
+
+> **Reliability, repeatability, and continuous improvement.**
+
 
 ---
 
 <div align="center">
 
-# Team Los Grises Jr
+# 🏎️ Team Los Grises Jr
 
-**World Robot Olympiad 2026 – Future Engineers**
+## World Robot Olympiad 2026  
+## Future Engineers Category
 
 </div>
-
-
