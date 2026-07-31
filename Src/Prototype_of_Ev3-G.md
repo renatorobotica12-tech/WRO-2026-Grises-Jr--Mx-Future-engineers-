@@ -1,3 +1,4 @@
+## Pseudocódigo
 INICIO
 
     Inicializar el robot.
@@ -61,5 +62,5 @@ INICIO
 
 FIN
 
-
+## Código en Ev3-G 
 <img width="1286" height="481" alt="3388029a-0e82-4c70-ba89-43083cc78581" src="https://github.com/user-attachments/assets/0cdb5868-6990-4e59-840f-fe66571ec242" />
