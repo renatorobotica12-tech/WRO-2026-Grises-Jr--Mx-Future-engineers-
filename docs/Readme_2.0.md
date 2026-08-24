@@ -165,9 +165,11 @@ The robot uses a distributed architecture where each subsystem performs a specif
 ---
 
 # 👨‍💻 Renato Medina
+<p align="center">
+<img width="350" height="350" alt="Image" src="https://github.com/user-attachments/assets/dd9e997b-65a7-4909-8207-ea3630b5aff4" />
+</p>
 
 ## Team Captain
-
 
 | Information | Details |
 |:---|:---|
@@ -205,10 +207,6 @@ Since then, he has focused on combining:
 to create reliable robotic platforms.
 
 For the WRO 2026 season, his objective is to develop a highly reliable autonomous vehicle while expanding his knowledge of embedded systems, control theory, and robotic engineering.
-
-
-📷 **Insert Renato working on the robot image here**
-
 
 ---
 
