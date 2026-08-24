@@ -300,7 +300,7 @@ The current robot incorporates multiple engineering improvements developed speci
 | Drive System | Rear-wheel drive |
 | Sensors | Five ultrasonic sensors |
 | Vision | HuskyLens AI camera |
-| Coprocessor | Arduino Nano |
+| Coprocessors | 2 Arduino Nano |
 | Electronics | Custom PCB |
 | Communication | I²C architecture |
 | Steering Calibration | Automatic encoder-based calibration |
