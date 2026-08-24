@@ -11,13 +11,13 @@
 - Piezas de Lego Ev3
 - 3 Soportes para ultrasonicos impresos en 3d, 2 hechos para 4 sensores y uno hecho para un solo sensor
 
-## Puertos
-Puerto A: Motor de Tracción
-Puerto B: Motor de dirección
-Puerto C: Nothing
-Puerto D: Alimentador de PCB 
+##  Puertos
+- Puerto A: Motor de Tracción
+- Puerto B: Motor de dirección
+- Puerto C: Sin utilizar aun
+- Puerto D: Alimentador de PCB 
 --- 
-Puerto 1: Sensor HSDV
-Puerto 2: Conexión de cámara
-Puerto 3: 
-Puerto 4: Conexion i2c
+- Puerto 1: Sensor HSDV Lego hi technic 2.0
+- Puerto 2: Conexión de cámara
+- Puerto 3: Sin utilizar aun
+- Puerto 4: Conexion i2c
