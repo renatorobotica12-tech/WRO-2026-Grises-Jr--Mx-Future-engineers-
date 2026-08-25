@@ -750,7 +750,6 @@ This organization improves:
 
 🧩 Software Execution Flow
 
-```mermaid
 flowchart TD
     A[START: Calibrate Steering & Reset Gyro to 0°] --> B[Read Sensors: Ultrasonics, Gyro Heading, HuskyLens]
     B --> C{Turn_Count == 12?}
@@ -758,14 +757,14 @@ flowchart TD
     C -->|NO| E{front_dist < Critical_Distance?}
     E -->|YES: Emergency| F[Safety Override: Reverse & Re-align]
     E -->|NO: Drive Mode| G{Driving Condition / Corner Detected?}
-    G -->|Corridor State| H[Corridor PD: Target Heading = 0° + Vision Offset]
-    G -->|Corner State| I[Turn PD: Target Heading = Target + 90° | Turn_Count + 1]
+    G -->|Corridor State| H["Corridor PD: Target Heading = 0° + Vision Offset"]
+    G -->|Corner State| I["Turn PD: Target Heading = Target + 90° | Turn_Count + 1"]
     H --> J[Apply Motors Command]
     I --> J
     F --> J
     J --> B
     D --> K[END PROGRAM]
-```
+    
 🎯 Automatic Steering Calibration
 
 Every autonomous run begins with an automatic steering calibration routine.
