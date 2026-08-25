@@ -142,7 +142,6 @@ The robot uses a distributed architecture where each subsystem performs a specif
 - [🔄 Finite State Machine](#-finite-state-machine)
 - [🧠 Engineering Decisions](#-engineering-decisions)
 - [📈 Current Performance](#-current-performance)
-- [🚀 Future Improvements](#-future-improvements)
 - [📓 Engineering Journal](#-engineering-journal)
 - [📂 Repository Structure](#-repository-structure)
 - [🏁 Conclusion](#-conclusion)
@@ -934,31 +933,6 @@ Achievements:
 
 
 The current platform provides a reliable foundation for completing future competition objectives.
-
-
----
-
-# 🚀 Future Improvements
-
-
-Although the current robot already provides a strong foundation, several improvements are planned.
-
-
-## Planned Development
-
-
-- Complete Obstacle Challenge implementation.
-- Full HuskyLens integration.
-- Dynamic speed controller.
-- Expanded FSM architecture.
-- Sensor fusion techniques.
-- Improved obstacle avoidance.
-- Further steering optimization.
-- Additional mechanical improvements.
-- Final cable management refinement.
-
-
-The modular architecture allows these improvements to be implemented without redesigning the complete system.
 
 
 ---
