@@ -45,10 +45,15 @@ Another important concern was the robot's center of gravity. To improve stabilit
 On the software side, we have already developed a significant portion of the codebase. However, the most important milestone still lies ahead: making everything work together reliably. We believe that, with the hardware now complete, software development and testing will be more straightforward. We hope our programmer continues putting in the same level of dedication so that the robot performs as expected in the coming tests.
 
 ---
-**24 August 2026** – I²C Communication Problems and Hardware Bottleneck
+###  **24 August 2026** – I²C Communication Problems and Hardware Bottleneck
 
 After several weeks of development, I²C became a major problem for us because the Arduino Nano we were using was defective. The board was missing its factory bootloader, and for some reason, we were unable to reinstall it. We tried everything we knew, including several alternative workarounds, but after four weeks, nothing worked.
 
 The solution was to purchase a new Nano. We confirmed that the software itself was working by testing it with a borrowed Nano that did not have the same issue. This allowed us to conclude that the original board was faulty rather than the software being the source of the problem.
 
 Now, we are waiting for the new Nano so we can continue testing the programs and resume the I²C integration.
+
+---
+
+### **25/08/2026**  - The develop of a new code
+- El dia de hoy empezamos a prototipar un nuevo codigo
