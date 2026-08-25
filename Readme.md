@@ -3,6 +3,9 @@
 # 🏎️ LOS GRISES JR
 ## World Robot Olympiad 2026  
 ### Future Engineers Category
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6422e0d6-8cc2-4bbc-beaf-4bbada98c140" width="700" />
+</p>
 
 <br>
 
@@ -30,9 +33,6 @@
 Documentation of Team Los Grises Jr's autonomous vehicle developed for:
 **World Robot Olympiad 2026 — Future Engineers Category**
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/6422e0d6-8cc2-4bbc-beaf-4bbada98c140" width="700" />
-</p>
 
 ---
 
