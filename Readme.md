@@ -732,346 +732,164 @@ Compared with individual wiring, the PCB provides:
 
 </div>
 
-# 💻 Software Architecture
+💻 Software Architecture
 
-
-The robot software was designed using a **modular architecture**, where each subsystem has a specific responsibility.
-
-
+The robot software was designed using a modular architecture, where each subsystem has a specific responsibility.
 Instead of implementing all functionalities inside a single program, the system is divided into independent modules for:
-
-- Sensor acquisition.
-- Calibration.
-- Decision making.
-- Motion control.
-- Autonomous navigation.
-
+* Sensor acquisition (Ultrasonics, Gyroscope & Vision).
+* Calibration.
+* Decision making (FSM & Turn Counting).
+* Motion control.
+* Autonomous parking.
 
 This organization improves:
+✅ Code readability
+✅ Debugging efficiency
+✅ Testing capability
+✅ System scalability
 
-✅ Code readability  
-✅ Debugging efficiency  
-✅ Testing capability  
-✅ Future expansion  
-
-
----
-
-# 🧩 Software Execution Flow
-
-
-<div align="center">
-
+🧩 Software Execution Flow
 
 ```mermaid
 flowchart TD
-
-A[START] --> B[Automatic Steering Calibration]
-
-B --> C[Read Ultrasonic Sensors]
-
-C --> D[Sensor Calibration]
-
-D --> E[Finite State Machine]
-
-E --> F{Driving Condition}
-
-F -->|Corner Detected| G[Turn Controller]
-
-F -->|Straight Corridor| H[Corridor Controller]
-
-G --> I[Steering Command]
-
-H --> I
-
-I --> J[EV3 Motors]
-
-J --> C
+    A[START: Calibrate Steering & Reset Gyro to 0°] --> B[Read Sensors: Ultrasonics, Gyro Heading, HuskyLens]
+    B --> C{Turn_Count == 12?}
+    C -->|YES| D[BREAK LOOP: Execute Reverse Parking Routine]
+    C -->|NO| E{front_dist < Critical_Distance?}
+    E -->|YES: Emergency| F[Safety Override: Reverse & Re-align]
+    E -->|NO: Drive Mode| G{Driving Condition / Corner Detected?}
+    G -->|Corridor State| H[Corridor PD: Target Heading = 0° + Vision Offset]
+    G -->|Corner State| I[Turn PD: Target Heading = Target + 90° | Turn_Count + 1]
+    H --> J[Apply Motors Command]
+    I --> J
+    F --> J
+    J --> B
+    D --> K[END PROGRAM]
 ```
-
-</div>
-
-
----
-
-# ⚙️ Software Modules
-
-
-| Module | Function |
-|:---|:---|
-| Sensor Acquisition | Reads ultrasonic sensors through Arduino Nano |
-| Steering Calibration | Automatically centers steering mechanism |
-| Sensor Calibration | Removes mechanical measurement offsets |
-| Finite State Machine | Selects driving behavior |
-| Turn Controller | Optimized PD control for corners |
-| Corridor Controller | Optimized PD control for straight sections |
-| Motion Controller | Controls speed and steering |
-| Safety Functions | Prevents invalid commands |
-
-
----
-
-# 🎯 Automatic Steering Calibration
-
+🎯 Automatic Steering Calibration
 
 Every autonomous run begins with an automatic steering calibration routine.
-
-
 The objective is to guarantee that every attempt starts from the same steering reference position.
+Instead of manually aligning the steering system, the robot automatically determines the mechanical limits using the motor encoder and resets the EV3 Gyroscope to absolute 0°.
 
-Instead of manually aligning the steering system, the robot automatically determines the mechanical limits using the motor encoder.
+Advantages:
+✅ Consistent steering position
+✅ Elimination of manual adjustments
+✅ Reliable absolute heading for the gyroscope
 
+📡 Sensor Calibration & Fusion
 
----
+Even identical ultrasonic sensors may produce small differences. The robot performs an automatic sensor calibration routine at startup to calculate offsets.
+Furthermore, to eliminate drift caused by missing walls or track irregularities, the raw distance errors from the ultrasonic sensors are fused with the EV3 Gyroscope angle.
 
-## Calibration Process
+Heading Error Calculation:
+Heading_Error = Target_Angle - Current_Gyro_Angle
 
+Fused Error Entry:
+Fused_Error = Heading_Error + Lateral_Sensor_Offset
 
-```mermaid
-flowchart TD
+👁️ AI Vision & Obstacle Avoidance
 
-A[Left Mechanical Limit]
---> B[Right Mechanical Limit]
+For the Obstacle Challenge, the robot integrates a HuskyLens AI Camera programmed to detect colored pillars.
 
-B --> C[Measure Steering Range]
+If Red is detected: The system adds a positive offset to the target, forcing the robot to pass the pillar on the right side.
 
-C --> D[Calculate Center Position]
+If Green is detected: The system adds a negative offset, forcing the robot to pass on the left side.
+This vision data modifies the lateral control dynamically without interrupting the forward momentum.
 
-D --> E[Move Steering Motor to Center]
+🎮 Adaptive Dual PD Steering Controller
 
-E --> F[Reset Encoder]
+The steering system uses a closed-loop Proportional-Derivative controller that switches automatically depending on the driving situation.
 
-```
+🔄 Turn Controller (Corner Mode)
+When the robot detects an approaching corner (via diagonal sensors), it updates its Gyro target by 90° and prioritizes smooth cornering.
 
+KP: 1.6
 
----
+KD: 0.2
 
-## Advantages
+Forward Speed: 65
 
+Steering Limit: ±20
 
-The calibration system provides:
+➡️ Corridor Controller (Straight Mode)
+When inside a long corridor, maintaining a perfect 0° heading and lane-centering becomes the priority.
 
+KP: 3.0
 
-✅ Consistent steering position  
-✅ Improved repeatability  
-✅ Elimination of manual adjustments  
-✅ Reduced steering errors  
-✅ Better autonomous accuracy  
+KD: 0.2
 
+Forward Speed: 35
 
-After calibration, the steering encoder is reset to zero and becomes the reference point for all future commands.
+Steering Limit: ±40
 
-
----
-
-# 📡 Sensor Calibration
-
-
-Even identical ultrasonic sensors may produce small differences due to:
-
-- Manufacturing tolerances.
-- Mechanical positioning.
-- Assembly variations.
-
-
-To compensate for these differences, the robot performs an automatic sensor calibration routine at startup.
-
-
----
-
-## Sensor Offset Calculation
-
-
-The robot measures the difference between the left and right sensors while positioned approximately in the center of the track.
-
-
-### Offset:
-
-```text
-offset = Right Sensor - Left Sensor
-```
-
-
-During operation, this value is removed from the steering error calculation.
-
-
-### Corrected Error:
-
-```text
-error = (Right Distance - Left Distance) - Offset
-```
-
-
----
-
-## Benefits
-
-
-This calibration improves:
-
-
-✅ Lane-centering accuracy  
-✅ Sensor consistency  
-✅ Repeatability after maintenance  
-✅ Control stability  
-
-
----
-
-# 🎮 Adaptive Dual PD Steering Controller
-
-
-The steering system uses a closed-loop **Proportional-Derivative controller**.
-
-
-Instead of using only one controller configuration, the robot uses two different PD controllers depending on the driving situation.
-
-
-The active controller is selected automatically according to the environment.
-
-
----
-
-# Controller Selection
-
-
-```mermaid
-flowchart TD
-
-A[Read I²C Sensor Data]
-
-A --> B{Distance ≤ 80 cm?}
-
-B -->|YES| C[Turn Controller]
-
-B -->|NO| D[Corridor Controller]
-
-C --> E[Apply Steering]
-
-D --> E
-
-E --> F[Update Motors]
-
-F --> A
-
-```
-
-
----
-
-# 🔄 Turn Controller
-
-
-When the robot detects that it is approaching a corner, it enters Turn Mode.
-
-
-The controller prioritizes smooth cornering while maintaining speed.
-
-
-| Parameter | Value |
-|:---|:---:|
-| KP | 1.6 |
-| KI | 0.0 |
-| KD | 0.2 |
-| Forward Speed | 65 |
-| Steering Limit | ±20 |
-
-
----
-
-# ➡️ Corridor Controller
-
-
-When the robot is inside a long corridor, lane-centering accuracy becomes the priority.
-
-
-| Parameter | Value |
-|:---|:---:|
-| KP | 3.0 |
-| KI | 0.0 |
-| KD | 0.2 |
-| Forward Speed | 35 |
-| Steering Limit | ±40 |
-
-
----
-
-# Control Equation
-
-
-The steering correction is calculated using:
-
-
-```text
-error = (right_distance - left_distance) - sensor_offset
-
+Control Equation:
+error = (Target_Angle - Current_Heading) + (right_distance - left_distance) + Vision_Offset
 derivative = error - previous_error
-
 output = (KP × error) + (KD × derivative)
-```
 
+🔄 Finite State Machine (FSM) & Autonomous Parking
 
-The integral term is intentionally disabled because ultrasonic sensors naturally produce small variations that could accumulate over time.
+The robot's navigation is governed by a Finite State Machine that now includes a strict lap-tracking protocol.
 
+🅿️ 12-Turn Counting Logic
+Since the WRO track requires completing 3 full laps (12 corners total), the FSM relies on the Gyroscope to increment a Turn_Count variable every time a 90° turn is successfully executed.
 
----
+When Turn_Count == 12, the FSM triggers the Reverse Parking Routine:
 
-# 🔄 Finite State Machine (FSM)
+Deceleration Pulse: Speed drops to 15% for 0.4 seconds to gently enter the parking zone.
 
+Stabilization: Full stop for 0.2 seconds to settle the chassis.
 
-The robot navigation system is organized around a Finite State Machine.
+Reverse Parking: The vehicle applies reverse power (-30%) for 1.5 seconds, utilizing the Gyro heading to back cleanly and perfectly straight into the parking area.
 
+´´´
+INICIO
+    // FASE 1: Inicialización
+    Calibrar_Direccion_Automaticamente()
+    Reiniciar_Giroscopio(0°)
+    Turn_Count ← 0
+    Target_Angle ← 0
+    Inicializar_HuskyLens()
 
-The FSM allows the robot to change behavior according to the current environment.
+    // FASE 2: Bucle de Carrera
+    MIENTRAS programa_en_ejecución HACER
+        front_dist, laterales, diagonal ← LeerUltrasonicosI2C()
+        current_heading ← LeerGiroscopio()
+        color_visto ← LeerHuskyLens()
 
+        // Lógica de Obstáculos
+        SI color_visto == ROJO ENTONCES Offset_Visión ← +45
+        SINO SI color_visto == VERDE ENTONCES Offset_Visión ← -45
+        SINO Offset_Visión ← 0
 
----
+        // Condición de Estacionamiento
+        SI Turn_Count == 12 ENTONCES
+            ROMPER BUCLE
+        FIN SI
 
-# FSM Diagram
+        // FSM y Control PID
+        SI front_dist < Distancia_Critica ENTONCES
+            Reversa_Emergencia(-50, 1.75s)
+        SINO
+            SI Detecta_Esquina(diagonal) ENTONCES
+                Target_Angle ← Target_Angle + 90
+                Turn_Count ← Turn_Count + 1
+                Error ← (Target_Angle - current_heading) + diagonal + Offset_Visión
+                Aplicar_PD(Error, KP=1.6, Vel=65)
+            SINO
+                Error ← (Target_Angle - current_heading) + laterales + Offset_Visión
+                Aplicar_PD(Error, KP=3.0, Vel=35)
+            FIN SI
+        FIN SI
+    FIN MIENTRAS
 
-
-```mermaid
-stateDiagram-v2
-
-[*] --> Calibration
-
-Calibration --> ReadSensors
-
-ReadSensors --> TurnMode: Distance ≤ 80cm
-
-ReadSensors --> CorridorMode: Distance > 80cm
-
-TurnMode --> UpdateMotors
-
-CorridorMode --> UpdateMotors
-
-UpdateMotors --> ReadSensors
-
-```
-
-
----
-
-## FSM Advantages
-
-
-The FSM architecture provides:
-
-
-✅ Clear software organization  
-✅ Easier debugging  
-✅ Independent controller development  
-✅ Future expansion capability  
-
-
-Future states can include:
-
-
-- Obstacle avoidance.
-- Vision-based navigation.
-- Dynamic speed control.
-- Advanced sensor fusion.
-
+    // FASE 3: Secuencia de Estacionamiento
+    Motor_Avance(Velocidad=15, Tiempo=0.4s)
+    Frenar(Tiempo=0.2s)
+    Motor_Avance(Velocidad=-30, Tiempo=1.5s) // Reversa recta
+    Apagar_Motores()
+FIN
 
 ---
 
