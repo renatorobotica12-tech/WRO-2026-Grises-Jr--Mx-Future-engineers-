@@ -750,7 +750,7 @@ This organization improves:
 
 🧩 Software Execution Flow
 
-flowchart TD
+```
     A[START: Calibrate Steering & Reset Gyro to 0°] --> B[Read Sensors: Ultrasonics, Gyro Heading, HuskyLens]
     B --> C{Turn_Count == 12?}
     C -->|YES| D[BREAK LOOP: Execute Reverse Parking Routine]
@@ -764,7 +764,8 @@ flowchart TD
     F --> J
     J --> B
     D --> K[END PROGRAM]
-    
+```
+
 🎯 Automatic Steering Calibration
 
 Every autonomous run begins with an automatic steering calibration routine.
