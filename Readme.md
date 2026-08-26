@@ -803,24 +803,24 @@ The steering system uses a closed-loop Proportional-Derivative controller that s
 🔄 Turn Controller (Corner Mode)
 When the robot detects an approaching corner (via diagonal sensors), it updates its Gyro target by 90° and prioritizes smooth cornering.
 
-KP: 1.6
+KP: 3.0
 
-KD: 0.2
+KD: 1,2
 
-Forward Speed: 65
+Forward Speed: 35
 
-Steering Limit: ±20
+Steering Limit: ±50
 
 ➡️ Corridor Controller (Straight Mode)
 When inside a long corridor, maintaining a perfect 0° heading and lane-centering becomes the priority.
 
-KP: 3.0
+KP: 1
 
 KD: 0.2
 
-Forward Speed: 35
+Forward Speed: 75
 
-Steering Limit: ±40
+Steering Limit: ±30
 
 Control Equation:
 error = (Target_Angle - Current_Heading) + (right_distance - left_distance) + Vision_Offset
