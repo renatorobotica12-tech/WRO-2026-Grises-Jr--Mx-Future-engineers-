@@ -60,7 +60,7 @@ The final platform combines:
 | Steering | Ackermann steering geometry |
 | Drive System | Rear-wheel drive |
 | Main Controller | LEGO Mindstorms EV3 Brick |
-| Coprocessor | Arduino Nano |
+| Coprocessors | 2 Arduino Nano, 1 for the camera and one for the PCB |
 | Vision System | HuskyLens AI Camera |
 | Distance Measurement | Five ultrasonic sensors |
 | Communication | I²C protocol and UART protocol |
