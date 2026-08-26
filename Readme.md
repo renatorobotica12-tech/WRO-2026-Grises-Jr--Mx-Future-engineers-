@@ -398,7 +398,7 @@ Each component was selected according to:
 | Component | Quantity | Function | Status |
 |:---|:---:|:---|:---:|
 | LEGO EV3 Brick | 1 | Main controller | ✅ |
-| EV3 Large Motor | 1 | Rear-wheel traction | ✅ |
+| EV3 Medium Motor | 1 | Rear-wheel traction | ✅ |
 | EV3 Medium Motor | 1 | Ackermann steering | ✅ |
 | Ultrasonic Sensors | 5 | Distance measurement | ✅ |
 | Arduino Nano | 1 | Sensor acquisition and communication | ✅ |
