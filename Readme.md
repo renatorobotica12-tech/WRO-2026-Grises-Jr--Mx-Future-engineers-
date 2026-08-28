@@ -12,7 +12,7 @@
 ![WRO 2026](https://img.shields.io/badge/WRO-2026-005BBB?style=for-the-badge)
 ![Future Engineers](https://img.shields.io/badge/Future_Engineers-Category-00A86B?style=for-the-badge)
 ![LEGO EV3](https://img.shields.io/badge/Main_Controller-LEGO_EV3-F7C600?style=for-the-badge)
-![Arduino Nano](https://img.shields.io/badge/Coprocessor-Arduino_Nano-00979D?style=for-the-badge)
+![Arduino Nano](https://img.shields.io/badge/Coprocessors-2_Arduino_Nano-00979D?style=for-the-badge)
 ![Custom PCB](https://img.shields.io/badge/Electronics-Custom_PCB-6A5ACD?style=for-the-badge)
 ![HuskyLens](https://img.shields.io/badge/Vision-HuskyLens_AI-FF4500?style=for-the-badge)
 
