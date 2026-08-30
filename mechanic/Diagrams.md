@@ -14,3 +14,38 @@
 | Electronics | Custom-designed PCB |
 | Control Algorithm | Adaptive Dual PD Controller |
 | Decision System | Finite State Machine |
+
+
+---
+
+- QUICK SYSTEM OVERVIEW diagram
+
+                 ┌──────────────────┐               ┌────────────────┐
+                 │ HuskyLens Camera │               │   Ultrasonic   │
+                 └────────┬─────────┘               │  Sensors (x5)  │
+                          │                         └───────┬────────┘
+                          │ UART                            │
+                          ▼                                 ▼
+                 ┌──────────────────┐               ┌────────────────┐
+                 │   Arduino Nano   │               │   Custom PCB   │
+                 │      (UART)      │               └───────┬────────┘
+                 └────────┬─────────┘                       │
+                          │                                 ▼
+                          │                         ┌────────────────┐
+                          │                         │  Arduino Nano  │
+                          │                         │     (I²C)      │
+                          │                         └───────┬────────┘
+                          │                                 │
+                          └────────────────┬────────────────┘
+                                           │
+                                           ▼
+                                   ┌────────────────┐
+                                   │    LEGO EV3    │
+                                   │   Controller   │
+                                   └────────┬───────┘
+                                            │
+                            ┌───────────────┴───────────────┐
+                            ▼                               ▼
+                    ┌──────────────┐                ┌──────────────┐
+                    │Steering Motor│                │  Drive Motor │
+                    └──────────────┘                └──────────────┘
