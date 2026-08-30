@@ -1,5 +1,7 @@
 
 - FINAL PLATFORM diagram
+
+
 | System | Implementation |
 |:---|:---|
 | Steering | Ackermann steering geometry |
