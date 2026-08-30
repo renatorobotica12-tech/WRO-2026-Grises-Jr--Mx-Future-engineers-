@@ -65,3 +65,23 @@
 | Arduino Programming | ✅ | |
 | Documentation | ✅ | ✅ |
 | Testing & Validation | ✅ | ✅ |
+
+---
+
+- ENGINEERING HIGHLIGHTS diagram
+
+| Feature | Implementation |
+|:---|:---|
+| Steering System | Ackermann steering geometry |
+| Drive System | Rear-wheel drive |
+| Sensors | Five ultrasonic sensors |
+| Vision | HuskyLens AI camera |
+| Coprocessors | 2 Arduino Nano, 1 for camera and 1 for pcb |
+| Electronics | Custom PCB |
+| Communication | I²C architecture |
+| Steering Calibration | Automatic encoder-based calibration |
+| Control | Adaptive Dual PD controller |
+| Navigation | Finite State Machine |
+| Software | Modular architecture |
+| Sensor Mounting | Custom 3D printed supports |
+| Mechanical Design | Optimized weight distribution |
