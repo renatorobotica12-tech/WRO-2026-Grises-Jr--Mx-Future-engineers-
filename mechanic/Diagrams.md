@@ -49,3 +49,19 @@
                     ┌──────────────┐                ┌──────────────┐
                     │Steering Motor│                │  Drive Motor │
                     └──────────────┘                └──────────────┘
+
+---
+
+- TEAM RESPONSABILITIES diagram
+
+| Area | Renato | Paulina |
+|:---|:---:|:---:|
+| Mechanical Design | ✅ | ✅ |
+| Robot Assembly | ✅ | ✅ |
+| Electronics Integration | | ✅ |
+| PCB Installation | ✅ | ✅ |
+| Software Development | ✅ | |
+| EV3 Programming | ✅ | |
+| Arduino Programming | ✅ | |
+| Documentation | ✅ | ✅ |
+| Testing & Validation | ✅ | ✅ |
