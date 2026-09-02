@@ -300,8 +300,7 @@ The current robot incorporates multiple engineering improvements developed speci
 | Electronics | Custom PCB |
 | Communication | I²C architecture |
 | Steering Calibration | Automatic encoder-based calibration |
-| Control | Adaptive Dual PD controller |
-| Navigation | Finite State Machine |
+| Control | PID Tuned  |
 | Software | Modular architecture |
 | Sensor Mounting | Custom 3D printed supports |
 | Mechanical Design | Optimized weight distribution |
@@ -453,7 +452,7 @@ The result is a compact autonomous vehicle designed for reliability and repeatab
 | Height | 18 cm |
 
 
-The final design remains within the official WRO Future Engineers limit of:
+The final design remains within the official WRO Future Engineers national competition limit of:
 
 ```
 30 × 30 × 30 cm
@@ -724,168 +723,277 @@ Compared with individual wiring, the PCB provides:
 <div align="center">
 
 
-**Software Architecture • Calibration Systems • Dual PD Controller • FSM • Engineering Decisions • Future Improvements • Repository Structure**
-
+Software Architecture • Calibration Systems • Ultrasonic Sensor Fusion • PID Controller • Safety Logic • Speed Control • Engineering Decisions • Future Improvements • Repository Structure
 </div>
-
 💻 Software Architecture
 
-The robot software was designed using a modular architecture, where each subsystem has a specific responsibility.
-Instead of implementing all functionalities inside a single program, the system is divided into independent modules for:
-* Sensor acquisition (Ultrasonics, Gyroscope & Vision).
-* Calibration.
-* Decision making (FSM & Turn Counting).
-* Motion control.
-* Autonomous parking.
+The Los Grises Jr software was designed following a modular and iterative engineering approach, where each subsystem has a specific responsibility.
+
+Rather than concentrating all functionality into a single control routine, the system separates the main tasks into independent logical components:
+
+Sensor acquisition — Ultrasonic sensors for distance and positioning.
+Sensor fusion — Combination of multiple ultrasonic readings to generate a reliable lateral error.
+Obstacle detection — Front ultrasonic sensor used as a safety condition.
+Motion control — Closed-loop PID controller for steering correction.
+Speed control — Dynamic calculation of the VEL variable according to the driving conditions.
+Emergency response — Immediate stop and reverse maneuver when an obstacle is detected within the critical distance.
+Hardware initialization — Motor D initialization, which acts as the PCB adapter.
 
 This organization improves:
+
 ✅ Code readability
 ✅ Debugging efficiency
 ✅ Testing capability
-✅ System scalability
+✅ Repeatability
+✅ System reliability
+✅ Ease of maintenance
 
 🧩 Software Execution Flow
+    A[START: Initialize Motor D / PCB Adapter]
+        --> B[Read Front Ultrasonic Sensor]
 
-```
-    A[START: Calibrate Steering & Reset Gyro to 0°] --> B[Read Sensors: Ultrasonics, Gyro Heading, HuskyLens]
-    B --> C{Turn_Count == 12?}
-    C -->|YES| D[BREAK LOOP: Execute Reverse Parking Routine]
-    C -->|NO| E{front_dist < Critical_Distance?}
-    E -->|YES: Emergency| F[Safety Override: Reverse & Re-align]
-    E -->|NO: Drive Mode| G{Driving Condition / Corner Detected?}
-    G -->|Corridor State| H["Corridor PD: Target Heading = 0° + Vision Offset"]
-    G -->|Corner State| I["Turn PD: Target Heading = Target + 90° | Turn_Count + 1"]
-    H --> J[Apply Motors Command]
-    I --> J
-    F --> J
-    J --> B
-    D --> K[END PROGRAM]
-```
+    B --> C{front_dist < 25 cm?}
 
-🎯 Automatic Steering Calibration
+    C -->|YES: Obstacle Detected|
+        D[Stop Motors]
+        --> E[Wait a Few Milliseconds]
+        --> F[Reverse 0.5 Rotations]
+        --> B
 
-Every autonomous run begins with an automatic steering calibration routine.
-The objective is to guarantee that every attempt starts from the same steering reference position.
-Instead of manually aligning the steering system, the robot automatically determines the mechanical limits using the motor encoder and resets the EV3 Gyroscope to absolute 0°.
+    C -->|NO: Normal Driving|
+        G[Read Four Ultrasonic Sensors]
 
-Advantages:
-✅ Consistent steering position
-✅ Elimination of manual adjustments
-✅ Reliable absolute heading for the gyroscope
+    G --> H[Calculate Left/Right Sensor Sums]
 
-📡 Sensor Calibration & Fusion
+    H --> I["ERROR = (Sensor_1 + Sensor_2) - (Sensor_3 + Sensor_4)"]
 
-Even identical ultrasonic sensors may produce small differences. The robot performs an automatic sensor calibration routine at startup to calculate offsets.
-Furthermore, to eliminate drift caused by missing walls or track irregularities, the raw distance errors from the ultrasonic sensors are fused with the EV3 Gyroscope angle.
+    I --> J[Calculate / Update VEL]
 
-Heading Error Calculation:
-Heading_Error = Target_Angle - Current_Gyro_Angle
+    J --> K["Apply PID Controller"]
 
-Fused Error Entry:
-Fused_Error = Heading_Error + Lateral_Sensor_Offset
+    K --> L[Apply Motor Command]
 
-👁️ AI Vision & Obstacle Avoidance
+    L --> B
+📡 Ultrasonic Sensor Fusion
 
-For the Obstacle Challenge, the robot integrates a HuskyLens AI Camera programmed to detect colored pillars.
+The robot uses multiple ultrasonic sensors to determine its position relative to the surrounding walls.
 
-If Red is detected: The system adds a positive offset to the target, forcing the robot to pass the pillar on the right side.
+Instead of relying on a single sensor, the readings are combined into two groups. Each group represents one side of the robot.
 
-If Green is detected: The system adds a negative offset, forcing the robot to pass on the left side.
-This vision data modifies the lateral control dynamically without interrupting the forward momentum.
+The lateral error is calculated as the difference between both groups:
 
-🎮 Adaptive Dual PD Steering Controller
+Side_A = Ultrasonic_1 + Ultrasonic_2
 
-The steering system uses a closed-loop Proportional-Derivative controller that switches automatically depending on the driving situation.
+Side_B = Ultrasonic_3 + Ultrasonic_4
 
-🔄 Turn Controller (Corner Mode)
-When the robot detects an approaching corner (via diagonal sensors), it updates its Gyro target by 90° and prioritizes smooth cornering.
+ERROR = Side_A - Side_B
 
-KP: 3.0
+This approach provides a more stable representation of the robot's lateral position and reduces the influence of individual sensor variations.
 
-KD: 1,2
+The resulting ERROR becomes the primary feedback signal for the PID controller.
 
-Forward Speed: 35
+🎯 Front Ultrasonic Safety System
 
-Steering Limit: ±50
+A dedicated front ultrasonic sensor is used to detect obstacles ahead of the robot.
 
-➡️ Corridor Controller (Straight Mode)
-When inside a long corridor, maintaining a perfect 0° heading and lane-centering becomes the priority.
+The system continuously evaluates the measured distance:
 
-KP: 1
+IF front_distance < 25 cm
 
-KD: 0.2
+When the distance falls below the critical threshold, normal PID control is temporarily overridden.
 
-Forward Speed: 75
+The robot:
 
-Steering Limit: ±30
+Stops the motors.
+Waits for a short stabilization period.
+Reverses 0.5 motor rotations.
+Returns to the main control loop.
 
-Control Equation:
-error = (Target_Angle - Current_Heading) + (right_distance - left_distance) + Vision_Offset
+This creates a safety override that prevents the robot from continuing forward when an obstacle is detected at close range.
+
+🎮 Closed-Loop PID Controller
+
+The main motion-control system is based on a closed-loop PID controller.
+
+The controller receives the calculated ultrasonic error and generates the steering correction required to maintain the desired position.
+
+ERROR
+  ↓
+PID Controller
+  ↓
+Steering Correction
+  ↓
+Motor Command
+
+The PID parameters were experimentally tuned using real track testing.
+
+Rather than relying exclusively on theoretical calculations, the team developed and evaluated multiple iterations of the controller. Each iteration was tested, analyzed, modified, and retested until a stable and efficient configuration was achieved.
+
+The final Kp, Ki, and Kd values therefore represent real-world tuning obtained through track validation.
+
+Control concept
+error = sensor_difference
+
 derivative = error - previous_error
-output = (KP × error) + (KD × derivative)
 
-🔄 Finite State Machine (FSM) & Autonomous Parking
+integral = integral + error
 
-The robot's navigation is governed by a Finite State Machine that now includes a strict lap-tracking protocol.
+output =
+    (KP × error)
+    + (KI × integral)
+    + (KD × derivative)
 
-🅿️ 12-Turn Counting Logic
-Since the WRO track requires completing 3 full laps (12 corners total), the FSM relies on the Gyroscope to increment a Turn_Count variable every time a 90° turn is successfully executed.
+The resulting PID output is used to adjust the motor commands while VEL determines the forward-speed component.
 
-When Turn_Count == 12, the FSM triggers the Reverse Parking Routine:
+⚡ Dynamic Speed Control
 
-Deceleration Pulse: Speed drops to 15% for 0.4 seconds to gently enter the parking zone.
+The variable VEL is used to determine the robot's forward speed during normal operation.
 
-Stabilization: Full stop for 0.2 seconds to settle the chassis.
+Instead of treating speed as a completely independent constant, the program contains a dedicated section responsible for calculating and updating this variable.
 
-Reverse Parking: The vehicle applies reverse power (-30%) for 1.5 seconds, utilizing the Gyro heading to back cleanly and perfectly straight into the parking area.
+This allows the control system to balance speed and stability, maintaining sufficient forward momentum while preserving the responsiveness of the PID controller.
 
-´´´
-INICIO
-    // FASE 1: Inicialización
-    Calibrar_Direccion_Automaticamente()
-    Reiniciar_Giroscopio(0°)
-    Turn_Count ← 0
-    Target_Angle ← 0
-    Inicializar_HuskyLens()
+The speed-control logic was also evaluated through repeated track testing to determine an effective operating range.
 
-    // FASE 2: Bucle de Carrera
-    MIENTRAS programa_en_ejecución HACER
-        front_dist, laterales, diagonal ← LeerUltrasonicosI2C()
-        current_heading ← LeerGiroscopio()
-        color_visto ← LeerHuskyLens()
+🔄 Main Control Logic
 
-        // Lógica de Obstáculos
-        SI color_visto == ROJO ENTONCES Offset_Visión ← +45
-        SINO SI color_visto == VERDE ENTONCES Offset_Visión ← -45
-        SINO Offset_Visión ← 0
+The complete control strategy can be summarized as follows:
 
-        // Condición de Estacionamiento
-        SI Turn_Count == 12 ENTONCES
-            ROMPER BUCLE
-        FIN SI
+                ┌─────────────────────┐
+                │        START        │
+                └──────────┬──────────┘
+                           ↓
+                Initialize Motor D
+                           ↓
+                  Read Front Sensor
+                           ↓
+                  ┌────────────────┐
+                  │ Distance < 25cm?│
+                  └───────┬────────┘
+                     YES  │  NO
+                      ↓   │
+              Stop Motors │
+                      ↓   ↓
+                Short Wait │
+                      ↓    │
+             Reverse 0.5   │
+               Rotations   │
+                      │    ↓
+                      │  Read 4
+                      │ Ultrasonics
+                      │    ↓
+                      │ Calculate
+                      │ Sensor Error
+                      │    ↓
+                      │ Calculate VEL
+                      │    ↓
+                      │ Apply PID
+                      │    ↓
+                      │ Motor Command
+                      │    │
+                      └────┴───────────┐
+                                       ↓
+                                Repeat Main Loop
+🧠 Engineering Decisions
 
-        // FSM y Control PID
-        SI front_dist < Distancia_Critica ENTONCES
-            Reversa_Emergencia(-50, 1.75s)
-        SINO
-            SI Detecta_Esquina(diagonal) ENTONCES
-                Target_Angle ← Target_Angle + 90
-                Turn_Count ← Turn_Count + 1
-                Error ← (Target_Angle - current_heading) + diagonal + Offset_Visión
-                Aplicar_PD(Error, KP=1.6, Vel=65)
-            SINO
-                Error ← (Target_Angle - current_heading) + laterales + Offset_Visión
-                Aplicar_PD(Error, KP=3.0, Vel=35)
-            FIN SI
-        FIN SI
-    FIN MIENTRAS
+Several design decisions were made based on practical testing rather than theoretical assumptions.
 
-    // FASE 3: Secuencia de Estacionamiento
-    Motor_Avance(Velocidad=15, Tiempo=0.4s)
-    Frenar(Tiempo=0.2s)
-    Motor_Avance(Velocidad=-30, Tiempo=1.5s) // Reversa recta
-    Apagar_Motores()
-FIN
+Multiple ultrasonic sensors
+
+Using multiple sensors allows the robot to calculate its lateral error from combined measurements instead of depending on a single sensor.
+
+PID instead of open-loop control
+
+The robot continuously reacts to sensor feedback, allowing it to correct deviations dynamically rather than relying on predetermined motor commands.
+
+Front ultrasonic safety override
+
+Obstacle detection has priority over normal motion control. When the critical distance is reached, the PID-driven movement is interrupted and the robot performs a predefined safety maneuver.
+
+Track-based PID tuning
+
+The PID parameters were not selected exclusively through simulation. They were refined through repeated real-track testing, making the final controller better adapted to the actual mechanical and environmental conditions of the robot.
+
+Dynamic velocity
+
+Separating VEL from the PID correction allows the system to control forward motion while independently applying steering corrections.
+
+🚀 Future Improvements
+
+Potential improvements to the current software architecture include:
+
+Automatic ultrasonic sensor calibration and offset compensation.
+Filtering of ultrasonic readings to reduce measurement noise.
+Adaptive PID parameters depending on track conditions.
+Automatic optimization of VEL.
+Improved obstacle recovery behavior.
+Data logging for post-run PID analysis.
+Automatic parameter tuning based on recorded track data.
+📁 Repository Structure
+
+A clean repository structure could reflect the current architecture:
+
+Los-Grises-Jr/
+│
+├── README.md
+│
+├── src/
+│   ├── main
+│   ├── ultrasonic
+│   ├── pid_controller
+│   ├── speed_control
+│   ├── obstacle_detection
+│   └── motor_control
+│
+├── calibration/
+│   └── sensor_calibration
+│
+├── documentation/
+│   ├── software_architecture
+│   ├── pid_tuning
+│   └── engineering_decisions
+│
+└── tests/
+    └── track_testing
+Overall architecture
+       ┌───────────────────────┐
+       │   Ultrasonic Sensors  │
+       └───────────┬───────────┘
+                   │
+                   ↓
+       ┌───────────────────────┐
+       │   Sensor Fusion       │
+       │   ERROR Calculation   │
+       └───────────┬───────────┘
+                   │
+                   ↓
+       ┌───────────────────────┐
+       │    PID Controller     │
+       └───────────┬───────────┘
+                   │
+                   ↓
+       ┌───────────────────────┐
+       │     Motor Control     │
+       └───────────────────────┘
+                   ↑
+                   │
+       ┌───────────────────────┐
+       │    Speed Control      │
+       │        VEL            │
+       └───────────────────────┘
+
+       ┌───────────────────────┐
+       │ Front Ultrasonic      │
+       │ Obstacle Detection    │
+       └───────────┬───────────┘
+                   │
+             < 25 cm?
+                   │
+                   ↓
+       ┌───────────────────────┐
+       │   Safety Override     │
+       │ Stop + Reverse 0.5R   │
+       └───────────────────────┘
 
 ---
 
