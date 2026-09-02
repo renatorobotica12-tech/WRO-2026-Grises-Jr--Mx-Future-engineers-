@@ -55,5 +55,6 @@ Now, we are waiting for the new Nano so we can continue testing the programs and
 
 ---
 
-### **25/08/2026**  - The develop of a new code
-- El dia de hoy empezamos a prototipar un nuevo codigo
+August 28, 2026
+We began testing the robot and tuning the control system on the track. It appears we have found the optimal values; however, we will continue testing. Having successfully completed the Open Challenge, we are now shifting our focus to the Obstacle Challenge.
+
