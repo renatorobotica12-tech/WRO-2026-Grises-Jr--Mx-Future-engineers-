@@ -725,7 +725,7 @@ Compared with individual wiring, the PCB provides:
 
 Software Architecture • Calibration Systems • Ultrasonic Sensor Fusion • PID Controller • Safety Logic • Speed Control • Engineering Decisions • Future Improvements • Repository Structure
 </div>
-💻 Software Architecture
+# 💻 Software Architecture
 
 The Los Grises Jr software was designed following a modular and iterative engineering approach, where each subsystem has a specific responsibility.
 
@@ -773,8 +773,10 @@ This organization improves:
 
     K --> L[Apply Motor Command]
 
-    L --> B
-📡 Ultrasonic Sensor Fusion
+    L --> B 
+---
+    
+# 📡 Ultrasonic Sensor Fusion
 
 The robot uses multiple ultrasonic sensors to determine its position relative to the surrounding walls.
 
@@ -792,7 +794,7 @@ This approach provides a more stable representation of the robot's lateral posit
 
 The resulting ERROR becomes the primary feedback signal for the PID controller.
 
-🎯 Front Ultrasonic Safety System
+# 🎯 Front Ultrasonic Safety System
 
 A dedicated front ultrasonic sensor is used to detect obstacles ahead of the robot.
 
@@ -811,7 +813,7 @@ Returns to the main control loop.
 
 This creates a safety override that prevents the robot from continuing forward when an obstacle is detected at close range.
 
-🎮 Closed-Loop PID Controller
+# 🎮 Closed-Loop PID Controller
 
 The main motion-control system is based on a closed-loop PID controller.
 
@@ -845,7 +847,7 @@ output =
 
 The resulting PID output is used to adjust the motor commands while VEL determines the forward-speed component.
 
-⚡ Dynamic Speed Control
+#⚡ Dynamic Speed Control
 
 The variable VEL is used to determine the robot's forward speed during normal operation.
 
@@ -855,7 +857,7 @@ This allows the control system to balance speed and stability, maintaining suffi
 
 The speed-control logic was also evaluated through repeated track testing to determine an effective operating range.
 
-🔄 Main Control Logic
+# 🔄 Main Control Logic
 
 The complete control strategy can be summarized as follows:
 
@@ -894,7 +896,7 @@ The complete control strategy can be summarized as follows:
                       └────┴───────────┐
                                        ↓
                                 Repeat Main Loop
-🧠 Engineering Decisions
+# 🧠 Engineering Decisions
 
 Several design decisions were made based on practical testing rather than theoretical assumptions.
 
@@ -910,11 +912,11 @@ Front ultrasonic safety override
 
 Obstacle detection has priority over normal motion control. When the critical distance is reached, the PID-driven movement is interrupted and the robot performs a predefined safety maneuver.
 
-Track-based PID tuning
+# Track-based PID tuning
 
 The PID parameters were not selected exclusively through simulation. They were refined through repeated real-track testing, making the final controller better adapted to the actual mechanical and environmental conditions of the robot.
 
-Dynamic velocity
+# Dynamic velocity
 
 Separating VEL from the PID correction allows the system to control forward motion while independently applying steering corrections.
 
@@ -929,33 +931,8 @@ Automatic optimization of VEL.
 Improved obstacle recovery behavior.
 Data logging for post-run PID analysis.
 Automatic parameter tuning based on recorded track data.
-📁 Repository Structure
 
-A clean repository structure could reflect the current architecture:
-
-Los-Grises-Jr/
-│
-├── README.md
-│
-├── src/
-│   ├── main
-│   ├── ultrasonic
-│   ├── pid_controller
-│   ├── speed_control
-│   ├── obstacle_detection
-│   └── motor_control
-│
-├── calibration/
-│   └── sensor_calibration
-│
-├── documentation/
-│   ├── software_architecture
-│   ├── pid_tuning
-│   └── engineering_decisions
-│
-└── tests/
-    └── track_testing
-Overall architecture
+---
        ┌───────────────────────┐
        │   Ultrasonic Sensors  │
        └───────────┬───────────┘
@@ -1085,10 +1062,9 @@ docs/engineering_journal.md
 │   ├── team
 │   └── development
 │
-├── models
-│   ├── chassis.stl
+├── mechanic
 │   ├── sensor_mount.stl
-│   └── pcb
+│   └── 
 │
 ├── src
 │   ├── EV3-G
