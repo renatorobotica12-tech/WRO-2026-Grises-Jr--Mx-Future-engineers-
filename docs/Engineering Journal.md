@@ -42,7 +42,7 @@ At first, we were concerned about the robot's dimensions because the competition
 
 Another important concern was the robot's center of gravity. To improve stability, we placed the EV3 Brick at the rear of the chassis while positioning the drive motors near the center, resulting in a more balanced weight distribution.
 
-On the software side, we have already developed a significant portion of the codebase. However, the most important milestone still lies ahead: making everything work together reliably. We believe that, with the hardware now complete, software development and testing will be more straightforward. We hope our programmer continues putting in the same level of dedication so that the robot performs as expected in the coming tests.
+On the software side, we have already developed a significant portion of the codebase. However, the most important milestone still lies ahead: making everything work together reliably. We believe that, with the hardware now complete, software development and testing will be more straightforward. We expect the next stage of development to focus primarily on software integration, reliability, and testing.
 
 ---
 ###  **24 August 2026** – I²C Communication Problems and Hardware Bottleneck
@@ -55,6 +55,17 @@ Now, we are waiting for the new Nano so we can continue testing the programs and
 
 ---
 
-August 28, 2026
+## **28 / August / 2026**
 We began testing the robot and tuning the control system on the track. It appears we have found the optimal values; however, we will continue testing. Having successfully completed the Open Challenge, we are now shifting our focus to the Obstacle Challenge.
+
+---
+
+## **06 / September/ 2026**
+### **6 September 2026 – IMU Integration for the Obstacle Challenge**
+
+We decided to integrate a LEGO IMU sensor into our robot because our color sensor, which uses an HSV-based configuration, was experiencing noticeable delays, possibly due to its age. These delays could affect the reliability of the robot during the Obstacle Challenge, particularly when precise movement detection is required.
+
+To address this issue, we integrated the IMU into our control system and created a custom My Block to handle its operation. The logic is relatively simple: the IMU monitors the robot's rotation, and once it detects three complete 360-degree rotations, it sends a command to stop the motors and terminate the program.
+
+We are currently planning to use this system as part of our strategy for the Obstacle Challenge. Further testing will be required to determine the accuracy and reliability of the IMU under actual competition conditions.
 
